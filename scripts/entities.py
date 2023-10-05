@@ -8,15 +8,36 @@ class PhysicsEntity:
         self.size = size
         self.velocity = 1
         self.collisions = {'up': False, 'down': False, 'right': False, 'left': False}
+        self.direction = 'down'
+
+        self.action = ''
+        self.anim_offset = (-3, -3)
+        self.flip = False
+        self.set_action(f'idle-{self.direction}')
 
     def rect(self):
         return pygame.Rect(self.pos[0], self.pos[1], self.size[0], self.size[1])
+
+    def set_action(self, action):
+        if action != self.action:
+            self.action = action
+            self.animation = self.game.assets[self.type + '/' + self.action].copy()
 
     def update(self, tilemap, movement):
         self.collisions = {'up': False, 'down': False, 'right': False, 'left': False}
         
         if movement.magnitude() != 0:
             movement = movement.normalize()
+
+        if movement[0] > 0:
+            self.direction = 'right'
+        elif movement[0] < 0:
+            self.direction = 'left'
+        if movement[1] > 0:
+            self.direction = 'down'
+        elif movement[1] < 0:
+            self.direction = 'up'
+        print(self.direction)
 
         frame_movement = movement * self.velocity
 
@@ -46,6 +67,17 @@ class PhysicsEntity:
                     self.collisions['up'] = True
                 self.pos[1] = entity_rect.y
 
+        if movement[0] > 0:
+            self.flip = False
+        if movement[0] < 0:
+            self.flip = True
 
     def render(self, surf):
-        surf.blit(self.game.assets['player'], self.pos)
+        surf.blit(self.game.assets['player/idle-down'], self.pos)
+
+class Player(PhysicsEntity):
+    def __init__(self, game, pos, size):
+        super().update(tilemap, movement=movement)
+
+
+

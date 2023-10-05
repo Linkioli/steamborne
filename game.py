@@ -2,7 +2,7 @@ import sys
 
 import pygame
 
-from scripts.utils import load_image, load_images
+from scripts.utils import load_image, load_images, Animation
 from scripts.entities import PhysicsEntity
 from scripts.tilemap import Tilemap
 
@@ -32,8 +32,14 @@ class Game:
 
         self.assets = {
                 'prop': load_images('tiles/props'),
-                'player': load_image('entities/player/idle/idle-down.png')
+                'player/idle-down': load_image('entities/player/idle/idle-down.png'),
+                'player/idle-up': load_image('entities/player/idle/idle-up.png'),
+                'player/idle-right': load_image('entities/player/idle/idle-right.png'),
+                'player/walk-up': Animation(load_images('entities/player/walk/up')),
+                'player/walk-down': Animation(load_images('entities/player/walk/down')),
+                'player/walk-right': Animation(load_images('entities/player/walk/right')),
         }
+
 
         self.player = PhysicsEntity(self, 'player', (50, 50), (16, 16))
 
