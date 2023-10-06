@@ -10,7 +10,7 @@ class Tilemap:
         self.tilemap = {}
         self.offgrid_tiles = []
 
-        # render test tiles to the screen
+        # rendering just random ass tiles to the screen, will make a proper level editor later
         self.tilemap['5;5'] = {'type': 'prop', 'variant': 0, 'pos': (5, 5)}
         self.tilemap['5;4'] = {'type': 'prop', 'variant': 0, 'pos': (5, 4)}
         self.tilemap['5;3'] = {'type': 'prop', 'variant': 0, 'pos': (5, 3)}
