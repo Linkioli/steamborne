@@ -12,8 +12,8 @@ from scripts.utils import load_image, load_images, Animation
 from scripts.entities import PhysicsEntity
 from scripts.tilemap import Tilemap
 
-SCREEN_WIDTH =  640
-SCREEN_HEIGHT = 576
+SCREEN_WIDTH =  960
+SCREEN_HEIGHT = 864
 
 DISPLAY_WIDTH = 160
 DISPLAY_HEIGHT = 144
