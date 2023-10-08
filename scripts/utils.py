@@ -14,9 +14,8 @@ def load_images(path):
         images.append(load_image(path + '/' + img_name))
     return images
 
-# TODO: Impliment better exception sytem for idle animations
 class Animation:
-    def __init__(self, images, img_dur=5, loop=True):
+    def __init__(self, images, img_dur=10, loop=True):
         self.images = images
         self.loop = loop
         self.img_duration = img_dur
@@ -27,7 +26,10 @@ class Animation:
         return Animation(self.images, self.img_duration, self.loop)
 
     def update(self):
-        if self.loop:
+        if type(self.images) != type(list()):
+            # returns 0 if animation is only 1 frame
+            return 0
+        elif self.loop:
             self.frame = (self.frame + 1) % (self.img_duration * len(self.images))
         else:
             self.frame = min(self.frame + 1, self.img_duration * len(self.images) - 1)

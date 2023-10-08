@@ -13,7 +13,7 @@ class PhysicsEntity:
         self.action = ''
         self.anim_offset = (-3, -3)
         self.flip = False
-        self.set_action(f'walk-{self.direction}')
+        self.set_action(f'idle-{self.direction}')
 
     def rect(self):
         return pygame.Rect(self.pos[0], self.pos[1], self.size[0], self.size[1])
@@ -72,7 +72,6 @@ class PhysicsEntity:
         self.animation.update()
 
     def render(self, surf):
-        print(self.animation.img())
         surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), self.pos)
 
 class Player(PhysicsEntity):
@@ -81,7 +80,7 @@ class Player(PhysicsEntity):
 
     def update(self, tilemap, movement):
         super().update(tilemap, movement=movement)
-        if movement != 0:
+        if movement[0] or movement[1] != 0:
             self.set_action(f'walk-{self.direction}')
         else:
             self.set_action(f'idle-{self.direction}')
