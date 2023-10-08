@@ -64,10 +64,12 @@ class PhysicsEntity:
                     self.collisions['up'] = True
                 self.pos[1] = entity_rect.y
 
-        if movement[0] > 0:
-            self.flip = False
-        if movement[0] < 0:
-            self.flip = True
+        # flip the left and right direction of the player
+        if movement[1] == 0:
+            if movement[0] > 0:
+                self.flip = False
+            if movement[0] < 0:
+                self.flip = True
 
         self.animation.update()
 

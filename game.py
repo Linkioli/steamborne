@@ -66,25 +66,22 @@ class Game:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_LEFT:
-                        self.vector.x = -1 
-                    if event.key == pygame.K_RIGHT:
-                        self.vector.x = 1 
-                    if event.key == pygame.K_UP:
-                        self.vector.y = -1 
-                    if event.key == pygame.K_DOWN:
-                        self.vector.y = 1 
-                if event.type == pygame.KEYUP:
-                    if event.key == pygame.K_LEFT:
-                        self.vector.x = 0
-                    if event.key == pygame.K_RIGHT:
-                        self.vector.x = 0 
-                    if event.key == pygame.K_UP:
-                        self.vector.y = 0
-                    if event.key == pygame.K_DOWN:
-                        self.vector.y = 0
-            
+                keys = pygame.key.get_pressed()
+                # y-axis player movement input
+                if keys[pygame.K_UP]:
+                    self.vector.y = -1
+                elif keys[pygame.K_DOWN]:
+                    self.vector.y = 1
+                else:
+                    self.vector.y = 0
+                # x-axis player movement input
+                if keys[pygame.K_LEFT]:
+                    self.vector.x = -1
+                elif keys[pygame.K_RIGHT]:
+                    self.vector.x = 1
+                else:
+                    self.vector.x = 0
+
             self.screen.blit(pygame.transform.scale(self.display, self.screen.get_size()), (0, 0))
             pygame.display.update()
             self.clock.tick(60)
