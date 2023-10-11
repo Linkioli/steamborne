@@ -38,6 +38,8 @@ class Game:
 
         self.assets = {
                 'prop': load_images('tiles/props'),
+                'floors': load_images('tiles/floors'),
+                'walls': load_images('tiles/walls'),
                 'player/idle-down': Animation(load_image('entities/player/idle/idle-down.png')),
                 'player/idle-up': Animation(load_image('entities/player/idle/idle-up.png')),
                 'player/idle-right': Animation(load_image('entities/player/idle/idle-right.png')),
@@ -50,6 +52,7 @@ class Game:
         self.player = Player(self, (50, 50), (16, 16))
 
         self.tilemap = Tilemap(self, tile_size=16)
+        self.tilemap.load('map.json')
 
         self.vector = pygame.math.Vector2()
 

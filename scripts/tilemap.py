@@ -1,7 +1,9 @@
+import json
+
 import pygame
 
 NEIGHBOR_OFFSETS = [(-1, 0), (-1, -1), (0, -1), (1, -1), (1, 0), (0, 0), (-1, 1), (0, 1), (1, 1)]
-PHYSICS_TILES = {'prop'}
+PHYSICS_TILES = {'prop', 'walls'}
 
 class Tilemap:
     def __init__(self, game, tile_size=16):
@@ -9,14 +11,6 @@ class Tilemap:
         self.tile_size = tile_size
         self.tilemap = {}
         self.offgrid_tiles = []
-
-        # rendering just random ass tiles to the screen, will make a proper level editor later
-        self.tilemap['5;5'] = {'type': 'prop', 'variant': 0, 'pos': (5, 5)}
-        self.tilemap['5;4'] = {'type': 'prop', 'variant': 0, 'pos': (5, 4)}
-        self.tilemap['5;3'] = {'type': 'prop', 'variant': 0, 'pos': (5, 3)}
-        self.tilemap['5;2'] = {'type': 'prop', 'variant': 0, 'pos': (5, 2)}
-        self.tilemap['5;1'] = {'type': 'prop', 'variant': 0, 'pos': (5, 1)}
-
 
     def tiles_around(self, pos):
         tiles = []
@@ -27,6 +21,20 @@ class Tilemap:
                 tiles.append(self.tilemap[check_loc])
         return tiles
 
+    def save(self, path):
+        f = open(path, 'w')
+        json.dump({'tilemap': self.tilemap, 'tile_size': self.tile_size, 'offgrid': self.offgrid_tiles}, f)
+        f.close()
+
+    def load(self, path):
+        f = open(path, 'r')
+        map_data = json.load(f)
+        f.close()
+
+        self.tilemap = map_data['tilemap']
+        self.tile_size = map_data['tile_size']
+        self.offgrid_tiles = map_data['offgrid']
+
     def physics_rects_around(self, pos):
         rects = []
         for tile in self.tiles_around(pos):
@@ -34,10 +42,17 @@ class Tilemap:
                 rects.append(pygame.Rect(tile['pos'][0] * self.tile_size, tile['pos'][1] * self.tile_size, self.tile_size, self.tile_size))
         return rects
 
-    def render(self, surf):
-        for tile in self.offgrid_tiles:
-            surf.blit(self.game.assets[tile['type']][tile['variant']], tile['pos'])
+    def autotile(self):
+        # TODO: add autotile
+        pass
 
-        for loc in self.tilemap:
-            tile = self.tilemap[loc]
-            surf.blit(self.game.assets[tile['type']][tile['variant']], (tile['pos'][0] * self.tile_size, tile['pos'][1] * self.tile_size))
+    def render(self, surf, offset=(0, 0)):
+        for tile in self.offgrid_tiles:
+            surf.blit(self.game.assets[tile['type']][tile['variant']], (tile['pos'][0] - offset[0], tile['pos'][1] - offset[1]))
+
+        for x in range(offset[0] // self.tile_size, (offset[0] + surf.get_width()) // self.tile_size + 1):
+            for y in range(offset[1] // self.tile_size, (offset[1] + surf.get_height()) // self.tile_size + 1):
+                loc = str(x) + ';' + str(y)
+                if loc in self.tilemap:
+                    tile = self.tilemap[loc]
+                    surf.blit(self.game.assets[tile['type']][tile['variant']], (tile['pos'][0] * self.tile_size - offset[0], tile['pos'][1] * self.tile_size - offset[1]))
