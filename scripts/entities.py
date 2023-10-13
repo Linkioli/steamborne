@@ -21,6 +21,7 @@ class PhysicsEntity:
     def set_action(self, action):
         if action != self.action:
             self.action = action
+            print(self.action)
             self.animation = self.game.assets[self.type + '/' + self.action].copy()
 
     def update(self, tilemap, movement):
@@ -79,13 +80,24 @@ class PhysicsEntity:
 class Player(PhysicsEntity):
     def __init__(self, game, pos, size):
         super().__init__(game, 'player', pos, size)
+        self.attacking = False
 
     def update(self, tilemap, movement):
         super().update(tilemap, movement=movement)
-        if movement[0] or movement[1] != 0:
+        # attack animation 
+        # TODO: stop player movement, during attack state, and fix player offset when attacking left
+        if self.attacking == True:
+            self.set_action(f'attack-{self.direction}')
+            if self.animation.done == True:
+                self.attacking = False
+
+        elif movement[0] or movement[1] != 0:
             self.set_action(f'walk-{self.direction}')
         else:
             self.set_action(f'idle-{self.direction}')
+
+    def attack(self):
+        self.attacking = True
 
 
 

@@ -24,6 +24,7 @@ COLOR_2 = (155, 73, 44) # medium dark brown
 COLOR_3 = (218, 115, 57) # medium light brown
 COLOR_4 = (243, 176, 134) # light brown
 
+ATTACK_DUR = 5
 
 
 class Game:
@@ -46,6 +47,9 @@ class Game:
                 'player/walk-up': Animation(load_images('entities/player/walk/up')),
                 'player/walk-down': Animation(load_images('entities/player/walk/down')),
                 'player/walk-right': Animation(load_images('entities/player/walk/right')),
+                'player/attack-up': Animation(load_images('entities/player/attack/up'), loop=False, img_dur=ATTACK_DUR),
+                'player/attack-down': Animation(load_images('entities/player/attack/down'), loop=False, img_dur=ATTACK_DUR),
+                'player/attack-right': Animation(load_images('entities/player/attack/right'), loop=False, img_dur=ATTACK_DUR),
         }
 
 
@@ -84,6 +88,9 @@ class Game:
                     self.vector.x = 1
                 else:
                     self.vector.x = 0
+                # player actions
+                if keys[pygame.K_x]:
+                    self.player.attack()
 
             self.screen.blit(pygame.transform.scale(self.display, self.screen.get_size()), (0, 0))
             pygame.display.update()
