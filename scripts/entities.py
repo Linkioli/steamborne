@@ -24,7 +24,6 @@ class PhysicsEntity:
             self.animation = self.game.assets[self.type + '/' + self.action].copy()
 
     def update(self, tilemap, movement):
-        print(self.direction)
         self.collisions = {'up': False, 'down': False, 'right': False, 'left': False}
         
         if movement.magnitude() != 0:
@@ -64,7 +63,6 @@ class PhysicsEntity:
                     entity_rect.top = rect.bottom
                     self.collisions['up'] = True
                 self.pos[1] = entity_rect.y
-
         # flip the left and right direction of the player
         if movement[1] == 0:
             if movement[0] > 0:
@@ -77,7 +75,15 @@ class PhysicsEntity:
         self.animation.update()
 
     def render(self, surf):
-        surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), self.pos)
+        # offset the sprite animation, so the player doesn't 'move' when attacking
+        if self.flip:
+            img_offset = self.animation.img().get_width() - self.size[0]
+            surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), (self.pos[0] - img_offset, self.pos[1]))
+        elif self.direction == 'up':
+            img_offset = self.animation.img().get_height() - self.size[0]
+            surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), (self.pos[0], self.pos[1] - img_offset))
+        else:
+            surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), self.pos)
 
 class Player(PhysicsEntity):
     def __init__(self, game, pos, size):
