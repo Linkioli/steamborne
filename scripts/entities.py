@@ -83,21 +83,26 @@ class Player(PhysicsEntity):
         self.attacking = False
 
     def update(self, tilemap, movement):
-        super().update(tilemap, movement=movement)
-        # attack animation 
-        # TODO: stop player movement, during attack state, and fix player offset when attacking left
+        # Check if the player is attacking, and set movement to [0, 0] if attacking.
         if self.attacking == True:
+            print('attacking')
+            movement = pygame.math.Vector2() # stops player movement
             self.set_action(f'attack-{self.direction}')
             if self.animation.done == True:
+                print('animation finished')
                 self.attacking = False
 
-        elif movement[0] or movement[1] != 0:
-            self.set_action(f'walk-{self.direction}')
-        else:
-            self.set_action(f'idle-{self.direction}')
+        if not self.attacking:
+            if movement[0] or movement[1] != 0:
+                self.set_action(f'walk-{self.direction}')
+            else:
+                self.set_action(f'idle-{self.direction}')
+
+        super().update(tilemap, movement=movement)
 
     def attack(self):
-        self.attacking = True
+        if not self.attacking:
+            self.attacking = True
 
 
 
