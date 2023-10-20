@@ -21,10 +21,10 @@ class PhysicsEntity:
     def set_action(self, action):
         if action != self.action:
             self.action = action
-            print(self.action)
             self.animation = self.game.assets[self.type + '/' + self.action].copy()
 
     def update(self, tilemap, movement):
+        print(self.direction)
         self.collisions = {'up': False, 'down': False, 'right': False, 'left': False}
         
         if movement.magnitude() != 0:
@@ -71,6 +71,8 @@ class PhysicsEntity:
                 self.flip = False
             if movement[0] < 0:
                 self.flip = True
+        else:
+            self.flip = False
 
         self.animation.update()
 
@@ -85,11 +87,9 @@ class Player(PhysicsEntity):
     def update(self, tilemap, movement):
         # Check if the player is attacking, and set movement to [0, 0] if attacking.
         if self.attacking == True:
-            print('attacking')
             movement = pygame.math.Vector2() # stops player movement
             self.set_action(f'attack-{self.direction}')
             if self.animation.done == True:
-                print('animation finished')
                 self.attacking = False
 
         if not self.attacking:
