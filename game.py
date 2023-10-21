@@ -50,6 +50,7 @@ class Game:
                 'player/attack-up': Animation(load_images('entities/player/attack/up'), loop=False, img_dur=ATTACK_DUR),
                 'player/attack-down': Animation(load_images('entities/player/attack/down'), loop=False, img_dur=ATTACK_DUR),
                 'player/attack-right': Animation(load_images('entities/player/attack/right'), loop=False, img_dur=ATTACK_DUR),
+                'projectiles/bullet': load_image('entities/projectiles/bullet.png'),
         }
 
 

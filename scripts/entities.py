@@ -85,10 +85,40 @@ class PhysicsEntity:
         else:
             surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), self.pos)
 
+class Projectile():
+    def __init__(self, game, pos, direction, flip):
+        self.game = game
+        self.pos = list(pos).copy()
+        self.direction = direction
+        self.flip = flip
+        self.sprite = self.game.assets['projectiles/bullet']
+        self.velocity = 3
+
+    def rect(self):
+        return self.sprite.get_rect(center = (self.pos))
+
+    def update(self):
+        projectile_rect = self.rect()
+        match self.direction:
+            case 'up':
+                self.pos[1] -= self.velocity
+            case 'down':
+                self.pos[1] += self.velocity
+            case 'right':
+                if self.flip:
+                    self.pos[0] -= self.velocity
+                else:
+                    self.pos[0] += self.velocity
+
+    def render(self, surf):
+        surf.blit(self.sprite, self.pos)
+
+
 class Player(PhysicsEntity):
     def __init__(self, game, pos, size):
         super().__init__(game, 'player', pos, size)
         self.attacking = False
+        self.bullets = []
 
     def update(self, tilemap, movement):
         # Check if the player is attacking, and set movement to [0, 0] if attacking.
@@ -106,9 +136,14 @@ class Player(PhysicsEntity):
 
         super().update(tilemap, movement=movement)
 
+        for bullet in self.bullets:
+            bullet.update()
+            bullet.render(self.game.display)
+
     def attack(self):
         if not self.attacking:
             self.attacking = True
+            self.bullets.append(Projectile(self.game, self.rect().center, self.direction, self.flip))
 
 
 
