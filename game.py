@@ -41,6 +41,7 @@ class Game:
                 'prop': load_images('tiles/props'),
                 'floors': load_images('tiles/floors'),
                 'walls': load_images('tiles/walls'),
+                'spawners': load_images('tiles/spawners'),
                 'player/idle-down': Animation(load_image('entities/player/idle/idle-down.png')),
                 'player/idle-up': Animation(load_image('entities/player/idle/idle-up.png')),
                 'player/idle-right': Animation(load_image('entities/player/idle/idle-right.png')),
@@ -57,9 +58,17 @@ class Game:
         self.player = Player(self, (50, 50), (16, 16))
 
         self.tilemap = Tilemap(self, tile_size=16)
-        self.tilemap.load('map.json')
 
         self.vector = pygame.math.Vector2()
+
+        self.load_level()
+
+    def load_level(self):
+        self.tilemap.load('map.json')
+
+        for spawner in self.tilemap.extract([('spawners', 0)]):
+            if spawner['variant'] == 0:
+                self.player.pos = spawner['pos']
 
     def run(self):
         while True:

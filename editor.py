@@ -27,6 +27,7 @@ class Editor:
             'prop': load_images('tiles/props'),
             'floors': load_images('tiles/floors'),
             'walls': load_images('tiles/walls'),
+            'spawners': load_images('tiles/spawners'),
         }
 
         self.movement = [False, False, False, False]
@@ -126,8 +127,6 @@ class Editor:
                         self.movement[3] = True
                     if event.key == pygame.K_g:
                         self.ongrid = not self.ongrid
-                    if event.key == pygame.K_t:
-                        self.tilemap.autotile()
                     if event.key == pygame.K_o:
                         self.tilemap.save('map.json')
                         print('Map saved!')

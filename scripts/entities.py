@@ -132,6 +132,7 @@ class Projectile():
                 else:
                     surf.blit(self.sprite, (self.pos[0], self.pos[1] + 1))
 
+# TODO: make player rect the same size as player sprite
 class Player(PhysicsEntity):
     def __init__(self, game, pos, size):
         super().__init__(game, 'player', pos, size)
