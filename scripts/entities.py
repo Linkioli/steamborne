@@ -95,8 +95,14 @@ class Projectile():
         self.velocity = 2
 
     def rect(self):
-        # TODO: align, rect with sprite offsets, depending on the direction
-        return self.sprite.get_rect(center = (self.pos))
+        match self.direction:
+            case 'up':
+                return self.sprite.get_rect(center = (self.pos[0] + 3, self.pos[1]))
+            case 'down':
+                return self.sprite.get_rect(center = (self.pos[0] - 5, self.pos[1]))
+            case 'right':
+                return self.sprite.get_rect(center = (self.pos[0], self.pos[1] + 2))
+
 
     def update(self, tilemap):
         projectile_rect = self.rect()
