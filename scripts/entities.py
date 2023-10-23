@@ -92,9 +92,10 @@ class Projectile():
         self.direction = direction
         self.flip = flip
         self.sprite = self.game.assets['projectiles/bullet']
-        self.velocity = 3
+        self.velocity = 2
 
     def rect(self):
+        # TODO: align, rect with sprite offsets, depending on the direction
         return self.sprite.get_rect(center = (self.pos))
 
     def update(self):
@@ -111,8 +112,16 @@ class Projectile():
                     self.pos[0] += self.velocity
 
     def render(self, surf):
-        surf.blit(self.sprite, self.pos)
-
+        match self.direction:
+            case 'up':
+                surf.blit(pygame.transform.rotate(self.sprite, 90), (self.pos[0] + 3, self.pos[1]))
+            case 'down':
+                surf.blit(pygame.transform.rotate(self.sprite, 270), (self.pos[0] - 5, self.pos[1]))
+            case 'right':
+                if self.flip:
+                    surf.blit(pygame.transform.rotate(self.sprite, 180), (self.pos[0], self.pos[1] + 1))
+                else:
+                    surf.blit(self.sprite, (self.pos[0], self.pos[1] + 1))
 
 class Player(PhysicsEntity):
     def __init__(self, game, pos, size):
