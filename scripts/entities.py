@@ -98,8 +98,11 @@ class Projectile():
         # TODO: align, rect with sprite offsets, depending on the direction
         return self.sprite.get_rect(center = (self.pos))
 
-    def update(self):
+    def update(self, tilemap):
         projectile_rect = self.rect()
+        for rect in tilemap.physics_rects_around(self.pos):
+            if projectile_rect.colliderect(rect):
+                return True 
         match self.direction:
             case 'up':
                 self.pos[1] -= self.velocity
@@ -146,8 +149,10 @@ class Player(PhysicsEntity):
         super().update(tilemap, movement=movement)
 
         for bullet in self.bullets:
-            bullet.update()
+            hit = bullet.update(tilemap)
             bullet.render(self.game.display)
+            if hit:
+                self.bullets.remove(bullet)
 
     def attack(self):
         if not self.attacking:
