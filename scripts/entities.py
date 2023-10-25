@@ -13,7 +13,6 @@ class PhysicsEntity:
         self.action = ''
         self.anim_offset = (-3, -3)
         self.flip = False
-        self.set_action(f'idle-{self.direction}')
 
     def rect(self):
         return pygame.Rect(self.pos[0], self.pos[1], self.size[0], self.size[1])
@@ -64,6 +63,7 @@ class PhysicsEntity:
                     self.collisions['up'] = True
                 self.pos[1] = entity_rect.y
         # flip the left and right direction of the player
+        # TODO: put this in it's own method, because some entity sprites, behave differently, and require different flip methods
         if movement[1] == 0:
             if movement[0] > 0:
                 self.flip = False
@@ -132,12 +132,18 @@ class Projectile():
                 else:
                     surf.blit(self.sprite, (self.pos[0], self.pos[1] + 1))
 
+class EnemyRat(PhysicsEntity):
+    def __init__(self, game, pos, size):
+        super().__init__(game, 'enemy', pos, size)
+        # TODO: start programming rat enemy
+
 # TODO: make player rect the same size as player sprite
 class Player(PhysicsEntity):
     def __init__(self, game, pos, size):
         super().__init__(game, 'player', pos, size)
         self.attacking = False
         self.bullets = []
+        self.set_action(f'idle-{self.direction}')
 
     def update(self, tilemap, movement):
         # Check if the player is attacking, and set movement to [0, 0] if attacking.

@@ -4,12 +4,6 @@ import pygame
 
 from scripts.utils import load_image, load_images, Animation
 from scripts.entities import PhysicsEntity, Player
-import sys
-
-import pygame
-
-from scripts.utils import load_image, load_images, Animation
-from scripts.entities import PhysicsEntity
 from scripts.tilemap import Tilemap
 
 SCREEN_WIDTH =  960
@@ -52,6 +46,8 @@ class Game:
                 'player/attack-down': Animation(load_images('entities/player/attack/down'), loop=False, img_dur=ATTACK_DUR),
                 'player/attack-right': Animation(load_images('entities/player/attack/right'), loop=False, img_dur=ATTACK_DUR),
                 'projectiles/bullet': load_image('entities/projectiles/bullet.png'),
+                'enemies/rat-down':  Animation(load_images('entities/enemies/rat/down')),
+                'enemies/rat-right':  Animation(load_images('entities/enemies/rat/right')),
         }
 
 
