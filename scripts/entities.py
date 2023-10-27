@@ -62,19 +62,23 @@ class PhysicsEntity:
                     entity_rect.top = rect.bottom
                     self.collisions['up'] = True
                 self.pos[1] = entity_rect.y
-        # flip the left and right direction of the player
-        # TODO: put this in it's own method, because some entity sprites, behave differently, and require different flip methods
-        if movement[1] == 0:
-            if movement[0] > 0:
-                self.flip = False
-            if movement[0] < 0:
-                self.flip = True
-        else:
-            self.flip = False
+
+        self.flip = self.sprite_flip(movement, self.flip)
 
         self.animation.update()
 
+    def sprite_flip(self, movement, flip):
+        if movement[1] == 0:
+            if movement[0] > 0:
+                flip = False
+            if movement[0] < 0:
+                flip = True
+        else:
+            flip = False
+        return flip
+
     def render(self, surf):
+        # TODO: move this method to the Player class, because it's based on the player's behavior
         # offset the sprite animation, so the player doesn't 'move' when attacking
         if self.flip:
             img_offset = self.animation.img().get_width() - self.size[0]
@@ -84,6 +88,60 @@ class PhysicsEntity:
             surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), (self.pos[0], self.pos[1] - img_offset))
         else:
             surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), self.pos)
+
+class Rat(PhysicsEntity):
+    def __init__(self, game, pos, size):
+        # TODO: add custom sprite_flip method for the rat
+        super().__init__(game, 'rat', pos, size)
+        self.set_action('run-right')
+        self.movement = pygame.math.Vector2()
+        self.movement.x = -1
+
+    def update(self, tilemap):
+        # TODO: Design better rat AI
+        if self.collisions['right']:
+            self.movement.x = -1
+        if self.collisions['left']:
+            self.movement.x = 1
+        super().update(tilemap, movement=self.movement)
+
+    def render(self, surf):
+        surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), self.pos)
+
+class Player(PhysicsEntity):
+    def __init__(self, game, pos, size):
+        # TODO: make player rect the same size as player sprite
+        super().__init__(game, 'player', pos, size)
+        self.attacking = False
+        self.bullets = []
+        self.set_action(f'idle-{self.direction}')
+
+    def update(self, tilemap, movement):
+        # Check if the player is attacking, and set movement to [0, 0] if attacking.
+        if self.attacking == True:
+            movement = pygame.math.Vector2() # stops player movement
+            self.set_action(f'attack-{self.direction}')
+            if self.animation.done == True:
+                self.attacking = False
+
+        if not self.attacking:
+            if movement[0] or movement[1] != 0:
+                self.set_action(f'walk-{self.direction}')
+            else:
+                self.set_action(f'idle-{self.direction}')
+
+        super().update(tilemap, movement=movement)
+
+        for bullet in self.bullets:
+            hit = bullet.update(tilemap)
+            bullet.render(self.game.display)
+            if hit:
+                self.bullets.remove(bullet)
+
+    def attack(self):
+        if not self.attacking:
+            self.attacking = True
+            self.bullets.append(Projectile(self.game, self.rect().center, self.direction, self.flip))
 
 class Projectile():
     def __init__(self, game, pos, direction, flip):
@@ -131,47 +189,3 @@ class Projectile():
                     surf.blit(pygame.transform.rotate(self.sprite, 180), (self.pos[0], self.pos[1] + 1))
                 else:
                     surf.blit(self.sprite, (self.pos[0], self.pos[1] + 1))
-
-class EnemyRat(PhysicsEntity):
-    def __init__(self, game, pos, size):
-        super().__init__(game, 'enemy', pos, size)
-        # TODO: start programming rat enemy
-
-# TODO: make player rect the same size as player sprite
-class Player(PhysicsEntity):
-    def __init__(self, game, pos, size):
-        super().__init__(game, 'player', pos, size)
-        self.attacking = False
-        self.bullets = []
-        self.set_action(f'idle-{self.direction}')
-
-    def update(self, tilemap, movement):
-        # Check if the player is attacking, and set movement to [0, 0] if attacking.
-        if self.attacking == True:
-            movement = pygame.math.Vector2() # stops player movement
-            self.set_action(f'attack-{self.direction}')
-            if self.animation.done == True:
-                self.attacking = False
-
-        if not self.attacking:
-            if movement[0] or movement[1] != 0:
-                self.set_action(f'walk-{self.direction}')
-            else:
-                self.set_action(f'idle-{self.direction}')
-
-        super().update(tilemap, movement=movement)
-
-        for bullet in self.bullets:
-            hit = bullet.update(tilemap)
-            bullet.render(self.game.display)
-            if hit:
-                self.bullets.remove(bullet)
-
-    def attack(self):
-        if not self.attacking:
-            self.attacking = True
-            self.bullets.append(Projectile(self.game, self.rect().center, self.direction, self.flip))
-
-
-
-

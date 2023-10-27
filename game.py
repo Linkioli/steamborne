@@ -3,7 +3,7 @@ import sys
 import pygame
 
 from scripts.utils import load_image, load_images, Animation
-from scripts.entities import PhysicsEntity, Player
+from scripts.entities import PhysicsEntity, Player, Rat
 from scripts.tilemap import Tilemap
 
 SCREEN_WIDTH =  960
@@ -46,8 +46,8 @@ class Game:
                 'player/attack-down': Animation(load_images('entities/player/attack/down'), loop=False, img_dur=ATTACK_DUR),
                 'player/attack-right': Animation(load_images('entities/player/attack/right'), loop=False, img_dur=ATTACK_DUR),
                 'projectiles/bullet': load_image('entities/projectiles/bullet.png'),
-                'enemies/rat-down':  Animation(load_images('entities/enemies/rat/down')),
-                'enemies/rat-right':  Animation(load_images('entities/enemies/rat/right')),
+                'rat/run-down':  Animation(load_images('entities/enemies/rat/down')),
+                'rat/run-right':  Animation(load_images('entities/enemies/rat/right')),
         }
 
 
@@ -61,16 +61,23 @@ class Game:
 
     def load_level(self):
         self.tilemap.load('map.json')
-
-        for spawner in self.tilemap.extract([('spawners', 0)]):
+        
+        self.enemies = []
+        for spawner in self.tilemap.extract([('spawners', 0), ('spawners', 1)]):
             if spawner['variant'] == 0:
                 self.player.pos = spawner['pos']
+            else:
+                self.enemies.append(Rat(self, spawner['pos'], (16, 16)))
 
     def run(self):
         while True:
             self.display.fill(COLOR_1)
 
             self.tilemap.render(self.display)
+
+            for enemy in self.enemies.copy():
+                enemy.update(self.tilemap)
+                enemy.render(self.display)
 
             self.player.update(self.tilemap, self.vector) 
             self.player.render(self.display)
