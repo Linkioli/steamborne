@@ -78,16 +78,7 @@ class PhysicsEntity:
         return flip
 
     def render(self, surf):
-        # TODO: move this method to the Player class, because it's based on the player's behavior
-        # offset the sprite animation, so the player doesn't 'move' when attacking
-        if self.flip:
-            img_offset = self.animation.img().get_width() - self.size[0]
-            surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), (self.pos[0] - img_offset, self.pos[1]))
-        elif self.direction == 'up':
-            img_offset = self.animation.img().get_height() - self.size[0]
-            surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), (self.pos[0], self.pos[1] - img_offset))
-        else:
-            surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), self.pos)
+        surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), self.pos)
 
 class Rat(PhysicsEntity):
     def __init__(self, game, pos, size):
@@ -106,11 +97,10 @@ class Rat(PhysicsEntity):
         super().update(tilemap, movement=self.movement)
 
     def render(self, surf):
-        surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), self.pos)
+        super().render(surf)
 
 class Player(PhysicsEntity):
     def __init__(self, game, pos, size):
-        # TODO: make player rect the same size as player sprite
         super().__init__(game, 'player', pos, size)
         self.attacking = False
         self.bullets = []
@@ -142,6 +132,17 @@ class Player(PhysicsEntity):
         if not self.attacking:
             self.attacking = True
             self.bullets.append(Projectile(self.game, self.rect().center, self.direction, self.flip))
+
+    def render(self, surf):
+        # offset the sprite animation, so the player doesn't 'move' when attacking
+        if self.flip:
+            img_offset = self.animation.img().get_width() - 16 
+            surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), ((self.pos[0] - img_offset) - 2, self.pos[1]))
+        elif self.direction == 'up':
+            img_offset = self.animation.img().get_height() - 16 
+            surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), (self.pos[0] - 2, self.pos[1] - img_offset))
+        else:
+            surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), (self.pos[0] - 2, self.pos[1]))
 
 class Projectile():
     def __init__(self, game, pos, direction, flip):

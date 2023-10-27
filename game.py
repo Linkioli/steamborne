@@ -51,7 +51,7 @@ class Game:
         }
 
 
-        self.player = Player(self, (50, 50), (16, 16))
+        self.player = Player(self, (50, 50), (12, 16))
 
         self.tilemap = Tilemap(self, tile_size=16)
 
