@@ -67,7 +67,7 @@ class Game:
             if spawner['variant'] == 0:
                 self.player.pos = spawner['pos']
             else:
-                self.enemies.append(Rat(self, spawner['pos'], (16, 16)))
+                self.enemies.append(Rat(self, spawner['pos'], (16, 16), self.enemies))
 
     def run(self):
         while True:
@@ -76,7 +76,7 @@ class Game:
             self.tilemap.render(self.display)
 
             for enemy in self.enemies.copy():
-                enemy.update(self.tilemap)
+                enemy.update(self.tilemap, self.player.rect())
                 enemy.render(self.display)
 
             self.player.update(self.tilemap, self.vector) 

@@ -1,4 +1,7 @@
 import pygame
+import random
+
+
 
 class PhysicsEntity:
     def __init__(self, game, e_type, pos, size):
@@ -63,7 +66,6 @@ class PhysicsEntity:
                     self.collisions['up'] = True
                 self.pos[1] = entity_rect.y
 
-        self.flip = self.sprite_flip(movement, self.flip)
 
         self.animation.update()
 
@@ -80,24 +82,67 @@ class PhysicsEntity:
     def render(self, surf):
         surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), self.pos)
 
-class Rat(PhysicsEntity):
-    def __init__(self, game, pos, size):
-        # TODO: add custom sprite_flip method for the rat
-        super().__init__(game, 'rat', pos, size)
-        self.set_action('run-right')
-        self.movement = pygame.math.Vector2()
-        self.movement.x = -1
 
-    def update(self, tilemap):
-        # TODO: Design better rat AI
-        if self.collisions['right']:
-            self.movement.x = -1
-        if self.collisions['left']:
-            self.movement.x = 1
+
+class Rat(PhysicsEntity):
+    def __init__(self, game, pos, size, elist):
+        super().__init__(game, 'rat', pos, size)
+        self.movement = pygame.math.Vector2()
+        self.movement = self.rand_dir(self.movement)
+        self.flipx = False
+        self.flipy = False
+        self.enemy_list = elist
+
+    def rand_dir(self, movement):
+        if random.choice((0, 1)) == 0:
+            movement.x = random.choice((-1, 1))
+            movement.y = 0
+        else:
+            movement.y = random.choice((-1, 1))
+            movement.x = 0
+        return movement
+
+    def sprite_flip(self, movement):
+        flipx = False
+        flipy = False
+        if movement[1] != 0:
+            self.set_action('run-down')
+            if movement[1] < 0:
+                flipy = True
+            else:
+                flipy = False
+        if movement[0] != 0:
+            self.set_action('run-right')
+            if movement[0] < 0:
+                flipx = True
+            else:
+                flipx = False
+        return flipx, flipy
+
+    def update(self, tilemap, player_rect):
+        # TODO: improve how rats handle collisions
+        turn = random.randrange(0, 100)
+        if turn == 42:
+            self.movement = self.rand_dir(self.movement)
+
+        for col in self.collisions:
+            if self.collisions[col]:
+                self.movement = self.rand_dir(self.movement)
+
+        for enemy in self.enemy_list:
+            if self.rect().colliderect(enemy.rect()) and enemy.rect() != self.rect():
+                self.movement = self.rand_dir(self.movement)
+
+        if self.rect().colliderect(player_rect):
+            self.movement = self.rand_dir(self.movement)
+        
+        self.flipx, self.flipy = self.sprite_flip(self.movement)
         super().update(tilemap, movement=self.movement)
 
     def render(self, surf):
-        super().render(surf)
+        surf.blit(pygame.transform.flip(self.animation.img(), self.flipx, self.flipy), self.pos)
+
+
 
 class Player(PhysicsEntity):
     def __init__(self, game, pos, size):
@@ -120,6 +165,7 @@ class Player(PhysicsEntity):
             else:
                 self.set_action(f'idle-{self.direction}')
 
+        self.flip = self.sprite_flip(movement, self.flip)
         super().update(tilemap, movement=movement)
 
         for bullet in self.bullets:
@@ -143,6 +189,8 @@ class Player(PhysicsEntity):
             surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), (self.pos[0] - 2, self.pos[1] - img_offset))
         else:
             surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), (self.pos[0] - 2, self.pos[1]))
+
+
 
 class Projectile():
     def __init__(self, game, pos, direction, flip):
