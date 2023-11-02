@@ -101,6 +101,23 @@ class Rat(PhysicsEntity):
             movement.y = random.choice((-1, 1))
             movement.x = 0
         return movement
+    
+    def turn_around(self, movement):
+        match movement.x:
+            case 1:
+                movement.x = -1
+            case -1:
+                movement.x = 1
+            case other:
+                pass
+        match movement.y:
+            case 1:
+                movement.y = -1
+            case -1:
+                movement.y = 1
+            case other:
+                pass
+        return movement
 
     def sprite_flip(self, movement):
         flipx = False
@@ -131,10 +148,10 @@ class Rat(PhysicsEntity):
 
         for enemy in self.enemy_list:
             if self.rect().colliderect(enemy.rect()) and enemy.rect() != self.rect():
-                self.movement = self.rand_dir(self.movement)
+                self.movement = self.turn_around(self.movement)
 
         if self.rect().colliderect(player_rect):
-            self.movement = self.rand_dir(self.movement)
+            self.movement = self.turn_around(self.movement)
         
         self.flipx, self.flipy = self.sprite_flip(self.movement)
         super().update(tilemap, movement=self.movement)
