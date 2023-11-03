@@ -85,13 +85,13 @@ class PhysicsEntity:
 
 
 class Rat(PhysicsEntity):
-    def __init__(self, game, pos, size, elist):
+    def __init__(self, game, pos, size):
         super().__init__(game, 'rat', pos, size)
         self.movement = pygame.math.Vector2()
         self.movement = self.rand_dir(self.movement)
         self.flipx = False
         self.flipy = False
-        self.enemy_list = elist
+        self.enemy_list = self.game.enemies
 
     def rand_dir(self, movement):
         if random.choice((0, 1)) == 0:
@@ -136,8 +136,9 @@ class Rat(PhysicsEntity):
                 flipx = False
         return flipx, flipy
 
-    def update(self, tilemap, player_rect):
+    def update(self, tilemap):
         # TODO: improve how rats handle collisions
+        player_rect = self.game.player.rect()
         turn = random.randrange(0, 100)
         if turn == 42:
             self.movement = self.rand_dir(self.movement)
