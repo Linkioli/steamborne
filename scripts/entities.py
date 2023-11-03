@@ -91,7 +91,6 @@ class Rat(PhysicsEntity):
         self.movement = self.rand_dir(self.movement)
         self.flipx = False
         self.flipy = False
-        self.enemy_list = self.game.enemies
 
     def rand_dir(self, movement):
         if random.choice((0, 1)) == 0:
@@ -138,7 +137,6 @@ class Rat(PhysicsEntity):
 
     def update(self, tilemap):
         # TODO: improve how rats handle collisions
-        player_rect = self.game.player.rect()
         turn = random.randrange(0, 100)
         if turn == 42:
             self.movement = self.rand_dir(self.movement)
@@ -147,11 +145,23 @@ class Rat(PhysicsEntity):
             if self.collisions[col]:
                 self.movement = self.rand_dir(self.movement)
 
-        for enemy in self.enemy_list:
+        for enemy in self.game.enemies:
+            entity_rect = self.rect()
             if self.rect().colliderect(enemy.rect()) and enemy.rect() != self.rect():
+                if self.movement[0] > 0:
+                    entity_rect.right = enemy.rect().left
+                if self.movement[0] < 0:
+                    entity_rect.left = enemy.rect().right
+                if self.movement[1] > 0:
+                    entity_rect.bottom = enemy.rect().top
+                if self.movement[1] < 0:
+                    entity_rect.top = enemy.rect().bottom
+                self.pos[0] = entity_rect.x
+                self.pos[1] = entity_rect.y
+
                 self.movement = self.turn_around(self.movement)
 
-        if self.rect().colliderect(player_rect):
+        if self.rect().colliderect(self.game.player.rect()):
             self.movement = self.turn_around(self.movement)
         
         self.flipx, self.flipy = self.sprite_flip(self.movement)
