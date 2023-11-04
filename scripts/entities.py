@@ -91,6 +91,7 @@ class Rat(PhysicsEntity):
         self.movement = self.rand_dir(self.movement)
         self.flipx = False
         self.flipy = False
+        self.state = 'wander'
 
     def rand_dir(self, movement):
         if random.choice((0, 1)) == 0:
@@ -138,35 +139,27 @@ class Rat(PhysicsEntity):
     def update(self, tilemap):
         # TODO: improve how rats handle collisions
         # TODO: make state machine, for player and rat
-        turn = random.randrange(0, 100)
-        if turn == 42:
-            self.movement = self.rand_dir(self.movement)
+        match self.state:
+            case 'wander':
+                turn = random.randrange(0, 50)
+                if turn == 42:
+                    self.movement = self.rand_dir(self.movement)
 
-        for col in self.collisions:
-            if self.collisions[col]:
-                self.movement = self.rand_dir(self.movement)
+                for col in self.collisions:
+                    if self.collisions[col]:
+                        self.movement = self.turn_around(self.movement)
 
-        for enemy in self.game.enemies:
-            entity_rect = self.rect()
-            if self.rect().colliderect(enemy.rect()) and enemy.rect() != self.rect():
-                if self.movement[0] > 0:
-                    entity_rect.right = enemy.rect().left
-                if self.movement[0] < 0:
-                    entity_rect.left = enemy.rect().right
-                if self.movement[1] > 0:
-                    entity_rect.bottom = enemy.rect().top
-                if self.movement[1] < 0:
-                    entity_rect.top = enemy.rect().bottom
-                self.pos[0] = entity_rect.x
-                self.pos[1] = entity_rect.y
+                for enemy in self.game.enemies:
+                    if self.rect().colliderect(enemy.rect()) and enemy != self:
+                        self.movement = self.turn_around(self.movement)
 
-                self.movement = self.turn_around(self.movement)
-
-        if self.rect().colliderect(self.game.player.rect()):
-            self.movement = self.turn_around(self.movement)
-        
-        self.flipx, self.flipy = self.sprite_flip(self.movement)
-        super().update(tilemap, movement=self.movement)
+                if self.rect().colliderect(self.game.player.rect()):
+                    self.movement = self.turn_around(self.movement)
+                
+                self.flipx, self.flipy = self.sprite_flip(self.movement)
+                super().update(tilemap, movement=self.movement)
+            case other:
+                pass
 
     def render(self, surf):
         surf.blit(pygame.transform.flip(self.animation.img(), self.flipx, self.flipy), self.pos)
