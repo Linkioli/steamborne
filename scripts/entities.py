@@ -137,6 +137,7 @@ class Rat(PhysicsEntity):
 
     def update(self, tilemap):
         # TODO: improve how rats handle collisions
+        # TODO: make state machine, for player and rat
         turn = random.randrange(0, 100)
         if turn == 42:
             self.movement = self.rand_dir(self.movement)
