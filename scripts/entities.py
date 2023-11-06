@@ -1,5 +1,6 @@
 import pygame
 import random
+import time
 
 
 
@@ -178,6 +179,9 @@ class Player(PhysicsEntity):
         self.bullets = []
         self.set_action(f'idle-{self.direction}')
         self.health = 6
+        self.immune_clock = time.time()
+        self.immune = False
+        self.immune_time = 2
 
     def update(self, tilemap, movement):
         # Check if the player is attacking, and set movement to [0, 0] if attacking.
@@ -202,9 +206,16 @@ class Player(PhysicsEntity):
             if hit:
                 self.bullets.remove(bullet)
 
+        current_time = time.time()
+        if self.immune and current_time - self.immune_clock >= self.immune_time:
+            self.immune = False
+
         for enemy in self.game.enemies:
             if self.rect().colliderect(enemy.rect()):
-                self.health -= 1
+                if not self.immune and self.health > 0:
+                    self.health -= 1
+                    self.immune = True
+                    self.immune_clock = current_time
 
     def attack(self):
         if not self.attacking:

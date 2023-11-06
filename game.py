@@ -5,6 +5,7 @@ import pygame
 from scripts.utils import load_image, load_images, Animation
 from scripts.entities import PhysicsEntity, Player, Rat
 from scripts.tilemap import Tilemap
+from scripts.debug import *
 
 SCREEN_WIDTH =  960
 SCREEN_HEIGHT = 864
@@ -108,6 +109,7 @@ class Game:
                     self.player.attack()
 
             self.screen.blit(pygame.transform.scale(self.display, self.screen.get_size()), (0, 0))
+            debug(self, self.player.health)
             pygame.display.update()
             self.clock.tick(60)
 
