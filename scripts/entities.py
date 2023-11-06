@@ -177,6 +177,7 @@ class Player(PhysicsEntity):
         self.attacking = False
         self.bullets = []
         self.set_action(f'idle-{self.direction}')
+        self.health = 6
 
     def update(self, tilemap, movement):
         # Check if the player is attacking, and set movement to [0, 0] if attacking.
@@ -201,10 +202,17 @@ class Player(PhysicsEntity):
             if hit:
                 self.bullets.remove(bullet)
 
+        for enemy in self.game.enemies:
+            if self.rect().colliderect(enemy.rect()):
+                self.health -= 1
+
     def attack(self):
         if not self.attacking:
             self.attacking = True
             self.bullets.append(Projectile(self.game, self.rect().center, self.direction, self.flip))
+
+    def kill(self):
+        if self.health <= 0: return True
 
     def render(self, surf):
         # offset the sprite animation, so the player doesn't 'move' when attacking

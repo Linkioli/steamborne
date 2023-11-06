@@ -80,8 +80,9 @@ class Game:
                     enemy.update(self.tilemap)
                     enemy.render(self.display)
 
-            self.player.update(self.tilemap, self.vector) 
-            self.player.render(self.display)
+            if not self.player.kill():
+                self.player.update(self.tilemap, self.vector) 
+                self.player.render(self.display)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
