@@ -109,7 +109,7 @@ class Game:
                     self.player.attack()
 
             self.screen.blit(pygame.transform.scale(self.display, self.screen.get_size()), (0, 0))
-            debug(self, self.player.health)
+            debug(self, f"Health: {self.player.health}")
             pygame.display.update()
             self.clock.tick(60)
 
