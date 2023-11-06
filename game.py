@@ -76,8 +76,9 @@ class Game:
             self.tilemap.render(self.display)
 
             for enemy in self.enemies.copy():
-                enemy.update(self.tilemap)
-                enemy.render(self.display)
+                if not enemy.kill():
+                    enemy.update(self.tilemap)
+                    enemy.render(self.display)
 
             self.player.update(self.tilemap, self.vector) 
             self.player.render(self.display)

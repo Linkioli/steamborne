@@ -92,6 +92,7 @@ class Rat(PhysicsEntity):
         self.flipx = False
         self.flipy = False
         self.state = 'wander'
+        self.health = 1
 
     def rand_dir(self, movement):
         if random.choice((0, 1)) == 0:
@@ -136,6 +137,9 @@ class Rat(PhysicsEntity):
                 flipx = False
         return flipx, flipy
 
+    def kill(self):
+        if self.health <= 0: return True
+
     def update(self, tilemap):
         # TODO: improve how rats handle collisions
         # TODO: make state machine, for player and rat
@@ -158,6 +162,7 @@ class Rat(PhysicsEntity):
                 
                 self.flipx, self.flipy = self.sprite_flip(self.movement)
                 super().update(tilemap, movement=self.movement)
+                self.kill()
             case other:
                 pass
 
@@ -237,7 +242,11 @@ class Projectile():
         projectile_rect = self.rect()
         for rect in tilemap.physics_rects_around(self.pos):
             if projectile_rect.colliderect(rect):
-                return True 
+                return True
+        for enemy in self.game.enemies:
+            if projectile_rect.colliderect(enemy.rect()):
+                enemy.health -= 1
+                return True
         match self.direction:
             case 'up':
                 self.pos[1] -= self.velocity
