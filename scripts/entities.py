@@ -181,7 +181,7 @@ class Player(PhysicsEntity):
         self.health = 6
         self.immune_clock = time.time()
         self.immune = False
-        self.immune_time = 2
+        self.immune_time = 1
 
     def update(self, tilemap, movement):
         # Check if the player is attacking, and set movement to [0, 0] if attacking.
