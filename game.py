@@ -5,6 +5,7 @@ import pygame
 from scripts.utils import load_image, load_images, Animation
 from scripts.entities import PhysicsEntity, Player, Rat
 from scripts.tilemap import Tilemap
+from scripts.UI import Bar
 from scripts.debug import *
 
 SCREEN_WIDTH =  960
@@ -49,6 +50,8 @@ class Game:
                 'projectiles/bullet': load_image('entities/projectiles/bullet.png'),
                 'rat/run-down':  Animation(load_images('entities/enemies/rat/down')),
                 'rat/run-right':  Animation(load_images('entities/enemies/rat/right')),
+                'UI/bar': load_image('UI/ui-base.png'),
+                'UI/health': load_images('UI/health'),
         }
 
 
@@ -57,6 +60,8 @@ class Game:
         self.tilemap = Tilemap(self, tile_size=16)
 
         self.vector = pygame.math.Vector2()
+
+        self.bar = Bar(self, (0, 0))
 
         self.load_level()
 
@@ -88,6 +93,9 @@ class Game:
                 self.player.update(self.tilemap, self.vector) 
                 self.player.render(self.display)
 
+            self.bar.update()
+            self.bar.render(self.display)
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -112,7 +120,6 @@ class Game:
                     self.player.attack()
 
             self.screen.blit(pygame.transform.scale(self.display, self.screen.get_size()), (0, 0))
-            debug(self, f"Health: {self.player.health}")
             pygame.display.update()
             self.clock.tick(60)
 
