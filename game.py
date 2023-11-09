@@ -38,6 +38,7 @@ class Game:
                 'floors': load_images('tiles/floors'),
                 'walls': load_images('tiles/walls'),
                 'spawners': load_images('tiles/spawners'),
+                'triggers': load_images('tiles/triggers'),
                 'player/idle-down': Animation(load_image('entities/player/idle/idle-down.png')),
                 'player/idle-up': Animation(load_image('entities/player/idle/idle-up.png')),
                 'player/idle-right': Animation(load_image('entities/player/idle/idle-right.png')),

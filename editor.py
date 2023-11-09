@@ -28,6 +28,7 @@ class Editor:
             'floors': load_images('tiles/floors'),
             'walls': load_images('tiles/walls'),
             'spawners': load_images('tiles/spawners'),
+            'triggers': load_images('tiles/triggers'),
         }
 
         self.movement = [False, False, False, False]

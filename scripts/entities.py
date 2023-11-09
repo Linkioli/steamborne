@@ -217,6 +217,9 @@ class Player(PhysicsEntity):
                     self.immune = True
                     self.immune_clock = current_time
 
+        for rect in tilemap.tile_type_around(self.pos, 'triggers'):
+            print('test')
+
     def attack(self):
         if not self.attacking:
             self.attacking = True
