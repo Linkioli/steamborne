@@ -80,8 +80,8 @@ class PhysicsEntity:
             flip = False
         return flip
 
-    def render(self, surf):
-        surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), self.pos)
+    def render(self, surf, offest=(0, 0)):
+        surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), (self.pos[0] - offset[0], self.pos[1] - offset[1]))
 
 
 
@@ -167,8 +167,8 @@ class Rat(PhysicsEntity):
             case other:
                 pass
 
-    def render(self, surf):
-        surf.blit(pygame.transform.flip(self.animation.img(), self.flipx, self.flipy), self.pos)
+    def render(self, surf, offset=(0, 0)):
+        surf.blit(pygame.transform.flip(self.animation.img(), self.flipx, self.flipy), (self.pos[0] - offset[0], self.pos[1] - offset[1]))
 
 
 
@@ -200,12 +200,6 @@ class Player(PhysicsEntity):
         self.flip = self.sprite_flip(movement, self.flip)
         super().update(tilemap, movement=movement)
 
-        for bullet in self.bullets:
-            hit = bullet.update(tilemap)
-            bullet.render(self.game.display)
-            if hit:
-                self.bullets.remove(bullet)
-
         current_time = time.time()
         if self.immune and current_time - self.immune_clock >= self.immune_time:
             self.immune = False
@@ -228,16 +222,16 @@ class Player(PhysicsEntity):
     def kill(self):
         if self.health <= 0: return True
 
-    def render(self, surf):
+    def render(self, surf, offset=(0, 0)):
         # offset the sprite animation, so the player doesn't 'move' when attacking
         if self.flip:
             img_offset = self.animation.img().get_width() - 16 
-            surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), ((self.pos[0] - img_offset) - 2, self.pos[1]))
+            surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), (((self.pos[0] - img_offset) - 2) - offset[0], self.pos[1] - offset[1]))
         elif self.direction == 'up':
             img_offset = self.animation.img().get_height() - 16 
-            surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), (self.pos[0] - 2, self.pos[1] - img_offset))
+            surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), ((self.pos[0] - 2) - offset[0], (self.pos[1] - img_offset) - offset[1]))
         else:
-            surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), (self.pos[0] - 2, self.pos[1]))
+            surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), ((self.pos[0] - 2) - offset[0], (self.pos[1]) - offset[1]))
 
 
 
@@ -280,14 +274,14 @@ class Projectile():
                 else:
                     self.pos[0] += self.velocity
 
-    def render(self, surf):
+    def render(self, surf, offset=(0, 0)):
         match self.direction:
             case 'up':
-                surf.blit(pygame.transform.rotate(self.sprite, 90), (self.pos[0] + 3, self.pos[1]))
+                surf.blit(pygame.transform.rotate(self.sprite, 90), ((self.pos[0] + 3) - offset[0], self.pos[1] - offset[1]))
             case 'down':
-                surf.blit(pygame.transform.rotate(self.sprite, 270), (self.pos[0] - 5, self.pos[1]))
+                surf.blit(pygame.transform.rotate(self.sprite, 270), ((self.pos[0] - 5) - offset[0], self.pos[1] - offset[1]))
             case 'right':
                 if self.flip:
-                    surf.blit(pygame.transform.rotate(self.sprite, 180), (self.pos[0], self.pos[1] + 1))
+                    surf.blit(pygame.transform.rotate(self.sprite, 180), (self.pos[0] - offset[0], (self.pos[1] + 1) - offset[1]))
                 else:
                     surf.blit(self.sprite, (self.pos[0], self.pos[1] + 1))

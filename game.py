@@ -22,7 +22,6 @@ COLOR_4 = (243, 176, 134) # light brown
 
 ATTACK_DUR = 5
 
-
 class Game:
     def __init__(self):
         pygame.init()
@@ -64,10 +63,13 @@ class Game:
 
         self.bar = Bar(self, (0, 0))
 
+        self.offset = [0, 0]
+
         self.load_level()
 
     def load_level(self):
         self.tilemap.load('map.json')
+
         
         self.enemies = []
         for spawner in self.tilemap.extract([('spawners', 0), ('spawners', 1)]):
@@ -80,19 +82,28 @@ class Game:
         while True:
             self.display.fill(COLOR_1)
 
-            self.tilemap.render(self.display)
+            # TODO: update render_offset when player walks off screen
+            render_offset = (int(self.offset[0]), int(self.offset[1])) 
+
+            self.tilemap.render(self.display, offset=render_offset)
 
             for enemy in self.enemies.copy():
                 if enemy.kill():
                     self.enemies.remove(enemy)
                 else:
                     enemy.update(self.tilemap)
-                    enemy.render(self.display)
+                    enemy.render(self.display, offset=render_offset)
 
 
             if not self.player.kill():
                 self.player.update(self.tilemap, self.vector) 
-                self.player.render(self.display)
+                self.player.render(self.display, offset=render_offset)
+
+            for bullet in self.player.bullets:
+                hit = bullet.update(self.tilemap)
+                bullet.render(self.display, offset=render_offset)
+                if hit:
+                    self.player.bullets.remove(bullet)
 
             self.bar.update()
             self.bar.render(self.display)
