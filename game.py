@@ -78,12 +78,27 @@ class Game:
             else:
                 self.enemies.append(Rat(self, spawner['pos'], (16, 16)))
 
+    def screen_shift(self, direction):
+        pass
+        # TODO: make this function exist
+
     def run(self):
         while True:
             self.display.fill(COLOR_1)
 
-            # TODO: update render_offset when player walks off screen
-            render_offset = (int(self.offset[0]), int(self.offset[1])) 
+            # TODO: make this shit work properly 
+            render_offset = (int(self.offset[0]), int(self.offset[1]))
+            if int(self.player.pos[0]) % self.display.get_width() == 1:
+                if self.vector[0] < 0:
+                    self.offset[0] -= (self.display.get_width())
+                elif self.vector[0] > 0:
+                    self.offset[0] += (self.display.get_width())
+            if int(self.player.pos[1]) % self.display.get_height() == 1:
+                if self.vector[1] < 0:
+                    self.offset[1] -= (self.display.get_height() - 16)
+                elif self.vector[1] > 0:
+                    self.offset[1] += (self.display.get_height() - 16)
+
 
             self.tilemap.render(self.display, offset=render_offset)
 
@@ -130,8 +145,11 @@ class Game:
                 # player actions
                 if keys[pygame.K_x]:
                     self.player.attack()
+                if keys[pygame.K_c]:
+                    self.offset[1] -= 1
 
             self.screen.blit(pygame.transform.scale(self.display, self.screen.get_size()), (0, 0))
+            debug(self, self.clock.get_time())
             pygame.display.update()
             self.clock.tick(60)
 
