@@ -26,6 +26,10 @@ class PhysicsEntity:
             self.action = action
             self.animation = self.game.assets[self.type + '/' + self.action].copy()
 
+    def play_sound(self, sound):
+        sfx = self.game.sounds[self.type + '/' + sound]
+        sfx.play()
+
     def update(self, tilemap, movement):
         self.collisions = {'up': False, 'down': False, 'right': False, 'left': False}
         
@@ -216,6 +220,7 @@ class Player(PhysicsEntity):
 
     def attack(self):
         if not self.attacking:
+            self.play_sound('gun-shot')
             self.attacking = True
             self.bullets.append(Projectile(self.game, self.rect().center, self.direction, self.flip))
 

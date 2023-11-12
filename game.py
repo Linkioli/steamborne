@@ -55,6 +55,11 @@ class Game:
             'UI/health': load_images('UI/health'),
         }
 
+        self.sounds = {
+                'music/dungeon': 'data/sounds/music/dungeon.wav',
+                'player/gun-shot': pygame.mixer.Sound('data/sounds/sfx/player/gun_blast.wav'),
+        }
+
         self.player = Player(self, (50, 50), (12, 16))
 
         self.tilemap = Tilemap(self, tile_size=16)
@@ -69,6 +74,10 @@ class Game:
 
     def load_level(self):
         self.tilemap.load('map.json')
+
+        pygame.mixer.music.load(self.sounds['music/dungeon'])
+        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.play()
 
         self.enemies = []
         for spawner in self.tilemap.extract([('spawners', 0), ('spawners', 1)]):
@@ -137,11 +146,8 @@ class Game:
                 # player actions
                 if keys[pygame.K_x]:
                     self.player.attack()
-                if keys[pygame.K_c]:
-                    self.offset[1] -= 1
 
-            self.screen.blit(pygame.transform.scale(
-                self.display, self.screen.get_size()), (0, 0))
+            self.screen.blit(pygame.transform.scale(self.display, self.screen.get_size()), (0, 0))
             pygame.display.update()
             self.clock.tick(60)
 
