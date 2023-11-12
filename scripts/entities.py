@@ -222,6 +222,10 @@ class Player(PhysicsEntity):
     def kill(self):
         if self.health <= 0: return True
 
+    def render_pos(self, offset=(0, 0)):
+        render_pos = (self.pos[0] - offset[0], self.pos[1] - offset[1])
+        return render_pos
+
     def render(self, surf, offset=(0, 0)):
         # offset the sprite animation, so the player doesn't 'move' when attacking
         if self.flip:
@@ -284,4 +288,4 @@ class Projectile():
                 if self.flip:
                     surf.blit(pygame.transform.rotate(self.sprite, 180), (self.pos[0] - offset[0], (self.pos[1] + 1) - offset[1]))
                 else:
-                    surf.blit(self.sprite, (self.pos[0], self.pos[1] + 1))
+                    surf.blit(self.sprite, (self.pos[0] - offset[0], (self.pos[1] + 1) - offset[1]))
