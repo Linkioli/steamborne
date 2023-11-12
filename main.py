@@ -72,6 +72,8 @@ class Game:
 
         self.offset = [0, 0]
 
+        pygame.mixer.pre_init()
+
         self.load_level()
 
     def load_level(self):
