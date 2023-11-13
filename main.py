@@ -8,6 +8,7 @@ from scripts.utils import load_image, load_images, Animation
 from scripts.entities import PhysicsEntity, Player, Rat
 from scripts.tilemap import Tilemap
 from scripts.UI import Bar
+from scripts.camera import Camera
 from scripts.debug import *
 
 SCREEN_WIDTH = 960
@@ -70,6 +71,8 @@ class Game:
 
         self.bar = Bar(self, (0, 0))
 
+        self.camera = Camera(self, 2)
+
         self.offset = [0, 0]
 
         pygame.mixer.pre_init()
@@ -98,13 +101,16 @@ class Game:
             render_offset = (int(self.offset[0]), int(self.offset[1]))
             render_pos = (int(self.player.render_pos(render_offset)[0]), int(self.player.render_pos(render_offset)[1]))
             if render_pos[0] == 0 or render_pos[0] == -1:
-                self.offset[0] -= self.display.get_width()
+                self.camera.move('left')
             if render_pos[0] == self.display.get_width() or render_pos[0] == self.display.get_width() + 1:
-                self.offset[0] += self.display.get_width()
+                self.camera.move('right')
             if render_pos[1] - 16 == 0 or render_pos[1] - 16 == -1: 
-                self.offset[1] -= (self.display.get_height() - 16)
+                self.player.pos[1] -= 1
+                self.camera.move('up')
             if render_pos[1] == self.display.get_height() or render_pos[1] == self.display.get_height() + 1:
-                self.offset[1] += (self.display.get_height() - 16)
+                self.camera.move('down')
+
+            self.camera.update()
 
             self.tilemap.render(self.display, offset=render_offset)
 
@@ -152,6 +158,7 @@ class Game:
                     self.player.attack()
 
             self.screen.blit(pygame.transform.scale(self.display, self.screen.get_size()), (0, 0))
+            debug(self, self.offset[1] % self.display.get_height())
             pygame.display.update()
             self.clock.tick(60)
             await asyncio.sleep(0)

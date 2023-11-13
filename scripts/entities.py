@@ -44,6 +44,7 @@ class PhysicsEntity:
             self.direction = 'up'
 
         frame_movement = movement * self.velocity
+        self.frame_movement = frame_movement
 
         # collisions and movement for the x-axis
         self.pos[0] += frame_movement[0]
@@ -186,43 +187,45 @@ class Player(PhysicsEntity):
         self.immune_clock = time.time()
         self.immune = False
         self.immune_time = 1
+        self.active = True
 
     def update(self, tilemap, movement):
-        # Check if the player is attacking, and set movement to [0, 0] if attacking.
-        if self.attacking == True:
-            movement = pygame.math.Vector2() # stops player movement
-            self.set_action(f'attack-{self.direction}')
-            if self.animation.done == True:
-                self.attacking = False
+        if self.active:
+            # Check if the player is attacking, and set movement to [0, 0] if attacking.
+            if self.attacking == True:
+                movement = pygame.math.Vector2() # stops player movement
+                self.set_action(f'attack-{self.direction}')
+                if self.animation.done == True:
+                    self.attacking = False
 
-        if not self.attacking:
-            if movement[0] or movement[1] != 0:
-                self.set_action(f'walk-{self.direction}')
-            else:
-                self.set_action(f'idle-{self.direction}')
+            if not self.attacking:
+                if movement[0] or movement[1] != 0:
+                    self.set_action(f'walk-{self.direction}')
+                else:
+                    self.set_action(f'idle-{self.direction}')
 
-        self.flip = self.sprite_flip(movement, self.flip)
-        super().update(tilemap, movement=movement)
+            self.flip = self.sprite_flip(movement, self.flip)
+            super().update(tilemap, movement=movement)
 
-        current_time = time.time()
-        if self.immune and current_time - self.immune_clock >= self.immune_time:
-            self.immune = False
+            current_time = time.time()
+            if self.immune and current_time - self.immune_clock >= self.immune_time:
+                self.immune = False
 
-        for enemy in self.game.enemies:
-            if self.rect().colliderect(enemy.rect()):
-                if not self.immune and self.health > 0:
-                    self.health -= 1
-                    self.immune = True
-                    self.immune_clock = current_time
+            for enemy in self.game.enemies:
+                if self.rect().colliderect(enemy.rect()):
+                    if not self.immune and self.health > 0:
+                        self.health -= 1
+                        self.immune = True
+                        self.immune_clock = current_time
 
-        for rect in tilemap.tile_type_around(self.pos, 'triggers'):
-            print('test')
+            for rect in tilemap.tile_type_around(self.pos, 'triggers'):
+                print('test')
 
     def attack(self):
         if not self.attacking:
             self.play_sound('gun-shot')
             self.attacking = True
-            self.bullets.append(Projectile(self.game, self.rect().center, self.direction, self.flip))
+            self.bullets.append(Projectile(self.game, self.rect().center, self.direction, 4, self.flip))
 
     def kill(self):
         if self.health <= 0: return True
@@ -245,13 +248,13 @@ class Player(PhysicsEntity):
 
 
 class Projectile():
-    def __init__(self, game, pos, direction, flip):
+    def __init__(self, game, pos, direction, speed, flip):
         self.game = game
         self.pos = list(pos).copy()
         self.direction = direction
         self.flip = flip
         self.sprite = self.game.assets['projectiles/bullet']
-        self.velocity = 2
+        self.velocity = speed
 
     def rect(self):
         match self.direction:
