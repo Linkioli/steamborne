@@ -84,7 +84,7 @@ class Game:
 
         pygame.mixer.music.load(self.sounds['music/dungeon'])
         pygame.mixer.music.set_volume(0.5)
-        pygame.mixer.music.play()
+        pygame.mixer.music.play(-1)
 
         self.enemies = []
         for spawner in self.tilemap.extract([('spawners', 0), ('spawners', 1)]):
@@ -157,7 +157,6 @@ class Game:
                     self.player.attack()
 
             self.screen.blit(pygame.transform.scale(self.display, self.screen.get_size()), (0, 0))
-            debug(self, render_pos)
             pygame.display.update()
             self.clock.tick(60)
             await asyncio.sleep(0)
