@@ -100,12 +100,11 @@ class Game:
             # TODO: make this shit work properly
             render_offset = (int(self.offset[0]), int(self.offset[1]))
             render_pos = (int(self.player.render_pos(render_offset)[0]), int(self.player.render_pos(render_offset)[1]))
-            if render_pos[0] == 0 or render_pos[0] == -1:
+            if render_pos[0] + 16 == 0 or render_pos[0] + 16 == -1:
                 self.camera.move('left')
             if render_pos[0] == self.display.get_width() or render_pos[0] == self.display.get_width() + 1:
                 self.camera.move('right')
-            if render_pos[1] - 16 == 0 or render_pos[1] - 16 == -1: 
-                self.player.pos[1] -= 1
+            if render_pos[1] == 0 or render_pos[1] == -1: 
                 self.camera.move('up')
             if render_pos[1] == self.display.get_height() or render_pos[1] == self.display.get_height() + 1:
                 self.camera.move('down')
@@ -158,7 +157,7 @@ class Game:
                     self.player.attack()
 
             self.screen.blit(pygame.transform.scale(self.display, self.screen.get_size()), (0, 0))
-            debug(self, self.offset[1] % self.display.get_height())
+            debug(self, render_pos)
             pygame.display.update()
             self.clock.tick(60)
             await asyncio.sleep(0)

@@ -30,8 +30,15 @@ class PhysicsEntity:
         sfx = self.game.sounds[self.type + '/' + sound]
         sfx.play()
 
+    def render_pos(self, offset=(0, 0)):
+        render_pos = (self.pos[0] - offset[0], self.pos[1] - offset[1])
+        return render_pos
+
     def update(self, tilemap, movement):
         self.collisions = {'up': False, 'down': False, 'right': False, 'left': False}
+
+        if self.game.camera.moving:
+            movement = pygame.math.Vector2()
         
         if movement.magnitude() != 0:
             movement = movement.normalize()
@@ -71,7 +78,6 @@ class PhysicsEntity:
                     entity_rect.top = rect.bottom
                     self.collisions['up'] = True
                 self.pos[1] = entity_rect.y
-
 
         self.animation.update()
 
@@ -187,39 +193,37 @@ class Player(PhysicsEntity):
         self.immune_clock = time.time()
         self.immune = False
         self.immune_time = 1
-        self.active = True
 
     def update(self, tilemap, movement):
-        if self.active:
-            # Check if the player is attacking, and set movement to [0, 0] if attacking.
-            if self.attacking == True:
-                movement = pygame.math.Vector2() # stops player movement
-                self.set_action(f'attack-{self.direction}')
-                if self.animation.done == True:
-                    self.attacking = False
+        # Check if the player is attacking, and set movement to [0, 0] if attacking.
+        if self.attacking == True:
+            movement = pygame.math.Vector2() # stops player movement
+            self.set_action(f'attack-{self.direction}')
+            if self.animation.done == True:
+                self.attacking = False
 
-            if not self.attacking:
-                if movement[0] or movement[1] != 0:
-                    self.set_action(f'walk-{self.direction}')
-                else:
-                    self.set_action(f'idle-{self.direction}')
+        if self.game.camera.moving:
+            self.set_action(f'idle-{self.direction}')
 
-            self.flip = self.sprite_flip(movement, self.flip)
-            super().update(tilemap, movement=movement)
+        if not self.attacking:
+            if movement[0] or movement[1] != 0:
+                self.set_action(f'walk-{self.direction}')
+            else:
+                self.set_action(f'idle-{self.direction}')
 
-            current_time = time.time()
-            if self.immune and current_time - self.immune_clock >= self.immune_time:
-                self.immune = False
+        self.flip = self.sprite_flip(movement, self.flip)
+        super().update(tilemap, movement=movement)
 
-            for enemy in self.game.enemies:
-                if self.rect().colliderect(enemy.rect()):
-                    if not self.immune and self.health > 0:
-                        self.health -= 1
-                        self.immune = True
-                        self.immune_clock = current_time
+        current_time = time.time()
+        if self.immune and current_time - self.immune_clock >= self.immune_time:
+            self.immune = False
 
-            for rect in tilemap.tile_type_around(self.pos, 'triggers'):
-                print('test')
+        for enemy in self.game.enemies:
+            if self.rect().colliderect(enemy.rect()):
+                if not self.immune and self.health > 0:
+                    self.health -= 1
+                    self.immune = True
+                    self.immune_clock = current_time
 
     def attack(self):
         if not self.attacking:
@@ -229,10 +233,6 @@ class Player(PhysicsEntity):
 
     def kill(self):
         if self.health <= 0: return True
-
-    def render_pos(self, offset=(0, 0)):
-        render_pos = (self.pos[0] - offset[0], self.pos[1] - offset[1])
-        return render_pos
 
     def render(self, surf, offset=(0, 0)):
         # offset the sprite animation, so the player doesn't 'move' when attacking
