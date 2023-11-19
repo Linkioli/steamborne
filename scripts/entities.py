@@ -165,13 +165,6 @@ class Rat(PhysicsEntity):
                     if self.collisions[col]:
                         self.movement = self.turn_around(self.movement)
 
-                # for enemy in self.game.enemies:
-                #    if self.rect().colliderect(enemy.rect()) and enemy != self:
-                #        self.movement = self.turn_around(self.movement)
-
-                # if self.rect().colliderect(self.game.player.rect()):
-                #    self.movement = self.turn_around(self.movement)
-                
                 self.flipx, self.flipy = self.sprite_flip(self.movement)
                 super().update(tilemap, movement=self.movement)
                 self.kill()

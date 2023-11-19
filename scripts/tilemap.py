@@ -4,7 +4,8 @@ import pygame
 
 NEIGHBOR_OFFSETS = [(-1, 0), (-1, -1), (0, -1), (1, -1), (1, 0), (0, 0), (-1, 1), (0, 1), (1, 1)]
 PHYSICS_TILES = {'prop', 'walls'}
-INVIS_TILES = {'triggers'}
+BARRIERS = {'barriers'}
+INVIS_TILES = {'barriers'}
 
 # TODO: add tiles that can be placed on top of the current tileset 
 
@@ -92,3 +93,5 @@ class Tilemap:
                 pass
             else:
                 surf.blit(self.game.assets[tile['type']][tile['variant']], (tile['pos'][0] - offset[0], tile['pos'][1] - offset[1]))
+
+
