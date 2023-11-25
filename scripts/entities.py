@@ -168,6 +168,28 @@ class Rat(PhysicsEntity):
                 self.flipx, self.flipy = self.sprite_flip(self.movement)
                 super().update(tilemap, movement=self.movement)
                 self.kill()
+
+                entity_rect = self.rect()
+                for rect in tilemap.tile_type_around(self.pos, 'barriers'):
+                    if entity_rect.colliderect(rect):
+                        if self.frame_movement[0] > 0:
+                            entity_rect.right = rect.left
+                            self.collisions['right'] = True
+                        if self.frame_movement[0] < 0:
+                            entity_rect.left = rect.right
+                            self.collisions['left'] = True
+                        self.pos[0] = entity_rect.x
+
+                entity_rect = self.rect()
+                for rect in tilemap.tile_type_around(self.pos, 'barriers'):
+                    if entity_rect.colliderect(rect):
+                        if self.frame_movement[1] > 0:
+                            entity_rect.bottom = rect.top
+                            self.collisions['down'] = True
+                        if self.frame_movement[1] < 0:
+                            entity_rect.top = rect.bottom
+                            self.collisions['up'] = True
+                        self.pos[1] = entity_rect.y
             case other:
                 pass
 

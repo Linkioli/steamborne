@@ -5,7 +5,7 @@ import pygame
 NEIGHBOR_OFFSETS = [(-1, 0), (-1, -1), (0, -1), (1, -1), (1, 0), (0, 0), (-1, 1), (0, 1), (1, 1)]
 PHYSICS_TILES = {'prop', 'walls'}
 BARRIERS = {'barriers'}
-INVIS_TILES = {'barriers'}
+INVIS_TILES = {}
 
 # TODO: add tiles that can be placed on top of the current tileset 
 
