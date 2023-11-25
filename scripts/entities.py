@@ -299,6 +299,9 @@ class Projectile():
         for rect in tilemap.physics_rects_around(self.pos):
             if projectile_rect.colliderect(rect):
                 return True
+        for rect in tilemap.tile_type_around(self.pos, 'barriers'):
+            if projectile_rect.colliderect(rect):
+                return True
         for enemy in self.game.enemies:
             if projectile_rect.colliderect(enemy.rect()):
                 enemy.health -= 1
