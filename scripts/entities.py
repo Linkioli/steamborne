@@ -1,6 +1,7 @@
 import pygame
 import random
 import time
+from math import sin
 
 
 
@@ -80,6 +81,13 @@ class PhysicsEntity:
                 self.pos[1] = entity_rect.y
 
         self.animation.update()
+
+    def wave_value(self):
+        value = sin(pygame.time.get_ticks())
+        if value >= 0:
+            return 255
+        else:
+            return 0
 
     def sprite_flip(self, movement, flip):
         if movement[1] == 0:
@@ -207,7 +215,7 @@ class Player(PhysicsEntity):
         self.health = 6
         self.immune_clock = time.time()
         self.immune = False
-        self.immune_time = 1
+        self.immune_time = 0.5
 
     def update(self, tilemap, movement):
         # Check if the player is attacking, and set movement to [0, 0] if attacking.
@@ -250,15 +258,20 @@ class Player(PhysicsEntity):
         if self.health <= 0: return True
 
     def render(self, surf, offset=(0, 0)):
-        # offset the sprite animation, so the player doesn't 'move' when attacking
+        image = self.animation.img()
+        alpha = self.wave_value()
+        if self.immune:
+            image.set_alpha(alpha)
+        else:
+            image.set_alpha(255)
         if self.flip:
             img_offset = self.animation.img().get_width() - 16 
-            surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), (((self.pos[0] - img_offset) - 2) - offset[0], self.pos[1] - offset[1]))
+            surf.blit(pygame.transform.flip(image, self.flip, False), (((self.pos[0] - img_offset) - 2) - offset[0], self.pos[1] - offset[1]))
         elif self.direction == 'up':
             img_offset = self.animation.img().get_height() - 16 
-            surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), ((self.pos[0] - 2) - offset[0], (self.pos[1] - img_offset) - offset[1]))
+            surf.blit(pygame.transform.flip(image, self.flip, False), ((self.pos[0] - 2) - offset[0], (self.pos[1] - img_offset) - offset[1]))
         else:
-            surf.blit(pygame.transform.flip(self.animation.img(), self.flip, False), ((self.pos[0] - 2) - offset[0], (self.pos[1]) - offset[1]))
+            surf.blit(pygame.transform.flip(image, self.flip, False), ((self.pos[0] - 2) - offset[0], (self.pos[1]) - offset[1]))
 
 
 
