@@ -293,15 +293,16 @@ class Projectile():
             case 'right':
                 return self.sprite.get_rect(center = (self.pos[0], self.pos[1] + 2))
 
+    def render_pos(self, offset=(0, 0)):
+        render_pos = (self.pos[0] - offset[0], self.pos[1] - offset[1])
+        return render_pos
 
     def update(self, tilemap):
         projectile_rect = self.rect()
         for rect in tilemap.physics_rects_around(self.pos):
             if projectile_rect.colliderect(rect):
                 return True
-        for rect in tilemap.tile_type_around(self.pos, 'barriers'):
-            if projectile_rect.colliderect(rect):
-                return True
+
         for enemy in self.game.enemies:
             if projectile_rect.colliderect(enemy.rect()):
                 enemy.health -= 1
@@ -316,6 +317,13 @@ class Projectile():
                     self.pos[0] -= self.velocity
                 else:
                     self.pos[0] += self.velocity
+
+        offset = (int(self.game.offset[0]), int(self.game.offset[1]))
+        render_pos = self.render_pos(offset)
+        if render_pos[0] >= self.game.display.get_width() or render_pos[0] <= 0:
+            return True
+        if render_pos[1] >= self.game.display.get_height() or render_pos[1] <= 0:
+            return True
 
     def render(self, surf, offset=(0, 0)):
         match self.direction:
