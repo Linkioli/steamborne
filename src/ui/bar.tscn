@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://bl06am4k1477h"]
+
+[ext_resource type="Texture2D" uid="uid://36oqd23xa6a0" path="res://sprites/ui/ui-base.png" id="1_2wd5m"]
+
+[node name="Bar" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 160.0
+offset_bottom = 16.0
+texture = ExtResource("1_2wd5m")

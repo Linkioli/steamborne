@@ -1,75 +1,40 @@
-[gd_scene load_steps=5 format=3 uid="uid://ccff6rv7yanxl"]
+[gd_scene load_steps=6 format=4 uid="uid://ccff6rv7yanxl"]
 
 [ext_resource type="Texture2D" uid="uid://ct11esh70dmsq" path="res://sprites/tiles/tiles.png" id="1_aqxcj"]
 [ext_resource type="PackedScene" uid="uid://bsh1n5m7pu2ih" path="res://src/player/player.tscn" id="2_flpif"]
+[ext_resource type="PackedScene" uid="uid://bl06am4k1477h" path="res://src/ui/bar.tscn" id="3_rqqix"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gf21i"]
 texture = ExtResource("1_aqxcj")
 0:0/0 = 0
-0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:0/0 = 0
-1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-1:0/0/physics_layer_0/angular_velocity = 0.0
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:0/0 = 0
-2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-2:0/0/physics_layer_0/angular_velocity = 0.0
 3:0/0 = 0
-3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-3:0/0/physics_layer_0/angular_velocity = 0.0
 4:0/0 = 0
-4:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-4:0/0/physics_layer_0/angular_velocity = 0.0
 0:1/0 = 0
-0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:1/0/physics_layer_0/angular_velocity = 0.0
 0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:1/0 = 0
-1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-1:1/0/physics_layer_0/angular_velocity = 0.0
 1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:1/0 = 0
-2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-2:1/0/physics_layer_0/angular_velocity = 0.0
 3:1/0 = 0
-3:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-3:1/0/physics_layer_0/angular_velocity = 0.0
 4:1/0 = 0
-4:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-4:1/0/physics_layer_0/angular_velocity = 0.0
 0:2/0 = 0
-0:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:2/0/physics_layer_0/angular_velocity = 0.0
 0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:2/0 = 0
-1:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-1:2/0/physics_layer_0/angular_velocity = 0.0
 1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:2/0 = 0
-2:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-2:2/0/physics_layer_0/angular_velocity = 0.0
 2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 3:2/0 = 0
-3:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-3:2/0/physics_layer_0/angular_velocity = 0.0
 3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 0:3/0 = 0
-0:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:3/0/physics_layer_0/angular_velocity = 0.0
 0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:3/0 = 0
-1:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-1:3/0/physics_layer_0/angular_velocity = 0.0
 1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:3/0 = 0
-2:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-2:3/0/physics_layer_0/angular_velocity = 0.0
 2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 3:3/0 = 0
-3:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-3:3/0/physics_layer_0/angular_velocity = 0.0
 3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSet" id="TileSet_eu8ln"]
@@ -80,10 +45,22 @@ sources/0 = SubResource("TileSetAtlasSource_gf21i")
 [node name="World" type="TileMap"]
 tile_set = SubResource("TileSet_eu8ln")
 format = 2
-layer_0/name = "walls"
-layer_0/tile_data = PackedInt32Array(524297, 196608, 3, 524288, 131072, 3, 65545, 196608, 2, 65536, 131072, 2, 458761, 65536, 0, 393225, 65536, 0, 327689, 65536, 0, 262153, 65536, 0, 196617, 65536, 0, 131081, 65536, 0, 524296, 0, 1, 524295, 0, 1, 524294, 0, 1, 524293, 0, 1, 524292, 0, 1, 524291, 0, 1, 524290, 0, 1, 524289, 0, 1, 458752, 65536, 1, 393216, 65536, 1, 327680, 65536, 1, 262144, 65536, 1, 196608, 65536, 1, 131072, 65536, 1, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 0, 65544, 0, 0)
-layer_1/name = "floor"
-layer_1/tile_data = PackedInt32Array(327681, 262144, 0, 393217, 262144, 1, 458753, 262144, 1, 327682, 262144, 0, 393218, 262144, 1, 458754, 262144, 1, 327683, 262144, 0, 393219, 262144, 0, 458755, 262144, 1, 327684, 196608, 1, 393220, 262144, 0, 458756, 262144, 0, 327685, 196608, 1, 393221, 262144, 0, 458757, 262144, 0, 327686, 262144, 0, 393222, 262144, 0, 458758, 196608, 0, 327687, 262144, 0, 393223, 196608, 0, 458759, 196608, 0, 327688, 262144, 0, 393224, 196608, 0, 458760, 196608, 0, 196609, 196608, 0, 262145, 262144, 0, 196610, 196608, 0, 262146, 262144, 0, 196611, 262144, 0, 262147, 262144, 0, 196612, 262144, 0, 262148, 196608, 1, 196613, 262144, 0, 262149, 196608, 1, 196614, 262144, 0, 262150, 262144, 0, 196615, 262144, 1, 262151, 262144, 0, 196616, 262144, 1, 262152, 262144, 0, 131076, 262144, 0, 131077, 262144, 0, 131078, 262144, 1, 131079, 262144, 1, 131080, 262144, 1, 131073, 196608, 0, 131074, 196608, 0, 131075, 196608, 0)
+
+[node name="walls" type="TileMapLayer" parent="."]
+use_parent_material = true
+tile_map_data = PackedByteArray("AAAJAAgAAAADAAMAAAAAAAgAAAACAAMAAAAJAAEAAAADAAIAAAAAAAEAAAACAAIAAAAJAAcAAAABAAAAAAAJAAYAAAABAAAAAAAJAAUAAAABAAAAAAAJAAQAAAABAAAAAAAJAAMAAAABAAAAAAAJAAIAAAABAAAAAAAIAAgAAAAAAAEAAAAHAAgAAAAAAAEAAAAGAAgAAAAAAAEAAAAFAAgAAAAAAAEAAAAEAAgAAAAAAAEAAAADAAgAAAAAAAEAAAACAAgAAAAAAAEAAAABAAgAAAAAAAEAAAAAAAcAAAABAAEAAAAAAAYAAAABAAEAAAAAAAUAAAABAAEAAAAAAAQAAAABAAEAAAAAAAMAAAABAAEAAAAAAAIAAAABAAEAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAAHAAEAAAAAAAAAAAAIAAEAAAAAAAAAAAADAAEAAAABAAMAAAAGAAEAAAAAAAMAAAA=")
+tile_set = SubResource("TileSet_eu8ln")
+
+[node name="floor" type="TileMapLayer" parent="."]
+use_parent_material = true
+tile_map_data = PackedByteArray("AAABAAUAAAAEAAAAAAABAAYAAAAEAAEAAAABAAcAAAAEAAEAAAACAAUAAAAEAAAAAAACAAYAAAAEAAEAAAACAAcAAAAEAAEAAAADAAUAAAAEAAAAAAADAAYAAAAEAAAAAAADAAcAAAAEAAEAAAAEAAUAAAADAAEAAAAEAAYAAAAEAAAAAAAEAAcAAAAEAAAAAAAFAAUAAAADAAEAAAAFAAYAAAAEAAAAAAAFAAcAAAAEAAAAAAAGAAUAAAAEAAAAAAAGAAYAAAAEAAAAAAAGAAcAAAADAAAAAAAHAAUAAAAEAAAAAAAHAAYAAAADAAAAAAAHAAcAAAADAAAAAAAIAAUAAAAEAAAAAAAIAAYAAAADAAAAAAAIAAcAAAADAAAAAAABAAMAAAADAAAAAAABAAQAAAAEAAAAAAACAAMAAAADAAAAAAACAAQAAAAEAAAAAAADAAMAAAAEAAAAAAADAAQAAAAEAAAAAAAEAAMAAAAEAAAAAAAEAAQAAAADAAEAAAAFAAMAAAAEAAAAAAAFAAQAAAADAAEAAAAGAAMAAAAEAAAAAAAGAAQAAAAEAAAAAAAHAAMAAAAEAAEAAAAHAAQAAAAEAAAAAAAIAAMAAAAEAAEAAAAIAAQAAAAEAAAAAAAEAAIAAAAEAAAAAAAFAAIAAAAEAAAAAAAGAAIAAAAEAAEAAAAHAAIAAAAEAAEAAAAIAAIAAAAEAAEAAAABAAIAAAADAAAAAAACAAIAAAADAAAAAAADAAIAAAADAAAAAAAFAAEAAAACAAEAAAAEAAEAAAACAAEAAAA=")
+tile_set = SubResource("TileSet_eu8ln")
 
 [node name="Player" parent="." instance=ExtResource("2_flpif")]
 position = Vector2(80, 79)
+
+[node name="Bar" parent="Player" instance=ExtResource("3_rqqix")]
+offset_left = -80.0
+offset_top = -79.0
+offset_right = -40.0
+offset_bottom = -39.0
