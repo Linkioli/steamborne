@@ -3,6 +3,8 @@ extends Camera2D
 @export var player: CharacterBody2D
 @onready var size = Vector2(160, 128)
 
+const SPEED = 2
+
 var moving = false
 var movement = Vector2.ZERO
 var x_movement_factor = 0
@@ -10,14 +12,29 @@ var y_movement_factor = 0
 
 
 func _process(delta: float) -> void:
-	print(player.position)
-	global_position += movement
-	if moving:
-		y_movement_factor += 1
-	if y_movement_factor == 128:
+	global_position += movement * SPEED
+	if movement.y:
+		y_movement_factor += SPEED
+	if y_movement_factor >= 128:
 		movement = Vector2.ZERO
+		y_movement_factor = 0
 
 
-func _on_camera_area_body_exited(body: Node2D) -> void:
-	movement.y = -1
-	moving = true
+func _on_camera_north_trigger_body_entered(body: Node2D) -> void:
+	if not moving:
+		movement.y = -1
+
+
+func _on_camera_east_trigger_mouse_entered() -> void:
+	if not moving:
+		movement.x = -1
+
+
+func _on_camera_south_trigger_body_entered(body: Node2D) -> void:
+	if not moving:
+		movement.y = 1
+
+
+func _on_camera_west_trigger_body_entered(body: Node2D) -> void:
+	if not moving:
+		movement.x = 1

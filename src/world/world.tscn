@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://ccff6rv7yanxl"]
+[gd_scene load_steps=11 format=4 uid="uid://ccff6rv7yanxl"]
 
 [ext_resource type="Texture2D" uid="uid://ct11esh70dmsq" path="res://sprites/tiles/tiles.png" id="1_aqxcj"]
 [ext_resource type="PackedScene" uid="uid://bsh1n5m7pu2ih" path="res://src/player/player.tscn" id="2_flpif"]
@@ -43,8 +43,17 @@ physics_layer_0/collision_layer = 4
 physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_gf21i")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mec7v"]
-size = Vector2(160, 128)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8utac"]
+size = Vector2(160, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1e8uc"]
+size = Vector2(16, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3xknp"]
+size = Vector2(160, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_43ml1"]
+size = Vector2(16, 128)
 
 [node name="World" type="TileMap"]
 position = Vector2(0, -1)
@@ -53,7 +62,7 @@ format = 2
 
 [node name="walls" type="TileMapLayer" parent="."]
 use_parent_material = true
-tile_map_data = PackedByteArray("AAAJAAgAAAADAAMAAAAAAAgAAAACAAMAAAAJAAEAAAADAAIAAAAAAAEAAAACAAIAAAAJAAcAAAABAAAAAAAJAAYAAAABAAAAAAAJAAUAAAABAAAAAAAJAAQAAAABAAAAAAAJAAMAAAABAAAAAAAJAAIAAAABAAAAAAAIAAgAAAAAAAEAAAAHAAgAAAAAAAEAAAAGAAgAAAAAAAEAAAAFAAgAAAAAAAEAAAAEAAgAAAAAAAEAAAADAAgAAAAAAAEAAAACAAgAAAAAAAEAAAABAAgAAAAAAAEAAAAAAAcAAAABAAEAAAAAAAYAAAABAAEAAAAAAAUAAAABAAEAAAAAAAQAAAABAAEAAAAAAAMAAAABAAEAAAAAAAIAAAABAAEAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAAHAAEAAAAAAAAAAAAIAAEAAAAAAAAAAAADAAEAAAABAAMAAAAGAAEAAAAAAAMAAAADAAAAAAABAAIAAAAGAAAAAAAAAAIAAAAHAAAAAAAAAAEAAAAIAAAAAAAAAAEAAAABAAAAAAAAAAEAAAACAAAAAAAAAAEAAAAJAP//AAABAAAAAAAJAP7/AAABAAAAAAAJAP3/AAABAAAAAAAJAPz/AAABAAAAAAAJAPv/AAABAAAAAAAJAPr/AAABAAAAAAAAAP//AAABAAEAAAAAAP7/AAABAAEAAAAAAP3/AAABAAEAAAAAAPz/AAABAAEAAAAAAPv/AAABAAEAAAAAAPr/AAABAAEAAAACAPn/AAAAAAAAAAABAPn/AAAAAAAAAAADAPn/AAAAAAAAAAAEAPn/AAAAAAAAAAAFAPn/AAAAAAAAAAAGAPn/AAAAAAAAAAAHAPn/AAAAAAAAAAAIAPn/AAAAAAAAAAAAAAAAAAACAAMAAAAJAAAAAAADAAMAAAAJAPn/AAADAAIAAAAAAPn/AAACAAIAAAA=")
+tile_map_data = PackedByteArray("AAAJAAgAAAADAAMAAAAAAAgAAAACAAMAAAAJAAEAAAADAAIAAAAAAAEAAAACAAIAAAAJAAcAAAABAAAAAAAJAAYAAAABAAAAAAAJAAUAAAABAAAAAAAJAAQAAAABAAAAAAAJAAMAAAABAAAAAAAJAAIAAAABAAAAAAAIAAgAAAAAAAEAAAAHAAgAAAAAAAEAAAAGAAgAAAAAAAEAAAAFAAgAAAAAAAEAAAAEAAgAAAAAAAEAAAADAAgAAAAAAAEAAAACAAgAAAAAAAEAAAABAAgAAAAAAAEAAAAAAAcAAAABAAEAAAAAAAYAAAABAAEAAAAAAAMAAAABAAEAAAAAAAIAAAABAAEAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAAHAAEAAAAAAAAAAAAIAAEAAAAAAAAAAAADAAEAAAABAAMAAAAGAAEAAAAAAAMAAAADAAAAAAABAAIAAAAGAAAAAAAAAAIAAAAHAAAAAAAAAAEAAAAIAAAAAAAAAAEAAAABAAAAAAAAAAEAAAACAAAAAAAAAAEAAAAJAP//AAABAAAAAAAJAP7/AAABAAAAAAAJAP3/AAABAAAAAAAJAPz/AAABAAAAAAAJAPv/AAABAAAAAAAJAPr/AAABAAAAAAAAAP//AAABAAEAAAAAAP7/AAABAAEAAAAAAP3/AAABAAEAAAAAAPz/AAABAAEAAAAAAPv/AAABAAEAAAAAAPr/AAABAAEAAAACAPn/AAAAAAAAAAABAPn/AAAAAAAAAAADAPn/AAAAAAAAAAAEAPn/AAAAAAAAAAAFAPn/AAAAAAAAAAAGAPn/AAAAAAAAAAAHAPn/AAAAAAAAAAAIAPn/AAAAAAAAAAAAAAAAAAACAAMAAAAJAAAAAAADAAMAAAAJAPn/AAADAAIAAAAAAPn/AAACAAIAAAAAAAUAAAABAAEAAAAAAAQAAAABAAEAAAA=")
 tile_set = SubResource("TileSet_eu8ln")
 
 [node name="floor" type="TileMapLayer" parent="."]
@@ -71,11 +80,31 @@ player = NodePath("../Player")
 
 [node name="Bar" parent="Camera2D" instance=ExtResource("3_rqqix")]
 
-[node name="CameraArea" type="Area2D" parent="Camera2D"]
-collision_layer = 8
+[node name="camera_north_trigger" type="Area2D" parent="Camera2D"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/CameraArea"]
-position = Vector2(80, 80)
-shape = SubResource("RectangleShape2D_mec7v")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/camera_north_trigger"]
+position = Vector2(80, 8)
+shape = SubResource("RectangleShape2D_8utac")
 
-[connection signal="body_exited" from="Camera2D/CameraArea" to="Camera2D" method="_on_camera_area_body_exited"]
+[node name="camera_east_trigger" type="Area2D" parent="Camera2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/camera_east_trigger"]
+position = Vector2(-8, 80)
+shape = SubResource("RectangleShape2D_1e8uc")
+
+[node name="camera_south_trigger" type="Area2D" parent="Camera2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/camera_south_trigger"]
+position = Vector2(80, 152)
+shape = SubResource("RectangleShape2D_3xknp")
+
+[node name="camera_west_trigger" type="Area2D" parent="Camera2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/camera_west_trigger"]
+position = Vector2(168, 80)
+shape = SubResource("RectangleShape2D_43ml1")
+
+[connection signal="body_entered" from="Camera2D/camera_north_trigger" to="Camera2D" method="_on_camera_north_trigger_body_entered"]
+[connection signal="mouse_entered" from="Camera2D/camera_east_trigger" to="Camera2D" method="_on_camera_east_trigger_mouse_entered"]
+[connection signal="body_entered" from="Camera2D/camera_south_trigger" to="Camera2D" method="_on_camera_south_trigger_body_entered"]
+[connection signal="body_entered" from="Camera2D/camera_west_trigger" to="Camera2D" method="_on_camera_west_trigger_body_entered"]
