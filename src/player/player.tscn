@@ -246,7 +246,7 @@ transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition
 size = Vector2(12, 16)
 
 [node name="Player" type="CharacterBody2D"]
-collision_mask = 4
+collision_mask = 12
 script = ExtResource("1_4jh5n")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -256,9 +256,6 @@ libraries = {
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 deterministic = false
-libraries = {
-"": SubResource("AnimationLibrary_6hti1")
-}
 tree_root = SubResource("AnimationNodeStateMachine_nd8bb")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/idle = false
