@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://ba4w0xw2boc4h"]
+
+[ext_resource type="Texture2D" uid="uid://bgo0xx6smcyks" path="res://sprites/objects/lamp.png" id="1_ajy3x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3jh8o"]
+atlas = ExtResource("1_ajy3x")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hmku6"]
+atlas = ExtResource("1_ajy3x")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hypgh"]
+atlas = ExtResource("1_ajy3x")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4627l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3jh8o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hmku6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hypgh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_apnqx"]
+size = Vector2(16, 16)
+
+[node name="Lamp" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(8, 8)
+sprite_frames = SubResource("SpriteFrames_4627l")
+autoplay = "default"
+frame = 1
+frame_progress = 0.887874
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_apnqx")

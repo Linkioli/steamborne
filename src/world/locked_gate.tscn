@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://b6bdunv1fsbux"]
+
+[ext_resource type="Texture2D" uid="uid://bd2djtdow0f0e" path="res://sprites/objects/locked-gate.png" id="1_ttxmw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53ae4"]
+atlas = ExtResource("1_ttxmw")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qy27i"]
+atlas = ExtResource("1_ttxmw")
+region = Rect2(32, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4x4b"]
+atlas = ExtResource("1_ttxmw")
+region = Rect2(64, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fcmkw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_53ae4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qy27i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4x4b")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q4tjp"]
+size = Vector2(32, 16)
+
+[node name="LockedGate" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(16, 8)
+sprite_frames = SubResource("SpriteFrames_fcmkw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 8)
+shape = SubResource("RectangleShape2D_q4tjp")

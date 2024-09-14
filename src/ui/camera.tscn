@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://d38yb5eth1fy1"]
+
+[ext_resource type="Script" path="res://src/world/camera.gd" id="1_k34go"]
+[ext_resource type="PackedScene" uid="uid://bl06am4k1477h" path="res://src/ui/bar.tscn" id="2_k6q3h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8utac"]
+size = Vector2(160, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1e8uc"]
+size = Vector2(8, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3xknp"]
+size = Vector2(160, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_43ml1"]
+size = Vector2(8, 128)
+
+[node name="Camera" type="Camera2D"]
+process_mode = 3
+anchor_mode = 0
+script = ExtResource("1_k34go")
+
+[node name="Bar" parent="." instance=ExtResource("2_k6q3h")]
+
+[node name="camera_north_trigger" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="camera_north_trigger"]
+position = Vector2(80, 4)
+shape = SubResource("RectangleShape2D_8utac")
+
+[node name="camera_east_trigger" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="camera_east_trigger"]
+position = Vector2(-12, 80)
+shape = SubResource("RectangleShape2D_1e8uc")
+
+[node name="camera_south_trigger" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="camera_south_trigger"]
+position = Vector2(80, 156)
+shape = SubResource("RectangleShape2D_3xknp")
+
+[node name="camera_west_trigger" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="camera_west_trigger"]
+position = Vector2(172, 80)
+shape = SubResource("RectangleShape2D_43ml1")
+
+[connection signal="body_entered" from="camera_north_trigger" to="." method="_on_camera_north_trigger_body_entered"]
+[connection signal="body_entered" from="camera_east_trigger" to="." method="_on_camera_east_trigger_body_entered"]
+[connection signal="body_entered" from="camera_south_trigger" to="." method="_on_camera_south_trigger_body_entered"]
+[connection signal="body_entered" from="camera_west_trigger" to="." method="_on_camera_west_trigger_body_entered"]

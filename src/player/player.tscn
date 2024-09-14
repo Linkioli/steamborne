@@ -243,7 +243,7 @@ states/Walk/position = Vector2(636, 102)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_48vk8"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_qdccf"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_tbec7")]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kjgce"]
-size = Vector2(12, 16)
+size = Vector2(12, 15)
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 12
@@ -268,4 +268,5 @@ texture = ExtResource("2_yjw1l")
 hframes = 12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_kjgce")
