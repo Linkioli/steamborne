@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://bgg6fpogtwj07"]
+
+[ext_resource type="Texture2D" uid="uid://c3cw86cyd1gob" path="res://sprites/objects/block.png" id="1_canon"]
+[ext_resource type="Script" path="res://src/world/block.gd" id="1_id0nh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oywwc"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0rl4y"]
+size = Vector2(10, 1.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fssgt"]
+size = Vector2(1.5, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m0m02"]
+size = Vector2(10, 2.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n5c16"]
+size = Vector2(1.5, 10)
+
+[node name="Block" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_id0nh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8, 8)
+texture = ExtResource("1_canon")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_oywwc")
+
+[node name="Up" type="Area2D" parent="."]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Up"]
+position = Vector2(8, 0)
+shape = SubResource("RectangleShape2D_0rl4y")
+
+[node name="Down" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Down"]
+position = Vector2(16, 8)
+shape = SubResource("RectangleShape2D_fssgt")
+
+[node name="Left" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
+position = Vector2(8, 16)
+shape = SubResource("RectangleShape2D_m0m02")
+
+[node name="right" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="right"]
+position = Vector2(-0.25, 8)
+shape = SubResource("RectangleShape2D_n5c16")
+
+[connection signal="body_entered" from="Up" to="." method="_on_up_body_entered"]
+[connection signal="body_exited" from="Up" to="." method="_on_up_body_exited"]

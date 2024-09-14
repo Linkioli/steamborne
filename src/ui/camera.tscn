@@ -23,24 +23,28 @@ script = ExtResource("1_k34go")
 [node name="Bar" parent="." instance=ExtResource("2_k6q3h")]
 
 [node name="camera_north_trigger" type="Area2D" parent="."]
+collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="camera_north_trigger"]
 position = Vector2(80, 4)
 shape = SubResource("RectangleShape2D_8utac")
 
 [node name="camera_east_trigger" type="Area2D" parent="."]
+collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="camera_east_trigger"]
 position = Vector2(-12, 80)
 shape = SubResource("RectangleShape2D_1e8uc")
 
 [node name="camera_south_trigger" type="Area2D" parent="."]
+collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="camera_south_trigger"]
 position = Vector2(80, 156)
 shape = SubResource("RectangleShape2D_3xknp")
 
 [node name="camera_west_trigger" type="Area2D" parent="."]
+collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="camera_west_trigger"]
 position = Vector2(172, 80)

@@ -30,20 +30,20 @@ func _process(delta: float) -> void:
 
 
 func _on_camera_north_trigger_body_entered(body: Node2D) -> void:
-	if not moving:
+	if not moving and body.is_in_group('Player'):
 		movement.y = -1
 
 
 func _on_camera_east_trigger_body_entered(body: Node2D) -> void:
-	if not moving:
+	if not moving and body.is_in_group('Player'):
 		movement.x = -1
 
 
 func _on_camera_south_trigger_body_entered(body: Node2D) -> void:
-	if not moving:
+	if not moving and body.is_in_group('Player'):
 		movement.y = 1
 
 
 func _on_camera_west_trigger_body_entered(body: Node2D) -> void:
-	if not moving:
+	if not moving and body.is_in_group('Player'):
 		movement.x = 1

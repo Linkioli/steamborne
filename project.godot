@@ -24,6 +24,10 @@ window/size/window_width_override=800
 window/size/window_height_override=720
 window/stretch/mode="viewport"
 
+[global_group]
+
+Player=""
+
 [input]
 
 up={
@@ -53,6 +57,7 @@ right={
 2d_physics/layer_2="enemy"
 2d_physics/layer_3="world"
 2d_physics/layer_4="camera"
+2d_physics/layer_5="push"
 
 [rendering]
 

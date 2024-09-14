@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://ccff6rv7yanxl"]
+[gd_scene load_steps=10 format=4 uid="uid://ccff6rv7yanxl"]
 
 [ext_resource type="Texture2D" uid="uid://ct11esh70dmsq" path="res://sprites/tiles/tiles.png" id="1_aqxcj"]
 [ext_resource type="PackedScene" uid="uid://bsh1n5m7pu2ih" path="res://src/player/player.tscn" id="2_flpif"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d38yb5eth1fy1" path="res://src/ui/camera.tscn" id="4_4a1sy"]
 [ext_resource type="PackedScene" uid="uid://b6bdunv1fsbux" path="res://src/world/locked_gate.tscn" id="4_5rjvr"]
 [ext_resource type="PackedScene" uid="uid://ba4w0xw2boc4h" path="res://src/world/lamp.tscn" id="5_ie1fb"]
+[ext_resource type="PackedScene" uid="uid://bgg6fpogtwj07" path="res://src/world/block.tscn" id="5_tgp32"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gf21i"]
 texture = ExtResource("1_aqxcj")
@@ -86,6 +87,9 @@ position = Vector2(64, 0)
 [node name="LockedGate" parent="RoomProps/Room-0_1" instance=ExtResource("4_5rjvr")]
 position = Vector2(160, 48)
 rotation = 1.5708
+
+[node name="Block" parent="RoomProps/Room-0_1" instance=ExtResource("5_tgp32")]
+position = Vector2(96, 64)
 
 [node name="Player" parent="." instance=ExtResource("2_flpif")]
 position = Vector2(80, 76)
