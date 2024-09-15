@@ -21,7 +21,17 @@ func _physics_process(delta: float) -> void:
 	velocity.x = direction.x * SPEED
 	velocity.y = direction.y * SPEED
 
+	push()
+	
 	move_and_slide()
+
+
+func push():
+	if velocity != Vector2.ZERO:
+		if is_on_wall() and velocity.y == 0:
+			print(randi())
+		elif is_on_floor() and velocity.x == 0:
+			print(randi())
 
 
 func update_animation_parameters():
