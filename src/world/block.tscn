@@ -10,10 +10,10 @@ size = Vector2(16, 16)
 size = Vector2(10, 1.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fssgt"]
-size = Vector2(1.5, 10)
+size = Vector2(10, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m0m02"]
-size = Vector2(10, 2.5)
+size = Vector2(2, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n5c16"]
 size = Vector2(1.5, 10)
@@ -39,22 +39,31 @@ position = Vector2(8, 0)
 shape = SubResource("RectangleShape2D_0rl4y")
 
 [node name="Down" type="Area2D" parent="."]
+collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Down"]
-position = Vector2(16, 8)
+position = Vector2(8, 16)
 shape = SubResource("RectangleShape2D_fssgt")
 
 [node name="Left" type="Area2D" parent="."]
+collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
-position = Vector2(8, 16)
+position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_m0m02")
 
 [node name="right" type="Area2D" parent="."]
+collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="right"]
-position = Vector2(-0.25, 8)
+position = Vector2(16, 8)
 shape = SubResource("RectangleShape2D_n5c16")
 
 [connection signal="body_entered" from="Up" to="." method="_on_up_body_entered"]
 [connection signal="body_exited" from="Up" to="." method="_on_up_body_exited"]
+[connection signal="body_entered" from="Down" to="." method="_on_down_body_entered"]
+[connection signal="body_exited" from="Down" to="." method="_on_down_body_exited"]
+[connection signal="body_entered" from="Left" to="." method="_on_left_body_entered"]
+[connection signal="body_exited" from="Left" to="." method="_on_left_body_exited"]
+[connection signal="body_entered" from="right" to="." method="_on_right_body_entered"]
+[connection signal="body_exited" from="right" to="." method="_on_right_body_exited"]

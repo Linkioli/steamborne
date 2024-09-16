@@ -14,6 +14,12 @@ func _physics_process(delta: float) -> void:
 	if Global.player.pushing:
 		if up:
 			movement.y = 1
+		elif down:
+			movement.y = -1
+		elif left:
+			movement.x = 1
+		elif right:
+			movement.x = -1
 		else:
 			movement = Vector2.ZERO
 
@@ -31,3 +37,30 @@ func _on_up_body_entered(body: Node2D) -> void:
 func _on_up_body_exited(body: Node2D) -> void:
 	movement = Vector2.ZERO
 	up = false
+
+
+func _on_down_body_entered(body: Node2D) -> void:
+	down = true
+
+
+func _on_down_body_exited(body: Node2D) -> void:
+	movement = Vector2.ZERO
+	down = false
+
+
+func _on_left_body_entered(body: Node2D) -> void:
+	left = true
+
+
+func _on_left_body_exited(body: Node2D) -> void:
+	movement = Vector2.ZERO
+	left = false
+
+
+func _on_right_body_entered(body: Node2D) -> void:
+	right = true
+
+
+func _on_right_body_exited(body: Node2D) -> void:
+	movement = Vector2.ZERO
+	right = false
