@@ -52,10 +52,10 @@ collision_layer = 16
 position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_m0m02")
 
-[node name="right" type="Area2D" parent="."]
+[node name="Right" type="Area2D" parent="."]
 collision_layer = 16
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="right"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
 position = Vector2(16, 8)
 shape = SubResource("RectangleShape2D_n5c16")
 
@@ -65,5 +65,5 @@ shape = SubResource("RectangleShape2D_n5c16")
 [connection signal="body_exited" from="Down" to="." method="_on_down_body_exited"]
 [connection signal="body_entered" from="Left" to="." method="_on_left_body_entered"]
 [connection signal="body_exited" from="Left" to="." method="_on_left_body_exited"]
-[connection signal="body_entered" from="right" to="." method="_on_right_body_entered"]
-[connection signal="body_exited" from="right" to="." method="_on_right_body_exited"]
+[connection signal="body_entered" from="Right" to="." method="_on_right_body_entered"]
+[connection signal="body_exited" from="Right" to="." method="_on_right_body_exited"]

@@ -2,6 +2,11 @@ extends CharacterBody2D
 
 const SPEED = 50
 
+@export var up_disabled = false
+@export var down_disabled = false
+@export var left_disabled = false
+@export var right_disabled = false
+
 var movement = Vector2.ZERO
 
 var up = false
@@ -10,14 +15,25 @@ var left = false
 var right = false
 
 
+func _ready() -> void:
+	if up_disabled:
+		$Up/CollisionShape2D.disabled = true
+	if down_disabled:
+		$Down/CollisionShape2D.disabled = true
+	if left_disabled:
+		$Left/CollisionShape2D.disabled = true
+	if right_disabled:
+		$Right/CollisionShape2D.disabled = true
+
+
 func _physics_process(delta: float) -> void:
 	if Global.player.pushing:
 		if up:
-			movement.y = 1
+			movement.y = 2
 		elif down:
 			movement.y = -1
 		elif left:
-			movement.x = 1
+			movement.x = 2
 		elif right:
 			movement.x = -1
 		else:

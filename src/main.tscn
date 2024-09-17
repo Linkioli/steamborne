@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccff6rv7yanxl"]
-
-[ext_resource type="PackedScene" uid="uid://5omugitc0sdy" path="res://src/world/dungeon.tscn" id="1_2sfn5"]
-[ext_resource type="Script" path="res://src/main.gd" id="1_f8ono"]
-
-[node name="Main" type="Node"]
-script = ExtResource("1_f8ono")
-
-[node name="Dungeon" parent="." instance=ExtResource("1_2sfn5")]
