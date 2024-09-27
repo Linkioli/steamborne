@@ -1,9 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://bg2b3vkmu3xbe"]
+[gd_scene load_steps=4 format=3 uid="uid://bg2b3vkmu3xbe"]
 
 [ext_resource type="Texture2D" uid="uid://d3xg3cqougu7r" path="res://sprites/enemies/cannon.png" id="1_cmatf"]
+[ext_resource type="Script" path="res://src/enemies/canon.gd" id="2_yxf84"]
+[ext_resource type="PackedScene" uid="uid://w6u1v2mc77jy" path="res://src/enemies/projectile.tscn" id="3_0cw10"]
 
 [node name="Canon" type="Sprite2D"]
 texture = ExtResource("1_cmatf")
+script = ExtResource("2_yxf84")
+projectile_scene = ExtResource("3_0cw10")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(0, 4)
