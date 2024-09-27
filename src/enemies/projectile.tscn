@@ -5,7 +5,6 @@
 
 [node name="projectile" type="Area2D"]
 script = ExtResource("1_w6s5f")
-dir = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_ff36p")
