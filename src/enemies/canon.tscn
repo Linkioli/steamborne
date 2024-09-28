@@ -8,13 +8,13 @@
 texture = ExtResource("1_cmatf")
 script = ExtResource("2_yxf84")
 projectile_scene = ExtResource("3_0cw10")
-direction = "right"
+direction = "down"
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(0, 4)
 
 [node name="FireTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.2
 autostart = true
 
 [connection signal="timeout" from="FireTimer" to="." method="_on_fire_timer_timeout"]

@@ -2,7 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://36oqd23xa6a0" path="res://sprites/ui/ui-base.png" id="1_2wd5m"]
 
-[node name="Bar" type="Control"]
+[node name="Bar" type="Control" groups=["player"]]
+z_index = 1
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

@@ -6,7 +6,8 @@ extends Sprite2D
 
 func fire():
 	var projectile = projectile_scene.instantiate()
-	projectile.fire($Marker2D.position, direction)
+	get_tree().root.add_child(projectile)
+	projectile.fire($Marker2D.global_position, direction)
 
 
 func _on_fire_timer_timeout() -> void:

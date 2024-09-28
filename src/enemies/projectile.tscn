@@ -1,10 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://w6u1v2mc77jy"]
+[gd_scene load_steps=4 format=3 uid="uid://w6u1v2mc77jy"]
 
 [ext_resource type="Texture2D" uid="uid://by2jw8f0in5gf" path="res://sprites/enemies/projectile.png" id="1_ff36p"]
 [ext_resource type="Script" path="res://src/enemies/projectile.gd" id="1_w6s5f"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_qqpkf"]
+radius = 4.0
+
 [node name="projectile" type="Area2D"]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_w6s5f")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_ff36p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qqpkf")
+
+[node name="CollisionTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="CollisionTimer" to="." method="_on_collision_timer_timeout"]

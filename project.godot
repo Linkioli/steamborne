@@ -30,7 +30,8 @@ window/stretch/mode="viewport"
 
 [global_group]
 
-Player=""
+world_collisions=""
+player=""
 
 [input]
 
