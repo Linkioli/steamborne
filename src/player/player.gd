@@ -2,12 +2,16 @@ extends CharacterBody2D
 
 const SPEED = 100
 
+var health = 6
+
 var direction: Vector2
 var old_vector: Vector2
 
 var pushing = false
 
 @onready var animation_tree: AnimationTree = $AnimationTree
+
+signal damaged
 
 
 func _ready() -> void:
@@ -26,6 +30,11 @@ func _physics_process(delta: float) -> void:
 	push()
 	
 	move_and_slide()
+
+
+func damage(amount=1):
+	health -= amount
+	damaged.emit()
 
 
 func push():
