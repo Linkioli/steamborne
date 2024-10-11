@@ -1,13 +1,15 @@
 extends CharacterBody2D
 
-const SPEED = 100
+const SPEED = 85
+const KNOCKBACK_SPEED = -500
 
 var health = 6
 
 var direction: Vector2
-var old_vector: Vector2
+var knockback_vector: Vector2
 
 var pushing = false
+var is_knockback = false
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 
@@ -24,8 +26,15 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void: 
 	direction = Input.get_vector("left", "right", "up", "down")
-	velocity.x = direction.x * SPEED
-	velocity.y = direction.y * SPEED
+
+	if direction != Vector2.ZERO:
+		knockback_vector = direction	
+
+	if is_knockback:
+		knockback()
+	else:
+		velocity.x = direction.x * SPEED
+		velocity.y = direction.y * SPEED
 
 	push()
 	
@@ -35,6 +44,13 @@ func _physics_process(delta: float) -> void:
 func damage(amount=1):
 	health -= amount
 	damaged.emit()
+	$KnockBackTimer.start()
+	is_knockback = true
+
+
+func knockback():
+	velocity.x = knockback_vector.x * KNOCKBACK_SPEED
+	velocity.y = knockback_vector.y * KNOCKBACK_SPEED
 
 
 func push():
@@ -70,3 +86,7 @@ func update_animation_parameters():
 		animation_tree["parameters/Idle/blend_position"] = direction
 		animation_tree["parameters/Walk/blend_position"] = direction
 		animation_tree["parameters/Push/blend_position"] = direction
+
+
+func _on_knock_back_timer_timeout() -> void:
+	is_knockback = false	
