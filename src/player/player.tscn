@@ -394,7 +394,7 @@ position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_kjgce")
 
 [node name="KnockBackTimer" type="Timer" parent="."]
-wait_time = 0.025
+wait_time = 0.1
 one_shot = true
 
 [connection signal="timeout" from="KnockBackTimer" to="." method="_on_knock_back_timer_timeout"]

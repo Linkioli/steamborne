@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 const SPEED = 85
-const KNOCKBACK_SPEED = -500
+const KNOCKBACK_SPEED = -250
 
 var health = 6
 
