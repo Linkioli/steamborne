@@ -28,6 +28,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if Global.player.pushing:
+		# movement in the positive directions is twice as fast because it was moving half the speed for some reason
 		if up:
 			movement.y = 2
 		elif down:

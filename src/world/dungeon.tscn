@@ -96,13 +96,13 @@ position = Vector2(160, 48)
 rotation = 1.5708
 
 [node name="Block" parent="RoomProps/Room-0_1" instance=ExtResource("5_pugq3")]
-position = Vector2(48, 80)
+position = Vector2(32, 64)
 up_disabled = true
 down_disabled = true
 left_disabled = true
 
 [node name="Block2" parent="RoomProps/Room-0_1" instance=ExtResource("5_pugq3")]
-position = Vector2(16, 96)
+position = Vector2(32, 48)
 up_disabled = true
 down_disabled = true
 left_disabled = true
