@@ -99,4 +99,4 @@ position = Vector2(80, 76)
 [node name="Camera" parent="." instance=ExtResource("7_l57j6")]
 
 [node name="Block" parent="." instance=ExtResource("5_pugq3")]
-position = Vector2(24, -8)
+position = Vector2(24, -24)

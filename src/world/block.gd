@@ -10,12 +10,7 @@ var target_pos: Vector2
 var grid_pos: Vector2
 
 
-func _ready() -> void:
-	DynamicTiles.occupied_grids.append(Vector2(1, -4))
-
-
 func _process(delta: float) -> void:
-	print(DynamicTiles.occupied_grids)
 	if not moving:
 		grid_pos = floor(global_position / TILE_SIZE)
 		if grid_pos not in DynamicTiles.occupied_grids:

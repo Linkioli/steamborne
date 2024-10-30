@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://bgg6fpogtwj07"]
+[gd_scene load_steps=5 format=3 uid="uid://bgg6fpogtwj07"]
 
 [ext_resource type="Texture2D" uid="uid://c3cw86cyd1gob" path="res://sprites/objects/block.png" id="1_canon"]
 [ext_resource type="Script" path="res://src/world/block.gd" id="1_id0nh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yd0tt"]
 size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kci8q"]
+size = Vector2(6, 2)
 
 [node name="Block" type="StaticBody2D" groups=["world_collisions"]]
 collision_layer = 4
@@ -16,3 +19,9 @@ texture = ExtResource("1_canon")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_yd0tt")
+
+[node name="PushUp" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PushUp"]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_kci8q")
