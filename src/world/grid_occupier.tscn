@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://8t1ibfdg3lxp"]
+
+[ext_resource type="Script" path="res://src/world/grid_occupier.gd" id="1_od24r"]
+
+[node name="GridOccupier" type="Node2D"]
+script = ExtResource("1_od24r")

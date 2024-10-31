@@ -25,3 +25,13 @@ shape = SubResource("RectangleShape2D_yd0tt")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PushUp"]
 position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_kci8q")
+
+[node name="PushTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="PushCoolDownTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="PushUp" to="." method="_on_push_up_body_entered"]
+[connection signal="body_exited" from="PushUp" to="." method="_on_push_up_body_exited"]
+[connection signal="timeout" from="PushTimer" to="." method="_on_push_timer_timeout"]

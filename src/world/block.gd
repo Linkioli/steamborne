@@ -9,23 +9,27 @@ var moving = false
 var target_pos: Vector2
 var grid_pos: Vector2
 
+var up = false
+var down = false
+var left = false
+var right = false
+
+var push_timer_finished = false
 
 func _process(delta: float) -> void:
 	if not moving:
 		grid_pos = floor(global_position / TILE_SIZE)
 		if grid_pos not in DynamicTiles.occupied_grids:
 			DynamicTiles.occupied_grids.append(grid_pos)
-
-		if Input.is_action_just_pressed("block_test_up"):
-			direction = Vector2.UP
-		elif Input.is_action_just_pressed("block_test_down"):
-			direction = Vector2.DOWN
-		elif Input.is_action_just_pressed("block_test_left"):
-			direction = Vector2.LEFT
-		elif Input.is_action_just_pressed("block_test_right"):
-			direction = Vector2.RIGHT
+		
+		if Global.player.pushing and $PushCoolDownTimer.time_left == 0:
+			if up and Global.player.direction == Vector2.UP:
+				push(Vector2.UP)	
 		else:
 			direction = Vector2.ZERO
+
+		if not Global.player.pushing:
+			$PushTimer.stop()
 
 		# Set the target position and start moving
 		if direction != Vector2.ZERO:
@@ -40,6 +44,7 @@ func _process(delta: float) -> void:
 		if (global_position - target_pos).length() <= speed * delta:
 			global_position = target_pos
 			moving = false
+			$PushCoolDownTimer.start()
 
 
 func grid_availibility(pos):
@@ -48,3 +53,26 @@ func grid_availibility(pos):
 	else:
 		DynamicTiles.occupied_grids.erase(grid_pos)
 		return true
+
+
+func push(dir: Vector2):
+	if $PushTimer.time_left == 0:
+		$PushTimer.start()
+	if push_timer_finished:
+		direction = dir
+		push_timer_finished = false
+
+
+func _on_push_timer_timeout() -> void:
+	push_timer_finished = true
+
+
+func _on_push_up_body_entered(body: Node2D) -> void:
+	if body == Global.player:
+		up = true
+
+
+func _on_push_up_body_exited(body: Node2D) -> void:
+	if body == Global.player:
+		up = false
+		$PushTimer.stop()
