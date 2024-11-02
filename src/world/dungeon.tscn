@@ -94,8 +94,103 @@ position = Vector2(64, 0)
 position = Vector2(160, 48)
 rotation = 1.5708
 
-[node name="GridOccupier" parent="RoomProps/Room-0_1" instance=ExtResource("5_4n73a")]
-position = Vector2(24, 71)
+[node name="GridOccupiers" type="Node2D" parent="RoomProps/Room-0_1"]
+
+[node name="GridOccupier" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(8, 120)
+
+[node name="GridOccupier2" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(8, 104)
+
+[node name="GridOccupier3" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(8, 88)
+
+[node name="GridOccupier4" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(8, 72)
+
+[node name="GridOccupier5" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(8, 56)
+
+[node name="GridOccupier6" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(8, 40)
+
+[node name="GridOccupier7" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(8, 24)
+
+[node name="GridOccupier8" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(8, 8)
+
+[node name="GridOccupier9" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(24, 8)
+
+[node name="GridOccupier10" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(40, 8)
+
+[node name="GridOccupier11" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(56, 8)
+
+[node name="GridOccupier12" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(72, 8)
+
+[node name="GridOccupier13" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(88, 8)
+
+[node name="GridOccupier14" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(104, 8)
+
+[node name="GridOccupier15" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(120, 8)
+
+[node name="GridOccupier16" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(136, 8)
+
+[node name="GridOccupier17" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(152, 8)
+
+[node name="GridOccupier18" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(152, 24)
+
+[node name="GridOccupier19" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(152, 40)
+
+[node name="GridOccupier20" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(152, 56)
+
+[node name="GridOccupier21" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(152, 72)
+
+[node name="GridOccupier22" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(152, 88)
+
+[node name="GridOccupier23" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(152, 104)
+
+[node name="GridOccupier24" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(152, 120)
+
+[node name="GridOccupier25" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(136, 120)
+
+[node name="GridOccupier26" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(120, 120)
+
+[node name="GridOccupier27" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(104, 120)
+
+[node name="GridOccupier28" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(88, 120)
+
+[node name="GridOccupier29" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(72, 120)
+
+[node name="GridOccupier30" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(56, 120)
+
+[node name="GridOccupier31" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(40, 120)
+
+[node name="GridOccupier32" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
+position = Vector2(24, 120)
 
 [node name="Player" parent="." instance=ExtResource("6_4o7f5")]
 position = Vector2(80, 76)
