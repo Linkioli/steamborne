@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bgg6fpogtwj07"]
+[gd_scene load_steps=6 format=3 uid="uid://bgg6fpogtwj07"]
 
 [ext_resource type="Texture2D" uid="uid://c3cw86cyd1gob" path="res://sprites/objects/block.png" id="1_canon"]
 [ext_resource type="Script" path="res://src/world/block.gd" id="1_id0nh"]
@@ -8,6 +8,9 @@ size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kci8q"]
 size = Vector2(6, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ueddq"]
+size = Vector2(2, 6)
 
 [node name="Block" type="StaticBody2D" groups=["world_collisions"]]
 collision_layer = 4
@@ -26,7 +29,26 @@ shape = SubResource("RectangleShape2D_yd0tt")
 position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_kci8q")
 
+[node name="PushDown" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PushDown"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_kci8q")
+
+[node name="PushLeft" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PushLeft"]
+position = Vector2(8, 0)
+shape = SubResource("RectangleShape2D_ueddq")
+
+[node name="PushRight" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PushRight"]
+position = Vector2(-8, 0)
+shape = SubResource("RectangleShape2D_ueddq")
+
 [node name="PushTimer" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
 [node name="PushCoolDownTimer" type="Timer" parent="."]
@@ -34,4 +56,10 @@ one_shot = true
 
 [connection signal="body_entered" from="PushUp" to="." method="_on_push_up_body_entered"]
 [connection signal="body_exited" from="PushUp" to="." method="_on_push_up_body_exited"]
+[connection signal="body_entered" from="PushDown" to="." method="_on_push_down_body_entered"]
+[connection signal="body_exited" from="PushDown" to="." method="_on_push_down_body_exited"]
+[connection signal="body_entered" from="PushLeft" to="." method="_on_push_left_body_entered"]
+[connection signal="body_exited" from="PushLeft" to="." method="_on_push_left_body_exited"]
+[connection signal="body_entered" from="PushRight" to="." method="_on_push_right_body_entered"]
+[connection signal="body_exited" from="PushRight" to="." method="_on_push_right_body_exited"]
 [connection signal="timeout" from="PushTimer" to="." method="_on_push_timer_timeout"]

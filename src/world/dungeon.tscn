@@ -94,6 +94,9 @@ position = Vector2(64, 0)
 position = Vector2(160, 48)
 rotation = 1.5708
 
+[node name="Block" parent="RoomProps/Room-0_1" instance=ExtResource("5_pugq3")]
+position = Vector2(56, 88)
+
 [node name="GridOccupiers" type="Node2D" parent="RoomProps/Room-0_1"]
 
 [node name="GridOccupier" parent="RoomProps/Room-0_1/GridOccupiers" instance=ExtResource("5_4n73a")]
@@ -196,6 +199,3 @@ position = Vector2(24, 120)
 position = Vector2(80, 76)
 
 [node name="Camera" parent="." instance=ExtResource("7_l57j6")]
-
-[node name="Block" parent="." instance=ExtResource("5_pugq3")]
-position = Vector2(24, -24)

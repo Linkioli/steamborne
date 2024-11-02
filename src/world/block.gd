@@ -16,6 +16,22 @@ var right = false
 
 var push_timer_finished = false
 
+@export var up_disabled = false
+@export var down_disabled = false
+@export var left_disabled = false
+@export var right_disabled = false
+
+func _ready() -> void:
+	if up_disabled:
+		$PushUp/CollisionShape2D.disabled = true
+	if down_disabled:
+		$PushDown/CollisionShape2D.disabled = true
+	if left_disabled:
+		$PushLeft/CollisionShape2D.disabled = true
+	if right_disabled:
+		$PushRight/CollisionShape2D.disabled = true
+
+
 func _process(delta: float) -> void:
 	if not moving:
 		grid_pos = floor(global_position / TILE_SIZE)
@@ -25,6 +41,12 @@ func _process(delta: float) -> void:
 		if Global.player.pushing and $PushCoolDownTimer.time_left == 0:
 			if up and Global.player.direction == Vector2.UP:
 				push(Vector2.UP)	
+			if down and Global.player.direction == Vector2.DOWN:
+				push(Vector2.DOWN)	
+			if left and Global.player.direction == Vector2.LEFT:
+				push(Vector2.LEFT)	
+			if right and Global.player.direction == Vector2.RIGHT:
+				push(Vector2.RIGHT)	
 		else:
 			direction = Vector2.ZERO
 
@@ -75,4 +97,36 @@ func _on_push_up_body_entered(body: Node2D) -> void:
 func _on_push_up_body_exited(body: Node2D) -> void:
 	if body == Global.player:
 		up = false
+		$PushTimer.stop()
+
+
+func _on_push_down_body_entered(body: Node2D) -> void:
+	if body == Global.player:
+		down = true
+
+func _on_push_down_body_exited(body: Node2D) -> void:
+	if body == Global.player:
+		down = false
+		$PushTimer.stop()
+
+
+func _on_push_left_body_entered(body: Node2D) -> void:
+	if body == Global.player:
+		left = true
+
+
+func _on_push_left_body_exited(body: Node2D) -> void:
+	if body == Global.player:
+		left = false
+		$PushTimer.stop()
+
+
+func _on_push_right_body_entered(body: Node2D) -> void:
+	if body == Global.player:
+		right = true
+
+
+func _on_push_right_body_exited(body: Node2D) -> void:
+	if body == Global.player:
+		right = false
 		$PushTimer.stop()
