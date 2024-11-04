@@ -28,6 +28,15 @@ func _process(delta: float) -> void:
 		x_movement_factor = 0
 		get_tree().paused = false
 
+	if Input.is_action_just_pressed('ui_page_up'):
+		var current_screen_image = get_viewport().get_texture().get_image()
+		$ShaderTexture.texture = ImageTexture.create_from_image(current_screen_image)
+		$AnimationPlayer.play('pixelate')
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	$ShaderTexture.texture = null
+
 
 func _on_camera_north_trigger_body_entered(body: Node2D) -> void:
 	if not moving and body.is_in_group('player'):
