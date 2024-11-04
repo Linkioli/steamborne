@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://cwe0mty7avob7"]
+
+[ext_resource type="Texture2D" uid="uid://jmq0vyp2ko4u" path="res://sprites/objects/room-reset.png" id="1_0v6ag"]
+[ext_resource type="Script" path="res://src/world/reset_button.gd" id="1_gfb18"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dfi1"]
+atlas = ExtResource("1_0v6ag")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jkwb"]
+atlas = ExtResource("1_0v6ag")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6inkk"]
+atlas = ExtResource("1_0v6ag")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sijan"]
+atlas = ExtResource("1_0v6ag")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p4bps"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dfi1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2jkwb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6inkk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sijan")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8mekr"]
+size = Vector2(6, 6)
+
+[node name="ResetButton" type="Area2D"]
+script = ExtResource("1_gfb18")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_p4bps")
+autoplay = "default"
+frame_progress = 0.570845
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8mekr")
