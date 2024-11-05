@@ -90,7 +90,15 @@ func push(dir: Vector2):
 
 func reset():
 	DynamicTiles.occupied_grids.erase(grid_pos)
+	$PushTimer.stop()
+	push_timer_finished = false 
+	moving = false
+	direction = Vector2.ZERO
 	global_position = initial_pos
+	up = false
+	down = false
+	left = false
+	right = false
 
 
 func _on_push_timer_timeout() -> void:
