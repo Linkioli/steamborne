@@ -7,12 +7,12 @@
 size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kci8q"]
-size = Vector2(6, 2)
+size = Vector2(2, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ueddq"]
-size = Vector2(2, 6)
+size = Vector2(2, 2)
 
-[node name="Block" type="StaticBody2D" groups=["world_collisions"]]
+[node name="Block" type="StaticBody2D" groups=["resetable_objects"]]
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_id0nh")

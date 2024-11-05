@@ -32,8 +32,8 @@ window/stretch/scale_mode="integer"
 
 [global_group]
 
-world_collisions=""
 player=""
+resetable_objects="Objects in this groud should have a reset method, that is called when dungeon or rooms in certain areas need to be reset."
 
 [input]
 
@@ -89,5 +89,6 @@ block_test_right={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+environment/defaults/default_clear_color=Color(0.854902, 0.45098, 0.223529, 1)
 2d/snap/snap_2d_transforms_to_pixel=true
 2d/snap/snap_2d_vertices_to_pixel=true

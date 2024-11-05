@@ -6,6 +6,7 @@ var speed = 20
 var direction = Vector2.ZERO
 var moving = false
 
+var initial_pos: Vector2
 var target_pos: Vector2
 var grid_pos: Vector2
 
@@ -22,6 +23,8 @@ var push_timer_finished = false
 @export var right_disabled = false
 
 func _ready() -> void:
+	initial_pos = global_position
+
 	if up_disabled:
 		$PushUp/CollisionShape2D.disabled = true
 	if down_disabled:
@@ -83,6 +86,11 @@ func push(dir: Vector2):
 	if push_timer_finished:
 		direction = dir
 		push_timer_finished = false
+
+
+func reset():
+	DynamicTiles.occupied_grids.erase(grid_pos)
+	global_position = initial_pos
 
 
 func _on_push_timer_timeout() -> void:

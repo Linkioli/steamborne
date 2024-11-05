@@ -10,6 +10,8 @@ var x_movement_factor = 0
 var y_movement_factor = 0
 var movement = Vector2.ZERO
 
+signal pixel_transition_finished
+
 
 func _process(delta: float) -> void:
 	global_position += movement * SPEED
@@ -28,14 +30,21 @@ func _process(delta: float) -> void:
 		x_movement_factor = 0
 		get_tree().paused = false
 
-	if Input.is_action_just_pressed('ui_page_up'):
-		var current_screen_image = get_viewport().get_texture().get_image()
-		$ShaderTexture.texture = ImageTexture.create_from_image(current_screen_image)
-		$AnimationPlayer.play('pixelate')
+
+
+func pixel_transition():
+	get_tree().paused = true
+	$CanvasLayer/Pixelate.visible = true
+	$AnimationPlayer.play('pixelate')
+
+
+func emit_pixel_transition_signal():
+	pixel_transition_finished.emit()
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	$ShaderTexture.texture = null
+	get_tree().paused = false 
+	$CanvasLayer/Pixelate.visible = false	
 
 
 func _on_camera_north_trigger_body_entered(body: Node2D) -> void:
