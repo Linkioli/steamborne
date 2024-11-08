@@ -366,7 +366,7 @@ size = Vector2(12, 15)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 position = Vector2(0, -1)
-collision_mask = 30
+collision_mask = 28
 script = ExtResource("1_4jh5n")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://u1fg5cfm00xt"]
+[gd_scene load_steps=5 format=3 uid="uid://u1fg5cfm00xt"]
 
 [ext_resource type="Texture2D" uid="uid://1ny53ngb1jgk" path="res://sprites/enemies/rat.png" id="1_6j6b4"]
+[ext_resource type="Script" path="res://src/enemies/rat.gd" id="1_ye56p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7lmhq"]
 size = Vector2(15.75, 8)
@@ -9,6 +10,9 @@ size = Vector2(15.75, 8)
 size = Vector2(11, 14)
 
 [node name="Rat" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_ye56p")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_6j6b4")
@@ -21,3 +25,8 @@ shape = SubResource("RectangleShape2D_7lmhq")
 [node name="CollisionShapeV" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -2)
 shape = SubResource("RectangleShape2D_f22tu")
+
+[node name="MoveTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]

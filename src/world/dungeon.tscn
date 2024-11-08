@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://5omugitc0sdy"]
+[gd_scene load_steps=13 format=4 uid="uid://5omugitc0sdy"]
 
 [ext_resource type="Texture2D" uid="uid://ct11esh70dmsq" path="res://sprites/tiles/tiles.png" id="1_p3cqw"]
 [ext_resource type="PackedScene" uid="uid://ba4w0xw2boc4h" path="res://src/world/lamp.tscn" id="2_1jiqi"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bgg6fpogtwj07" path="res://src/world/block.tscn" id="5_pugq3"]
 [ext_resource type="PackedScene" uid="uid://bsh1n5m7pu2ih" path="res://src/player/player.tscn" id="6_4o7f5"]
 [ext_resource type="PackedScene" uid="uid://d38yb5eth1fy1" path="res://src/ui/camera.tscn" id="7_l57j6"]
+[ext_resource type="PackedScene" uid="uid://u1fg5cfm00xt" path="res://src/enemies/rat.tscn" id="10_fka67"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gf21i"]
 texture = ExtResource("1_p3cqw")
@@ -257,3 +258,6 @@ position = Vector2(40, 24)
 position = Vector2(80, 76)
 
 [node name="Camera" parent="." instance=ExtResource("7_l57j6")]
+
+[node name="Rat" parent="." instance=ExtResource("10_fka67")]
+position = Vector2(105, -56)
