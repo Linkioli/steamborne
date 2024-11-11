@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=4 uid="uid://5omugitc0sdy"]
+[gd_scene load_steps=14 format=4 uid="uid://5omugitc0sdy"]
 
 [ext_resource type="Texture2D" uid="uid://ct11esh70dmsq" path="res://sprites/tiles/tiles.png" id="1_p3cqw"]
 [ext_resource type="PackedScene" uid="uid://ba4w0xw2boc4h" path="res://src/world/lamp.tscn" id="2_1jiqi"]
 [ext_resource type="PackedScene" uid="uid://cwe0mty7avob7" path="res://src/world/reset_button.tscn" id="3_3frnx"]
+[ext_resource type="PackedScene" uid="uid://trcnrj0jty47" path="res://src/world/enemy_barrier.tscn" id="3_40n1s"]
 [ext_resource type="PackedScene" uid="uid://011isjv5lkx0" path="res://src/world/rusted_gate.tscn" id="3_sijgw"]
 [ext_resource type="PackedScene" uid="uid://b6bdunv1fsbux" path="res://src/world/locked_gate.tscn" id="4_v18n8"]
 [ext_resource type="PackedScene" uid="uid://8t1ibfdg3lxp" path="res://src/world/grid_occupier.tscn" id="5_4n73a"]
@@ -86,6 +87,12 @@ position = Vector2(47, 80)
 [node name="Lamp4" parent="RoomProps/Room_0_0" instance=ExtResource("2_1jiqi")]
 position = Vector2(96, 80)
 
+[node name="EnemyBarrier" parent="RoomProps/Room_0_0" instance=ExtResource("3_40n1s")]
+position = Vector2(72, 8)
+
+[node name="EnemyBarrier2" parent="RoomProps/Room_0_0" instance=ExtResource("3_40n1s")]
+position = Vector2(88, 8)
+
 [node name="Room_0_1" type="Node2D" parent="RoomProps"]
 position = Vector2(0, -112)
 
@@ -113,6 +120,18 @@ position = Vector2(64, 0)
 [node name="LockedGate" parent="RoomProps/Room_0_1" instance=ExtResource("4_v18n8")]
 position = Vector2(160, 48)
 rotation = 1.5708
+
+[node name="EnemyBarrier" parent="RoomProps/Room_0_1" instance=ExtResource("3_40n1s")]
+position = Vector2(72, 120)
+
+[node name="EnemyBarrier2" parent="RoomProps/Room_0_1" instance=ExtResource("3_40n1s")]
+position = Vector2(88, 120)
+
+[node name="EnemyBarrier3" parent="RoomProps/Room_0_1" instance=ExtResource("3_40n1s")]
+position = Vector2(8, 72)
+
+[node name="EnemyBarrier4" parent="RoomProps/Room_0_1" instance=ExtResource("3_40n1s")]
+position = Vector2(8, 56)
 
 [node name="GridOccupiers" type="Node2D" parent="RoomProps/Room_0_1"]
 

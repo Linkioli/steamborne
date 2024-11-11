@@ -85,6 +85,7 @@ block_test_right={
 2d_physics/layer_3="world"
 2d_physics/layer_4="camera"
 2d_physics/layer_5="push"
+2d_physics/layer_6="enemy_barriers"
 
 [rendering]
 

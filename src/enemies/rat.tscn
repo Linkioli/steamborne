@@ -227,7 +227,7 @@ size = Vector2(14, 6)
 
 [node name="Rat" type="CharacterBody2D"]
 collision_layer = 2
-collision_mask = 4
+collision_mask = 36
 script = ExtResource("1_ye56p")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
