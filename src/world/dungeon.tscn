@@ -234,45 +234,6 @@ position = Vector2(24, 120)
 [node name="Room_-1_1" type="Node2D" parent="RoomProps"]
 position = Vector2(-160, -112)
 
-[node name="Block" parent="RoomProps/Room_-1_1" instance=ExtResource("5_pugq3")]
-position = Vector2(72, 72)
-
-[node name="Block2" parent="RoomProps/Room_-1_1" instance=ExtResource("5_pugq3")]
-position = Vector2(56, 56)
-
-[node name="Block3" parent="RoomProps/Room_-1_1" instance=ExtResource("5_pugq3")]
-position = Vector2(104, 72)
-
-[node name="Block4" parent="RoomProps/Room_-1_1" instance=ExtResource("5_pugq3")]
-position = Vector2(120, 72)
-
-[node name="Block6" parent="RoomProps/Room_-1_1" instance=ExtResource("5_pugq3")]
-position = Vector2(24, 104)
-
-[node name="Block7" parent="RoomProps/Room_-1_1" instance=ExtResource("5_pugq3")]
-position = Vector2(88, 56)
-
-[node name="Block8" parent="RoomProps/Room_-1_1" instance=ExtResource("5_pugq3")]
-position = Vector2(88, 88)
-
-[node name="Block5" parent="RoomProps/Room_-1_1" instance=ExtResource("5_pugq3")]
-position = Vector2(40, 72)
-
-[node name="Block9" parent="RoomProps/Room_-1_1" instance=ExtResource("5_pugq3")]
-position = Vector2(72, 88)
-
-[node name="Block10" parent="RoomProps/Room_-1_1" instance=ExtResource("5_pugq3")]
-position = Vector2(56, 88)
-
-[node name="Block11" parent="RoomProps/Room_-1_1" instance=ExtResource("5_pugq3")]
-position = Vector2(136, 88)
-
-[node name="Block12" parent="RoomProps/Room_-1_1" instance=ExtResource("5_pugq3")]
-position = Vector2(24, 40)
-
-[node name="Block13" parent="RoomProps/Room_-1_1" instance=ExtResource("5_pugq3")]
-position = Vector2(40, 24)
-
 [node name="Player" parent="." instance=ExtResource("6_4o7f5")]
 position = Vector2(80, 76)
 

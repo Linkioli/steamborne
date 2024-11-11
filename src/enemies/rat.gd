@@ -83,3 +83,8 @@ func is_colliding():
 func _on_move_timer_timeout() -> void:
 	set_dir()
 	$MoveTimer.start()
+
+
+func _on_hitbox_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		body.damage()
