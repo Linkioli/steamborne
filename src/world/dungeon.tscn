@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=4 uid="uid://5omugitc0sdy"]
+[gd_scene load_steps=17 format=4 uid="uid://5omugitc0sdy"]
 
 [ext_resource type="Texture2D" uid="uid://ct11esh70dmsq" path="res://sprites/tiles/tiles.png" id="1_p3cqw"]
 [ext_resource type="PackedScene" uid="uid://ba4w0xw2boc4h" path="res://src/world/lamp.tscn" id="2_1jiqi"]
+[ext_resource type="Texture2D" uid="uid://dtud0mpyb5tpu" path="res://sprites/tiles/tracks.png" id="2_d5wct"]
 [ext_resource type="PackedScene" uid="uid://cwe0mty7avob7" path="res://src/world/reset_button.tscn" id="3_3frnx"]
 [ext_resource type="PackedScene" uid="uid://trcnrj0jty47" path="res://src/world/enemy_barrier.tscn" id="3_40n1s"]
 [ext_resource type="PackedScene" uid="uid://011isjv5lkx0" path="res://src/world/rusted_gate.tscn" id="3_sijgw"]
@@ -11,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bsh1n5m7pu2ih" path="res://src/player/player.tscn" id="6_4o7f5"]
 [ext_resource type="PackedScene" uid="uid://d38yb5eth1fy1" path="res://src/ui/camera.tscn" id="7_l57j6"]
 [ext_resource type="PackedScene" uid="uid://u1fg5cfm00xt" path="res://src/enemies/rat.tscn" id="10_fka67"]
+[ext_resource type="PackedScene" uid="uid://ddvfnlyq7m4fr" path="res://src/world/rail_cart.tscn" id="13_nc26v"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gf21i"]
 texture = ExtResource("1_p3cqw")
@@ -46,10 +48,18 @@ texture = ExtResource("1_p3cqw")
 3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 4:2/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w6chg"]
+texture = ExtResource("2_d5wct")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_eu8ln"]
 physics_layer_0/collision_layer = 4
 physics_layer_0/collision_mask = 4
 sources/0 = SubResource("TileSetAtlasSource_gf21i")
+sources/1 = SubResource("TileSetAtlasSource_w6chg")
 
 [node name="Dungeon" type="TileMap"]
 position = Vector2(0, -1)
@@ -63,6 +73,7 @@ tile_set = SubResource("TileSet_eu8ln")
 
 [node name="FloorOverlay" type="TileMapLayer" parent="."]
 use_parent_material = true
+tile_map_data = PackedByteArray("AAD9//7/AQADAAAAAAD8//7/AQADAAAAAAD7//7/AQADAAAAAAD6//7/AQADAAAAAAD5//7/AQADAAAAAAD4//7/AQABAAAAAAA=")
 tile_set = SubResource("TileSet_eu8ln")
 
 [node name="Walls" type="TileMapLayer" parent="."]
@@ -233,6 +244,17 @@ position = Vector2(24, 120)
 
 [node name="Room_-1_1" type="Node2D" parent="RoomProps"]
 position = Vector2(-160, -112)
+
+[node name="RailCart" parent="RoomProps/Room_-1_1" instance=ExtResource("13_nc26v")]
+position = Vector2(120, 88)
+
+[node name="RailOccupier" parent="RoomProps/Room_-1_1" instance=ExtResource("5_4n73a")]
+position = Vector2(136, 88)
+rail_cart = true
+
+[node name="RailOccupier2" parent="RoomProps/Room_-1_1" instance=ExtResource("5_4n73a")]
+position = Vector2(24, 88)
+rail_cart = true
 
 [node name="Player" parent="." instance=ExtResource("6_4o7f5")]
 position = Vector2(80, 76)

@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=3 uid="uid://ddvfnlyq7m4fr"]
+
+[ext_resource type="Script" path="res://src/world/rail_cart.gd" id="1_622qa"]
+[ext_resource type="Texture2D" uid="uid://bce4th8lsu2vy" path="res://sprites/objects/rail_cart.png" id="2_pn3lm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yd0tt"]
+size = Vector2(14, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kci8q"]
+size = Vector2(2, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ueddq"]
+size = Vector2(2, 2)
+
+[node name="RailCart" type="StaticBody2D" groups=["resetable_objects"]]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_622qa")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -3)
+texture = ExtResource("2_pn3lm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_yd0tt")
+
+[node name="PushUp" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PushUp"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_kci8q")
+
+[node name="PushDown" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PushDown"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_kci8q")
+
+[node name="PushLeft" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PushLeft"]
+position = Vector2(7, 0)
+shape = SubResource("RectangleShape2D_ueddq")
+
+[node name="PushRight" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PushRight"]
+position = Vector2(-7, 0)
+shape = SubResource("RectangleShape2D_ueddq")
+
+[node name="PushTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="body_entered" from="PushUp" to="." method="_on_push_up_body_entered"]
+[connection signal="body_exited" from="PushUp" to="." method="_on_push_up_body_exited"]
+[connection signal="body_entered" from="PushDown" to="." method="_on_push_down_body_entered"]
+[connection signal="body_exited" from="PushDown" to="." method="_on_push_down_body_exited"]
+[connection signal="body_entered" from="PushLeft" to="." method="_on_push_left_body_entered"]
+[connection signal="body_exited" from="PushLeft" to="." method="_on_push_left_body_exited"]
+[connection signal="body_entered" from="PushRight" to="." method="_on_push_right_body_entered"]
+[connection signal="body_exited" from="PushRight" to="." method="_on_push_right_body_exited"]
+[connection signal="timeout" from="PushTimer" to="." method="_on_push_timer_timeout"]
