@@ -15,6 +15,7 @@ var is_knockback = false
 
 signal damaged
 
+# TODO: Rewrite current animation logic to use a state machine
 
 func _ready() -> void:
 	animation_tree.active = true
