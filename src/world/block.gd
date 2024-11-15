@@ -17,6 +17,8 @@ var right = false
 
 var push_timer_finished = false
 
+var player
+
 @export var up_disabled = false
 @export var down_disabled = false
 @export var left_disabled = false
@@ -36,12 +38,14 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	player = Global.player
+
 	if not moving:
 		grid_pos = floor(global_position / TILE_SIZE)
 		if grid_pos not in DynamicTiles.occupied_grids:
 			DynamicTiles.occupied_grids.append(grid_pos)
 		
-		if Global.player.pushing and $PushCoolDownTimer.time_left == 0:
+		if player.current_state == player.State.PUSH and $PushCoolDownTimer.time_left == 0:
 			if up and Global.player.direction == Vector2.UP:
 				push(Vector2.UP)	
 			if down and Global.player.direction == Vector2.DOWN:
@@ -53,7 +57,7 @@ func _process(delta: float) -> void:
 		else:
 			direction = Vector2.ZERO
 
-		if not Global.player.pushing:
+		if player.current_state != player.State.PUSH:
 			$PushTimer.stop()
 
 		# Set the target position and start moving
@@ -119,6 +123,7 @@ func _on_push_up_body_exited(body: Node2D) -> void:
 func _on_push_down_body_entered(body: Node2D) -> void:
 	if body == Global.player:
 		down = true
+
 
 func _on_push_down_body_exited(body: Node2D) -> void:
 	if body == Global.player:

@@ -8,14 +8,16 @@ var health = 6
 var direction: Vector2
 var knockback_vector: Vector2
 
-var pushing = false
 var is_knockback = false
+var attacking = false
 
-@onready var animation_tree: AnimationTree = $AnimationTree
+var current_state
+enum State {IDLE, WALK, PUSH, STAB}
 
 signal damaged
 
-# TODO: Rewrite current animation logic to use a state machine
+@onready var animation_tree: AnimationTree = $AnimationTree
+
 
 func _ready() -> void:
 	animation_tree.active = true
@@ -27,6 +29,8 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void: 
 	direction = Input.get_vector("left", "right", "up", "down")
+	if attacking:
+		direction = Vector2.ZERO
 
 	if direction != Vector2.ZERO:
 		knockback_vector = direction	
@@ -37,7 +41,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = direction.x * SPEED
 		velocity.y = direction.y * SPEED
 
-	push()
+	state_machine()
 	
 	move_and_slide()
 
@@ -54,40 +58,64 @@ func knockback():
 	velocity.y = knockback_vector.y * KNOCKBACK_SPEED
 
 
-func push():
-	if velocity != Vector2.ZERO:
+func attack_finished():
+	attacking = false
+
+
+func state_machine():
+	if velocity == Vector2.ZERO:
+		if not attacking:
+			current_state = State.IDLE
+
+	if velocity != Vector2.ZERO and not attacking:
 		if is_on_wall() and velocity.y == 0:
-			pushing = true
+			current_state = State.PUSH
 		elif is_on_floor() and velocity.x == 0:
-			pushing = true
+			current_state = State.PUSH
 		elif is_on_ceiling() and velocity.x == 0:
-			pushing = true
+			current_state = State.PUSH
 		else:
-			pushing = false
-	else:
-		pushing = false
+			current_state = State.WALK
+	
+	if Input.is_action_just_pressed('attack'):
+		if not attacking:
+			attacking = true
+			current_state = State.STAB
 
 
 func update_animation_parameters():
-	if velocity == Vector2.ZERO:
-		animation_tree["parameters/conditions/idle"] = true
-		animation_tree["parameters/conditions/is_moving"] = false
-		animation_tree["parameters/conditions/is_pushing"] = false 
-	else:
-		animation_tree["parameters/conditions/idle"] = false
-		animation_tree["parameters/conditions/is_moving"] = true
-		animation_tree["parameters/conditions/is_pushing"] = false 
-	
-	if pushing:
-		animation_tree["parameters/conditions/idle"] = false 
-		animation_tree["parameters/conditions/is_moving"] = false
-		animation_tree["parameters/conditions/is_pushing"] = true
+	match current_state:
+		State.IDLE:
+			animation_tree["parameters/conditions/idle"] = true
+			animation_tree["parameters/conditions/is_moving"] = false
+			animation_tree["parameters/conditions/is_pushing"] = false 
+			animation_tree['parameters/conditions/is_stabbing'] = false
+		State.WALK:
+			animation_tree["parameters/conditions/idle"] = false
+			animation_tree["parameters/conditions/is_moving"] = true
+			animation_tree["parameters/conditions/is_pushing"] = false 
+			animation_tree['parameters/conditions/is_stabbing'] = false
+		State.PUSH:
+			animation_tree["parameters/conditions/idle"] = false 
+			animation_tree["parameters/conditions/is_moving"] = false
+			animation_tree["parameters/conditions/is_pushing"] = true
+			animation_tree['parameters/conditions/is_stabbing'] = false
+		State.STAB:
+			animation_tree["parameters/conditions/idle"] = false 
+			animation_tree["parameters/conditions/is_moving"] = false
+			animation_tree["parameters/conditions/is_pushing"] = false
+			animation_tree['parameters/conditions/is_stabbing'] = true
 
 	if direction != Vector2.ZERO:
 		animation_tree["parameters/Idle/blend_position"] = direction
 		animation_tree["parameters/Walk/blend_position"] = direction
 		animation_tree["parameters/Push/blend_position"] = direction
+		animation_tree["parameters/Stab/blend_position"] = direction
 
 
 func _on_knock_back_timer_timeout() -> void:
 	is_knockback = false	
+
+
+func _on_animation_player_animation_changed(old_name: StringName, new_name: StringName) -> void:
+	print('test')

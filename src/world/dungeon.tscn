@@ -262,4 +262,4 @@ position = Vector2(80, 76)
 [node name="Camera" parent="." instance=ExtResource("7_l57j6")]
 
 [node name="Rat" parent="." instance=ExtResource("10_fka67")]
-position = Vector2(105, -56)
+position = Vector2(88, -48)
