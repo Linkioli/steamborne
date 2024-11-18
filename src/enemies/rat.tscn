@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://u1fg5cfm00xt"]
+[gd_scene load_steps=12 format=3 uid="uid://u1fg5cfm00xt"]
 
 [ext_resource type="Texture2D" uid="uid://1ny53ngb1jgk" path="res://sprites/enemies/rat.png" id="1_6j6b4"]
 [ext_resource type="Script" path="res://src/enemies/rat.gd" id="1_ye56p"]
+[ext_resource type="Script" path="res://src/components/hitbox.gd" id="3_5ljvn"]
 
 [sub_resource type="Animation" id="Animation_yhfv1"]
 length = 0.001
@@ -244,6 +245,7 @@ shape = SubResource("RectangleShape2D_tqty8")
 
 [node name="Hitbox" type="Area2D" parent="."]
 position = Vector2(1, 0)
+script = ExtResource("3_5ljvn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(-1, 0)
