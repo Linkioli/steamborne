@@ -100,11 +100,17 @@ func attack_finished():
 
 
 func state_machine():
-	if velocity == Vector2.ZERO:
-		if not attacking:
-			current_state = State.IDLE
+	if attacking:
+		current_state = State.STAB
+		return
+	 
+	if Input.is_action_just_pressed("attack") and not attacking:
+		attacking = true
+		current_state = State.STAB
 
-	if velocity != Vector2.ZERO and not attacking:
+	if velocity == Vector2.ZERO:
+		current_state = State.IDLE
+	else:
 		if is_on_wall() and velocity.y == 0:
 			current_state = State.PUSH
 		elif is_on_floor() and velocity.x == 0:
@@ -113,11 +119,6 @@ func state_machine():
 			current_state = State.PUSH
 		else:
 			current_state = State.WALK
-	
-	if Input.is_action_just_pressed('attack'):
-		if not attacking:
-			attacking = true
-			current_state = State.STAB
 
 
 func update_animation_parameters():
