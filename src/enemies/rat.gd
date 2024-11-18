@@ -7,6 +7,7 @@ var speed = 50
 var direction: Vector2
 
 
+# TODO: Add health and damage logic
 func _ready() -> void:
 	set_dir()	
 

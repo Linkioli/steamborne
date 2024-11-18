@@ -582,6 +582,9 @@ shape = SubResource("RectangleShape2D_kjgce")
 wait_time = 0.1
 one_shot = true
 
+[node name="ImmuneTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="HurtBoxPivot" type="Node2D" parent="."]
 
 [node name="HurtBox" type="Area2D" parent="HurtBoxPivot" groups=["attack_boxes"]]
@@ -592,3 +595,4 @@ position = Vector2(0, 11)
 shape = SubResource("RectangleShape2D_ubl2d")
 
 [connection signal="timeout" from="KnockBackTimer" to="." method="_on_knock_back_timer_timeout"]
+[connection signal="timeout" from="ImmuneTimer" to="." method="_on_immune_timer_timeout"]

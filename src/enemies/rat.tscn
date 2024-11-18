@@ -249,6 +249,7 @@ position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_32l1k")
 
 [node name="MoveTimer" type="Timer" parent="."]
+editor_description = "Timer for the rat to change direction"
 autostart = true
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]

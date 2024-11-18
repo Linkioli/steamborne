@@ -10,6 +10,7 @@ var idle_direction = Vector2.DOWN
 var knockback_vector: Vector2
 
 var is_knockback = false
+var immune = false
 var attacking = false
 
 var current_state
@@ -19,7 +20,7 @@ signal damaged
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 
-# TODO: fix bug where Hurbox isn't acurate to the player's direction when moving diagonally
+
 func _ready() -> void:
 	animation_tree.active = true
 	$HurtBoxPivot/HurtBox/CollisionShape2D.disabled = true
@@ -28,6 +29,13 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	update_animation_parameters()
 
+	# playing blinking on immune timer
+	if immune:
+		if sin(Time.get_ticks_msec()) <= 0:
+			$Sprite2D.visible = true
+		else:
+			$Sprite2D.visible = false
+
 
 func _physics_process(delta: float) -> void: 
 	direction = Input.get_vector("left", "right", "up", "down")
@@ -35,7 +43,13 @@ func _physics_process(delta: float) -> void:
 		direction = Vector2.ZERO
 
 	if direction != Vector2.ZERO:
-		idle_direction = direction
+		if direction.y != 0 and direction.x != 0:
+			if direction.y > 0:
+				idle_direction = Vector2.DOWN
+			if direction.y < 0:
+				idle_direction = Vector2.UP
+		else:
+			idle_direction = direction
 		knockback_vector = direction	
 
 	if is_knockback:
@@ -50,10 +64,13 @@ func _physics_process(delta: float) -> void:
 
 
 func damage(amount=1):
-	health -= amount
-	damaged.emit()
-	$KnockBackTimer.start()
-	is_knockback = true
+	if not immune:
+		health -= amount
+		immune = true
+		$ImmuneTimer.start()
+		$KnockBackTimer.start()
+		is_knockback = true
+		damaged.emit()
 
 
 func knockback():
@@ -137,5 +154,6 @@ func _on_knock_back_timer_timeout() -> void:
 	is_knockback = false	
 
 
-func _on_animation_player_animation_changed(old_name: StringName, new_name: StringName) -> void:
-	print('test')
+func _on_immune_timer_timeout() -> void:
+	immune = false	
+	$Sprite2D.visible = true
