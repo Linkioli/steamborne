@@ -251,5 +251,7 @@ shape = SubResource("RectangleShape2D_32l1k")
 [node name="MoveTimer" type="Timer" parent="."]
 autostart = true
 
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
