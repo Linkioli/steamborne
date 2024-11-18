@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://bsh1n5m7pu2ih"]
+[gd_scene load_steps=57 format=3 uid="uid://bsh1n5m7pu2ih"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_4jh5n"]
 [ext_resource type="Texture2D" uid="uid://nqkgslf6d7vd" path="res://sprites/player/player.png" id="2_yjw1l"]
@@ -544,6 +544,9 @@ graph_offset = Vector2(0, 48.1927)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kjgce"]
 size = Vector2(12, 15)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ubl2d"]
+size = Vector2(12, 4)
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 position = Vector2(0, -1)
 collision_mask = 28
@@ -571,12 +574,21 @@ parameters/Walk/blend_position = Vector2(0.00530553, 0.00191212)
 texture = ExtResource("2_yjw1l")
 hframes = 32
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="HitBox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_kjgce")
 
 [node name="KnockBackTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="HurtBoxPivot" type="Node2D" parent="."]
+
+[node name="HurtBox" type="Area2D" parent="HurtBoxPivot" groups=["attack_boxes"]]
+collision_layer = 65
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxPivot/HurtBox"]
+position = Vector2(0, 11)
+shape = SubResource("RectangleShape2D_ubl2d")
 
 [connection signal="timeout" from="KnockBackTimer" to="." method="_on_knock_back_timer_timeout"]

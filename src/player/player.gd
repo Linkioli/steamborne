@@ -6,6 +6,7 @@ const KNOCKBACK_SPEED = -250
 var health = 6
 
 var direction: Vector2
+var idle_direction = Vector2.DOWN
 var knockback_vector: Vector2
 
 var is_knockback = false
@@ -18,9 +19,10 @@ signal damaged
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 
-
+# TODO: fix bug where Hurbox isn't acurate to the player's direction when moving diagonally
 func _ready() -> void:
 	animation_tree.active = true
+	$HurtBoxPivot/HurtBox/CollisionShape2D.disabled = true
 
 
 func _process(delta: float) -> void:
@@ -33,6 +35,7 @@ func _physics_process(delta: float) -> void:
 		direction = Vector2.ZERO
 
 	if direction != Vector2.ZERO:
+		idle_direction = direction
 		knockback_vector = direction	
 
 	if is_knockback:
@@ -42,7 +45,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y = direction.y * SPEED
 
 	state_machine()
-	
+	attack_manager()	
 	move_and_slide()
 
 
@@ -56,6 +59,23 @@ func damage(amount=1):
 func knockback():
 	velocity.x = knockback_vector.x * KNOCKBACK_SPEED
 	velocity.y = knockback_vector.y * KNOCKBACK_SPEED
+
+
+func attack_manager():
+	match idle_direction:
+		Vector2.DOWN:
+			$HurtBoxPivot.rotation_degrees = 0
+		Vector2.UP:
+			$HurtBoxPivot.rotation_degrees = 180
+		Vector2.LEFT:
+			$HurtBoxPivot.rotation_degrees = 90
+		Vector2.RIGHT:
+			$HurtBoxPivot.rotation_degrees = -90
+	
+	if attacking and $HurtBoxPivot/HurtBox/CollisionShape2D.disabled == true:
+		$HurtBoxPivot/HurtBox/CollisionShape2D.disabled = false
+	elif not attacking:
+		$HurtBoxPivot/HurtBox/CollisionShape2D.disabled = true 
 
 
 func attack_finished():

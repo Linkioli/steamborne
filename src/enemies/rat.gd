@@ -80,6 +80,10 @@ func is_colliding():
 		return false
 
 
+func damage():
+	print('ouchies')
+
+
 func _on_move_timer_timeout() -> void:
 	set_dir()
 	$MoveTimer.start()
@@ -88,3 +92,7 @@ func _on_move_timer_timeout() -> void:
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		body.damage()
+
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	pass
