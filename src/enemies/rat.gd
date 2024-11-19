@@ -1,16 +1,21 @@
 extends CharacterBody2D
 
+const EXCLUDE_UP = 0
+const EXCLUDE_DOWN = 1
+const EXCLUDE_LEFT = 2
+const EXCLUDE_RIGHT = 3
+
+const KNOCKBACK_SPEED = 250
+
 enum State {UP, DOWN, LEFT, RIGHT}
 
 var current_state
 var speed = 50
 var health = 2
 var direction: Vector2
+var knockback_vector: Vector2
+var is_knockback = false
 
-const EXCLUDE_UP = 0
-const EXCLUDE_DOWN = 1
-const EXCLUDE_LEFT = 2
-const EXCLUDE_RIGHT = 3
 
 
 # TODO: Add health and damage logic
@@ -35,8 +40,12 @@ func _physics_process(delta: float) -> void:
 	
 	if is_colliding():
 		set_collision_dir()
-	
-	velocity = direction * speed
+
+	if is_knockback:
+		knockback()
+	else:
+		velocity = direction * speed
+
 	move_and_slide()
 
 
@@ -82,8 +91,19 @@ func is_colliding():
 
 
 func damage():
-	health -= 1
-	print(health)
+	if health > 0:
+		health -= 1
+		knockback_vector = Global.player.idle_direction
+		is_knockback = true
+		$KnockBackTimer.start()
+		print(health)
+	elif health <= 0:
+		print('IM FUCKING DEAD!!!')
+
+
+func knockback():
+	velocity.x = knockback_vector.x * KNOCKBACK_SPEED
+	velocity.y = knockback_vector.y * KNOCKBACK_SPEED
 
 
 func _on_move_timer_timeout() -> void:
@@ -98,3 +118,7 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 
 func _on_hitbox_damaged(amount: Variant) -> void:
 	damage()
+
+
+func _on_knock_back_timer_timeout() -> void:
+	is_knockback = false

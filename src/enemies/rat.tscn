@@ -256,8 +256,13 @@ shape = SubResource("RectangleShape2D_32l1k")
 editor_description = "Timer for the rat to change direction"
 autostart = true
 
+[node name="KnockBackTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="damaged" from="Hitbox" to="." method="_on_hitbox_damaged"]
 [connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
+[connection signal="timeout" from="KnockBackTimer" to="." method="_on_knock_back_timer_timeout"]
