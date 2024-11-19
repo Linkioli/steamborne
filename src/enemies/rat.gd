@@ -7,7 +7,7 @@ const EXCLUDE_RIGHT = 3
 
 const KNOCKBACK_SPEED = 250
 
-enum State {UP, DOWN, LEFT, RIGHT}
+enum State {UP, DOWN, LEFT, RIGHT, DEAD}
 
 var current_state
 var speed = 50
@@ -30,8 +30,7 @@ func _process(delta: float) -> void:
 			$Sprite2D.visible = false
 
 	if health <= 0:
-		# TODO: add kill function, and draw rat death animation
-		queue_free()
+		kill()
 
 
 func _physics_process(delta: float) -> void:
@@ -48,6 +47,8 @@ func _physics_process(delta: float) -> void:
 		State.RIGHT:
 			$AnimationPlayer.play('right')
 			direction = Vector2.RIGHT
+		State.DEAD:
+			direction = Vector2.ZERO
 	
 	if is_colliding():
 		set_collision_dir()
@@ -109,7 +110,15 @@ func damage():
 		immune = true
 		$ImmuneTimer.start()
 		$KnockBackTimer.start()
-		print(health)
+
+
+func kill():
+	$Sprite2D.visible = false
+	$ExplosionSprite.visible = true
+	$ExplosionSprite.play('explode')
+	$MoveTimer.stop()
+	direction = Vector2.ZERO
+	current_state = State.DEAD
 
 
 func knockback():
@@ -138,3 +147,7 @@ func _on_knock_back_timer_timeout() -> void:
 func _on_immune_timer_timeout() -> void:
 	immune = false
 	$Sprite2D.visible = true
+
+
+func _on_explosion_sprite_animation_finished() -> void:
+	queue_free()
