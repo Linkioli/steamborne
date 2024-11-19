@@ -158,3 +158,9 @@ func _on_knock_back_timer_timeout() -> void:
 func _on_immune_timer_timeout() -> void:
 	immune = false	
 	$Sprite2D.visible = true
+
+
+func _on_hurt_box_area_entered(area: Area2D) -> void:
+	if area.is_in_group("enemy_hitbox"):
+		area.damage()
+	

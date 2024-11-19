@@ -243,8 +243,9 @@ libraries = {
 [node name="PhysicsShape" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_tqty8")
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="." groups=["enemy_hitbox"]]
 position = Vector2(1, 0)
+collision_layer = 2
 script = ExtResource("3_5ljvn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
@@ -258,4 +259,5 @@ autostart = true
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="damaged" from="Hitbox" to="." method="_on_hitbox_damaged"]
 [connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]

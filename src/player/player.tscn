@@ -587,8 +587,9 @@ one_shot = true
 
 [node name="HurtBoxPivot" type="Node2D" parent="."]
 
-[node name="HurtBox" type="Area2D" parent="HurtBoxPivot" groups=["attack_boxes"]]
+[node name="HurtBox" type="Area2D" parent="HurtBoxPivot"]
 collision_layer = 65
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxPivot/HurtBox"]
 position = Vector2(0, 11)
@@ -596,3 +597,4 @@ shape = SubResource("RectangleShape2D_ubl2d")
 
 [connection signal="timeout" from="KnockBackTimer" to="." method="_on_knock_back_timer_timeout"]
 [connection signal="timeout" from="ImmuneTimer" to="." method="_on_immune_timer_timeout"]
+[connection signal="area_entered" from="HurtBoxPivot/HurtBox" to="." method="_on_hurt_box_area_entered"]

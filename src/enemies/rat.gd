@@ -4,7 +4,13 @@ enum State {UP, DOWN, LEFT, RIGHT}
 
 var current_state
 var speed = 50
+var health = 2
 var direction: Vector2
+
+const EXCLUDE_UP = 0
+const EXCLUDE_DOWN = 1
+const EXCLUDE_LEFT = 2
+const EXCLUDE_RIGHT = 3
 
 
 # TODO: Add health and damage logic
@@ -36,37 +42,31 @@ func _physics_process(delta: float) -> void:
 
 func set_dir(exclude: int = -1):
 	match randi() % 4:
-		0:
+		EXCLUDE_UP:
 			if exclude != 0:
 				current_state = State.UP
-		1:
+		EXCLUDE_DOWN:
 			if exclude != 1:
 				current_state = State.DOWN
-		2:
+		EXCLUDE_LEFT:
 			if exclude != 2:
 				current_state = State.LEFT
-		3:
+		EXCLUDE_RIGHT:
 			if exclude != 3:
 				current_state = State.RIGHT
 
 
 func set_collision_dir():
-	# Exclude values
-	# func set_dir(exclude=0)
-	# 0 = UP
-	# 1 = DOWN
-	# 2 = LEFT
-	# 3 = RIGHT
 	if is_on_wall():
 		if current_state == State.RIGHT:
-			set_dir(3)
+			set_dir(EXCLUDE_RIGHT)
 		elif current_state == State.LEFT:
-			set_dir(2)
+			set_dir(EXCLUDE_LEFT)
 
 	elif is_on_floor():
-		set_dir(1)
+		set_dir(EXCLUDE_DOWN)
 	elif is_on_ceiling():
-		set_dir(0)
+		set_dir(EXCLUDE_RIGHT)
 
 
 
@@ -82,7 +82,8 @@ func is_colliding():
 
 
 func damage():
-	print('ouchies')
+	health -= 1
+	print(health)
 
 
 func _on_move_timer_timeout() -> void:
@@ -93,3 +94,7 @@ func _on_move_timer_timeout() -> void:
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		body.damage()
+
+
+func _on_hitbox_damaged(amount: Variant) -> void:
+	damage()
