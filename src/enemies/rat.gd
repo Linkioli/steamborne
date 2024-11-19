@@ -12,15 +12,26 @@ enum State {UP, DOWN, LEFT, RIGHT}
 var current_state
 var speed = 50
 var health = 2
+var immune = false
 var direction: Vector2
 var knockback_vector: Vector2
 var is_knockback = false
 
 
-
-# TODO: Add health and damage logic
 func _ready() -> void:
 	set_dir()	
+
+
+func _process(delta: float) -> void:
+	if immune:
+		if sin(Time.get_ticks_msec()) <= 0:
+			$Sprite2D.visible = true
+		else:
+			$Sprite2D.visible = false
+
+	if health <= 0:
+		# TODO: add kill function, and draw rat death animation
+		queue_free()
 
 
 func _physics_process(delta: float) -> void:
@@ -91,14 +102,14 @@ func is_colliding():
 
 
 func damage():
-	if health > 0:
+	if health > 0 and not immune:
 		health -= 1
 		knockback_vector = Global.player.idle_direction
 		is_knockback = true
+		immune = true
+		$ImmuneTimer.start()
 		$KnockBackTimer.start()
 		print(health)
-	elif health <= 0:
-		print('IM FUCKING DEAD!!!')
 
 
 func knockback():
@@ -122,3 +133,8 @@ func _on_hitbox_damaged(amount: Variant) -> void:
 
 func _on_knock_back_timer_timeout() -> void:
 	is_knockback = false
+
+
+func _on_immune_timer_timeout() -> void:
+	immune = false
+	$Sprite2D.visible = true
