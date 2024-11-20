@@ -21,6 +21,8 @@ var push_timer_finished = false
 
 @export_enum('horizontal', 'vertical') var movement_direction: String = 'horizontal'
 
+
+# TODO: add y-sort function with player
 func _ready() -> void:
 	initial_pos = global_position
 
