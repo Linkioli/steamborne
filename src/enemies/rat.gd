@@ -117,7 +117,6 @@ func kill():
 	$ExplosionSprite.visible = true
 	$ExplosionSprite.play('explode')
 	$MoveTimer.stop()
-	direction = Vector2.ZERO
 	current_state = State.DEAD
 
 
