@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dh0td0442srfm"]
+
+[ext_resource type="Script" path="res://src/world/rail_cart_switch.gd" id="1_vic6w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jao0g"]
+size = Vector2(6, 6)
+
+[node name="RailCartSwitch" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_vic6w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(7, 7)
+shape = SubResource("RectangleShape2D_jao0g")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

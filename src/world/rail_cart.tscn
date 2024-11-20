@@ -53,6 +53,14 @@ shape = SubResource("RectangleShape2D_ueddq")
 wait_time = 0.5
 one_shot = true
 
+[node name="SwitchTrigger" type="Area2D" parent="." groups=["rail_cart"]]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwitchTrigger"]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_yd0tt")
+
 [connection signal="body_entered" from="PushUp" to="." method="_on_push_up_body_entered"]
 [connection signal="body_exited" from="PushUp" to="." method="_on_push_up_body_exited"]
 [connection signal="body_entered" from="PushDown" to="." method="_on_push_down_body_entered"]

@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://0shrkqf7m43e"]
+
+[ext_resource type="Texture2D" uid="uid://vuj3mj3fetjs" path="res://sprites/objects/gate.png" id="1_l2fcp"]
+[ext_resource type="Script" path="res://src/world/gate.gd" id="1_v7ard"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nt2lu"]
+atlas = ExtResource("1_l2fcp")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibhgu"]
+atlas = ExtResource("1_l2fcp")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2027g"]
+atlas = ExtResource("1_l2fcp")
+region = Rect2(0, 16, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kajtj"]
+atlas = ExtResource("1_l2fcp")
+region = Rect2(0, 32, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4j00h"]
+atlas = ExtResource("1_l2fcp")
+region = Rect2(0, 48, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6mr11"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nt2lu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibhgu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2027g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kajtj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4j00h")
+}],
+"loop": false,
+"name": &"open",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yvo5l"]
+size = Vector2(32, 16)
+
+[node name="Gate" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_v7ard")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6mr11")
+animation = &"open"
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_yvo5l")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

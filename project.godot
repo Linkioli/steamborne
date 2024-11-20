@@ -35,6 +35,8 @@ window/stretch/scale_mode="integer"
 player=""
 resetable_objects="Objects in this groud should have a reset method, that is called when dungeon or rooms in certain areas need to be reset."
 enemy_hitbox=""
+rail_cart=""
+gate=""
 
 [input]
 

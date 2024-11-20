@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://5omugitc0sdy"]
+[gd_scene load_steps=19 format=4 uid="uid://5omugitc0sdy"]
 
 [ext_resource type="Texture2D" uid="uid://ct11esh70dmsq" path="res://sprites/tiles/tiles.png" id="1_p3cqw"]
 [ext_resource type="PackedScene" uid="uid://ba4w0xw2boc4h" path="res://src/world/lamp.tscn" id="2_1jiqi"]
@@ -11,7 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://bgg6fpogtwj07" path="res://src/world/block.tscn" id="5_pugq3"]
 [ext_resource type="PackedScene" uid="uid://bsh1n5m7pu2ih" path="res://src/player/player.tscn" id="6_4o7f5"]
 [ext_resource type="PackedScene" uid="uid://d38yb5eth1fy1" path="res://src/ui/camera.tscn" id="7_l57j6"]
+[ext_resource type="PackedScene" uid="uid://0shrkqf7m43e" path="res://src/world/gate.tscn" id="10_a73sp"]
 [ext_resource type="PackedScene" uid="uid://u1fg5cfm00xt" path="res://src/enemies/rat.tscn" id="10_fka67"]
+[ext_resource type="PackedScene" uid="uid://dh0td0442srfm" path="res://src/world/rail_cart_switch.tscn" id="10_j4774"]
 [ext_resource type="PackedScene" uid="uid://ddvfnlyq7m4fr" path="res://src/world/rail_cart.tscn" id="13_nc26v"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gf21i"]
@@ -132,16 +134,18 @@ position = Vector2(64, 0)
 position = Vector2(160, 48)
 rotation = 1.5708
 
-[node name="EnemyBarrier" parent="RoomProps/Room_0_1" instance=ExtResource("3_40n1s")]
+[node name="EnemyBarriers" type="Node2D" parent="RoomProps/Room_0_1"]
+
+[node name="EnemyBarrier" parent="RoomProps/Room_0_1/EnemyBarriers" instance=ExtResource("3_40n1s")]
 position = Vector2(72, 120)
 
-[node name="EnemyBarrier2" parent="RoomProps/Room_0_1" instance=ExtResource("3_40n1s")]
+[node name="EnemyBarrier2" parent="RoomProps/Room_0_1/EnemyBarriers" instance=ExtResource("3_40n1s")]
 position = Vector2(88, 120)
 
-[node name="EnemyBarrier3" parent="RoomProps/Room_0_1" instance=ExtResource("3_40n1s")]
+[node name="EnemyBarrier3" parent="RoomProps/Room_0_1/EnemyBarriers" instance=ExtResource("3_40n1s")]
 position = Vector2(8, 72)
 
-[node name="EnemyBarrier4" parent="RoomProps/Room_0_1" instance=ExtResource("3_40n1s")]
+[node name="EnemyBarrier4" parent="RoomProps/Room_0_1/EnemyBarriers" instance=ExtResource("3_40n1s")]
 position = Vector2(8, 56)
 
 [node name="GridOccupiers" type="Node2D" parent="RoomProps/Room_0_1"]
@@ -244,6 +248,13 @@ position = Vector2(24, 120)
 
 [node name="Room_-1_1" type="Node2D" parent="RoomProps"]
 position = Vector2(-160, -112)
+
+[node name="RailCartSwitch" parent="RoomProps/Room_-1_1" instance=ExtResource("10_j4774")]
+position = Vector2(32, 81)
+
+[node name="Gate" parent="RoomProps/Room_-1_1/RailCartSwitch" groups=["gate"] instance=ExtResource("10_a73sp")]
+position = Vector2(-24, -16)
+rotation = -1.5708
 
 [node name="RailCart" parent="RoomProps/Room_-1_1" instance=ExtResource("13_nc26v")]
 position = Vector2(120, 88)
