@@ -22,7 +22,6 @@ var push_timer_finished = false
 @export_enum('horizontal', 'vertical') var movement_direction: String = 'horizontal'
 
 
-# TODO: add y-sort function with player
 func _ready() -> void:
 	initial_pos = global_position
 
@@ -70,6 +69,8 @@ func _process(delta: float) -> void:
 		if (global_position - target_pos).length() <= speed * delta:
 			global_position = target_pos
 			moving = false
+	
+	y_sort()
 
 
 func grid_availibility(pos):
@@ -101,6 +102,14 @@ func reset():
 	down = false
 	left = false
 	right = false
+
+
+func y_sort():
+	var player_pos = Global.player.global_position
+	if global_position.y <= player_pos.y:
+		z_index = 1
+	elif global_position.y >= player_pos.y:
+		z_index = 1
 
 
 func _on_push_timer_timeout() -> void:
