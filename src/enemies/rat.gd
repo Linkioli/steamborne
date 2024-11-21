@@ -11,7 +11,7 @@ enum State {UP, DOWN, LEFT, RIGHT, DEAD}
 
 var current_state
 var speed = 50
-var health = 2
+var health = 1
 var immune = false
 var direction: Vector2
 var knockback_vector: Vector2
