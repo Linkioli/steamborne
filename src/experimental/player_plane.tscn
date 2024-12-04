@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://ctig3opsuc2uy"]
+
+[ext_resource type="Texture2D" uid="uid://bdvbuffcfp0f3" path="res://sprites/player/plane.png" id="1_2400q"]
+[ext_resource type="Script" path="res://src/experimental/player_plane.gd" id="1_vfymp"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7ynl7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80g1i"]
+atlas = ExtResource("1_2400q")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfv48"]
+atlas = ExtResource("1_2400q")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_njhl8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_80g1i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lfv48")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="PlayerPlane" type="CharacterBody3D"]
+script = ExtResource("1_vfymp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_7ynl7")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -2000)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+current = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(80, 80)
+sprite_frames = SubResource("SpriteFrames_njhl8")
+autoplay = "default"
+frame_progress = 0.433917
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0

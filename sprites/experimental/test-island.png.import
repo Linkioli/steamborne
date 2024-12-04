@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://iwne8g0la2fi"
-path.s3tc="res://.godot/imported/icon.png-487276ed1e3a0c39cad0279d744ee560.s3tc.ctex"
+uid="uid://lkrt4u4qsc8q"
+path.s3tc="res://.godot/imported/test-island.png-7e7ef44a814092c22812e2fb06003aec.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://icon.png"
-dest_files=["res://.godot/imported/icon.png-487276ed1e3a0c39cad0279d744ee560.s3tc.ctex"]
+source_file="res://sprites/experimental/test-island.png"
+dest_files=["res://.godot/imported/test-island.png-7e7ef44a814092c22812e2fb06003aec.s3tc.ctex"]
 
 [params]
 

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkyy4mppl24s4"]
+
+[ext_resource type="PackedScene" uid="uid://ctig3opsuc2uy" path="res://src/experimental/player_plane.tscn" id="1_a5gaa"]
+[ext_resource type="Texture2D" uid="uid://lkrt4u4qsc8q" path="res://sprites/experimental/test-island.png" id="2_0g85j"]
+
+[node name="Mode7" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_a5gaa")]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.51767)
+billboard = 2
+texture_filter = 0
+texture = ExtResource("2_0g85j")
