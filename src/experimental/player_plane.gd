@@ -11,8 +11,6 @@ func _physics_process(delta: float) -> void:
 	var movement_vector = Vector3()
 	if Input.is_action_pressed("up"):
 		movement_vector.z -= 1
-	if Input.is_action_pressed("down"):
-		movement_vector.z += 1
 
 	if Input.is_action_pressed("left"):
 		rotation_dir = -1
