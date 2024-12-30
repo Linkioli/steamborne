@@ -12,6 +12,7 @@ var movement = Vector2.ZERO
 
 signal pixel_transition_finished
 
+# TODO: fix this camera movement
 
 func _process(delta: float) -> void:
 	global_position += movement * SPEED

@@ -104,6 +104,6 @@ attack={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-environment/defaults/default_clear_color=Color(0.854902, 0.45098, 0.223529, 1)
+environment/defaults/default_clear_color=Color(0.0980392, 0.0627451, 0.0745098, 1)
 2d/snap/snap_2d_transforms_to_pixel=true
 2d/snap/snap_2d_vertices_to_pixel=true
