@@ -1,7 +1,7 @@
 extends Camera2D
 
 @export var player: CharacterBody2D
-@onready var size = Vector2(160, 128)
+@onready var size = Vector2(320, 180)
 
 const SPEED = 4
 
