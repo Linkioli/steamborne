@@ -60,16 +60,16 @@ shader = ExtResource("2_pi85a")
 shader_parameter/pixel_size = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8utac"]
-size = Vector2(320, 8)
+size = Vector2(258, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1e8uc"]
-size = Vector2(8, 180)
+size = Vector2(8, 226)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3xknp"]
-size = Vector2(320, 8)
+size = Vector2(258, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_43ml1"]
-size = Vector2(8, 180)
+size = Vector2(8, 226)
 
 [node name="Camera" type="Camera2D"]
 process_mode = 3
@@ -96,28 +96,28 @@ grow_vertical = 2
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="camera_north_trigger"]
-position = Vector2(160, -10)
+position = Vector2(128, -12)
 shape = SubResource("RectangleShape2D_8utac")
 
 [node name="camera_east_trigger" type="Area2D" parent="."]
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="camera_east_trigger"]
-position = Vector2(-10, 90)
+position = Vector2(-10, 112)
 shape = SubResource("RectangleShape2D_1e8uc")
 
 [node name="camera_south_trigger" type="Area2D" parent="."]
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="camera_south_trigger"]
-position = Vector2(160, 190)
+position = Vector2(128, 236)
 shape = SubResource("RectangleShape2D_3xknp")
 
 [node name="camera_west_trigger" type="Area2D" parent="."]
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="camera_west_trigger"]
-position = Vector2(330, 90)
+position = Vector2(265, 112)
 shape = SubResource("RectangleShape2D_43ml1")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

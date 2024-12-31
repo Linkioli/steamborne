@@ -1,5 +1,5 @@
 extends Node
 
 func _ready() -> void:
-	Global.player = $Dungeon/Player
-	Global.camera = $Dungeon/Camera
+	Global.player = $Area1/Player
+	Global.camera = $Area1/Camera
