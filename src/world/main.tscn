@@ -1,14 +1,14 @@
 [gd_scene load_steps=5 format=3 uid="uid://ccff6rv7yanxl"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_ktcoi"]
-[ext_resource type="PackedScene" uid="uid://4talhysqffdn" path="res://src/world/area_1.tscn" id="2_nc5vc"]
+[ext_resource type="PackedScene" uid="uid://4talhysqffdn" path="res://src/world/area_1.tscn" id="2_qkyjn"]
 [ext_resource type="PackedScene" uid="uid://bsh1n5m7pu2ih" path="res://src/player/player.tscn" id="3_ee157"]
 [ext_resource type="PackedScene" uid="uid://d38yb5eth1fy1" path="res://src/ui/camera.tscn" id="4_n4bqm"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_ktcoi")
 
-[node name="Area1" parent="." instance=ExtResource("2_nc5vc")]
+[node name="Area1" parent="." instance=ExtResource("2_qkyjn")]
 
 [node name="Player" parent="Area1" instance=ExtResource("3_ee157")]
 position = Vector2(80, 76)

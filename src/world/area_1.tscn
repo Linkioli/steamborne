@@ -37,3 +37,5 @@ tile_set = SubResource("TileSet_15rni")
 
 [node name="TestHouse" parent="." instance=ExtResource("2_fusqy")]
 position = Vector2(136, 103)
+collision_layer = 4
+collision_mask = 0
