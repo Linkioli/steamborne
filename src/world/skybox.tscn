@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcqt4568g8swk"]
+
+[ext_resource type="Script" path="res://src/world/skybox.gd" id="1_60dgi"]
+[ext_resource type="Texture2D" uid="uid://bnooprgym5f6r" path="res://sprites/backgrounds/skybox.png" id="1_qw6j6"]
+[ext_resource type="Texture2D" uid="uid://b5v1t8fttfa76" path="res://sprites/backgrounds/paralax-cloud-layer.png" id="2_hw0b5"]
+
+[sub_resource type="Curve2D" id="Curve2D_oeti1"]
+_data = {
+"points": PackedVector2Array(-51.7951, 24.5407, 51.7951, -24.5407, 8, 8, -39.4068, -35.1593, 39.4068, 35.1593, 248, 8, 33.5246, -41.2034, -33.5246, 41.2034, 248, 216, 46.2498, 42.9463, -46.2498, -42.9463, 8, 216, -14.9428, -5.89293, 14.9428, 5.89293, 8, 8)
+}
+point_count = 5
+
+[node name="Skybox" type="Node2D"]
+z_index = -1
+script = ExtResource("1_60dgi")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(128, 112)
+texture = ExtResource("1_qw6j6")
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_oeti1")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(8, 8)
+rotates = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Path2D/PathFollow2D"]
+position = Vector2(-8, -8)
+texture = ExtResource("2_hw0b5")

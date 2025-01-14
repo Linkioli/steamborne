@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://d38yb5eth1fy1"]
+[gd_scene load_steps=12 format=3 uid="uid://d38yb5eth1fy1"]
 
 [ext_resource type="Script" path="res://src/ui/camera.gd" id="1_k34go"]
 [ext_resource type="Shader" path="res://src/shaders/pixelate-camera.gdshader" id="2_pi85a"]
+[ext_resource type="PackedScene" uid="uid://dcqt4568g8swk" path="res://src/world/skybox.tscn" id="3_q42jn"]
 
 [sub_resource type="Animation" id="Animation_bbf1l"]
 length = 0.001
@@ -119,6 +120,8 @@ collision_layer = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="camera_west_trigger"]
 position = Vector2(265, 112)
 shape = SubResource("RectangleShape2D_43ml1")
+
+[node name="Skybox" parent="." instance=ExtResource("3_q42jn")]
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="camera_north_trigger" to="." method="_on_camera_north_trigger_body_entered"]
