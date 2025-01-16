@@ -1,7 +1,6 @@
-[gd_scene load_steps=58 format=3 uid="uid://bsh1n5m7pu2ih"]
+[gd_scene load_steps=57 format=3 uid="uid://bsh1n5m7pu2ih"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_4jh5n"]
-[ext_resource type="Texture2D" uid="uid://d28be5j7nky6b" path="res://sprites/player/player-shadow.png" id="2_7xmmn"]
 [ext_resource type="Texture2D" uid="uid://nqkgslf6d7vd" path="res://sprites/player/player.png" id="2_yjw1l"]
 
 [sub_resource type="Animation" id="Animation_ff3nw"]
@@ -570,10 +569,6 @@ parameters/Idle/blend_position = Vector2(0.00337934, 0.00884962)
 parameters/Push/blend_position = Vector2(-0.00353694, 0.0538921)
 parameters/Stab/blend_position = Vector2(0, 0.0106382)
 parameters/Walk/blend_position = Vector2(0.00530553, 0.00191212)
-
-[node name="Shadow" type="Sprite2D" parent="."]
-position = Vector2(0, 6)
-texture = ExtResource("2_7xmmn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_yjw1l")
