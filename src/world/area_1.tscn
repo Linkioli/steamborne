@@ -217,3 +217,4 @@ position = Vector2(128, 104)
 [node name="Camera" parent="." instance=ExtResource("4_7t0gg")]
 
 [connection signal="body_entered" from="LevelSwitchComponent" to="LevelSwitchComponent" method="_on_body_entered"]
+[connection signal="level_changed" from="LevelSwitchComponent" to="." method="_on_level_switch_component_level_changed"]
