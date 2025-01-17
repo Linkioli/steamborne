@@ -7,6 +7,8 @@
 size = Vector2(54, 40)
 
 [node name="TestHouse" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 0
 
 [node name="YsortComponent" type="Node2D" parent="." node_paths=PackedStringArray("actor")]
 script = ExtResource("1_xy6an")

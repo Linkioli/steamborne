@@ -1,7 +1,13 @@
-[gd_scene load_steps=6 format=4 uid="uid://4talhysqffdn"]
+[gd_scene load_steps=13 format=4 uid="uid://4talhysqffdn"]
 
 [ext_resource type="Texture2D" uid="uid://eo33mc28ilmv" path="res://sprites/tiles/area-1-terrian.png" id="1_i6ukx"]
 [ext_resource type="Texture2D" uid="uid://bx2uvbko0wnrb" path="res://sprites/tiles/docks.png" id="2_48l0u"]
+[ext_resource type="Script" path="res://src/world/area_1.gd" id="3_at5ma"]
+[ext_resource type="PackedScene" uid="uid://bsh1n5m7pu2ih" path="res://src/player/player.tscn" id="3_dkjbb"]
+[ext_resource type="PackedScene" uid="uid://d38yb5eth1fy1" path="res://src/ui/camera.tscn" id="4_7t0gg"]
+[ext_resource type="PackedScene" uid="uid://d0sniwol666oi" path="res://src/world/test_house.tscn" id="5_cxgx5"]
+[ext_resource type="Script" path="res://src/components/level_switch.gd" id="6_lg7rt"]
+[ext_resource type="PackedScene" uid="uid://dcqt4568g8swk" path="res://src/world/skybox.tscn" id="6_y1fg7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_es3qw"]
 texture = ExtResource("1_i6ukx")
@@ -53,9 +59,12 @@ texture = ExtResource("2_48l0u")
 sources/0 = SubResource("TileSetAtlasSource_es3qw")
 sources/1 = SubResource("TileSetAtlasSource_1lkqd")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_haxlw"]
+
 [node name="Area1" type="TileMap"]
 tile_set = SubResource("TileSet_15rni")
 format = 2
+script = ExtResource("3_at5ma")
 
 [node name="Path" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAHAAcAAAAEAAAAAAAHAAYAAAAEAAEAAAAIAAYAAAAEAAAAAAAIAAcAAAAEAAEAAAAHAAgAAAAEAAIAAAAGAAgAAAAEAAAAAAAGAAcAAAAEAAAAAAAGAAYAAAAEAAIAAAAHAAUAAAAEAAEAAAAGAAUAAAAEAAIAAAAIAAUAAAAEAAIAAAAJAAUAAAAEAAAAAAAJAAYAAAAEAAIAAAAJAAcAAAAEAAIAAAAJAAgAAAAEAAAAAAAIAAgAAAAEAAIAAAAFAAkAAAAEAAIAAAAGAAkAAAAEAAEAAAAHAAkAAAAEAAAAAAAIAAkAAAAEAAEAAAAJAAkAAAAEAAIAAAAKAAkAAAAEAAEAAAAKAAgAAAAEAAEAAAAKAAcAAAAEAAIAAAAKAAYAAAAEAAIAAAAKAAUAAAAEAAAAAAAKAAQAAAAEAAAAAAAJAAQAAAAEAAIAAAAIAAQAAAAEAAAAAAAHAAQAAAAEAAEAAAAGAAQAAAAEAAAAAAAFAAQAAAAEAAAAAAAFAAUAAAAEAAAAAAAFAAYAAAAEAAAAAAAFAAcAAAAEAAIAAAAFAAgAAAAEAAIAAAAEAAQAAAAEAAEAAAAEAAUAAAAEAAIAAAAEAAYAAAAEAAAAAAAEAAcAAAAEAAAAAAAEAAgAAAAEAAEAAAAEAAkAAAAEAAEAAAALAAQAAAAEAAIAAAALAAUAAAAEAAIAAAALAAYAAAAEAAEAAAALAAcAAAAEAAEAAAALAAgAAAAEAAAAAAALAAkAAAAEAAIAAAADAAQAAAAEAAIAAAADAAUAAAAEAAAAAAADAAYAAAAEAAIAAAADAAcAAAAEAAEAAAADAAgAAAAEAAAAAAADAAkAAAAEAAAAAAAMAAQAAAAEAAIAAAAMAAUAAAAEAAEAAAAMAAYAAAAEAAEAAAAMAAcAAAAEAAIAAAAMAAgAAAAEAAAAAAAMAAkAAAAEAAAAAAADAAoAAAAEAAAAAAAEAAoAAAAEAAAAAAAFAAoAAAAEAAAAAAAGAAoAAAAEAAEAAAAHAAoAAAAEAAEAAAAIAAoAAAAEAAIAAAAJAAoAAAAEAAEAAAAKAAoAAAAEAAEAAAALAAoAAAAEAAEAAAAMAAoAAAAEAAEAAAA=")
@@ -189,3 +198,22 @@ offset_top = -672.0
 offset_right = -256.0
 offset_bottom = -448.0
 border_color = Color(1, 0, 1, 1)
+
+[node name="TestHouse" parent="." instance=ExtResource("5_cxgx5")]
+position = Vector2(83, 294)
+
+[node name="LevelSwitchComponent" type="Area2D" parent="."]
+position = Vector2(75, 310)
+collision_layer = 4
+script = ExtResource("6_lg7rt")
+level = ExtResource("6_y1fg7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelSwitchComponent"]
+shape = SubResource("RectangleShape2D_haxlw")
+
+[node name="Player" parent="." instance=ExtResource("3_dkjbb")]
+position = Vector2(128, 104)
+
+[node name="Camera" parent="." instance=ExtResource("4_7t0gg")]
+
+[connection signal="body_entered" from="LevelSwitchComponent" to="LevelSwitchComponent" method="_on_body_entered"]
