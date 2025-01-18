@@ -1,0 +1,54 @@
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://c6xevumsmx4pd"]
+
+[ext_resource type="Texture2D" uid="uid://eo33mc28ilmv" path="res://sprites/tiles/area-1-terrian.png" id="1_3pqe6"]
+[ext_resource type="Texture2D" uid="uid://bx2uvbko0wnrb" path="res://sprites/tiles/docks.png" id="2_ssj2w"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_es3qw"]
+texture = ExtResource("1_3pqe6")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1lkqd"]
+texture = ExtResource("2_ssj2w")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+3:4/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+3:3/0 = 0
+3:2/0 = 0
+3:1/0 = 0
+3:0/0 = 0
+2:0/0 = 0
+2:1/0 = 0
+2:2/0 = 0
+2:3/0 = 0
+2:4/0 = 0
+4:1/0 = 0
+4:0/0 = 0
+
+[resource]
+sources/0 = SubResource("TileSetAtlasSource_es3qw")
+sources/1 = SubResource("TileSetAtlasSource_1lkqd")
