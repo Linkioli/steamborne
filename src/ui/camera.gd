@@ -1,6 +1,7 @@
 extends Camera2D
 
 @export var player: CharacterBody2D
+@export var skybox_enabled = false
 @onready var size = Vector2(256, 224)
 
 const SPEED = 4
@@ -12,7 +13,13 @@ var movement = Vector2.ZERO
 
 signal pixel_transition_finished
 
-# TODO: fix this camera movement
+
+func _ready() -> void:
+	if skybox_enabled:
+		$Skybox.visible = true
+	else:
+		$Skybox.visible = false
+
 
 func _process(delta: float) -> void:
 	global_position += movement * SPEED

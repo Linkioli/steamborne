@@ -122,6 +122,7 @@ position = Vector2(265, 112)
 shape = SubResource("RectangleShape2D_43ml1")
 
 [node name="Skybox" parent="." instance=ExtResource("3_q42jn")]
+visible = false
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="camera_north_trigger" to="." method="_on_camera_north_trigger_body_entered"]

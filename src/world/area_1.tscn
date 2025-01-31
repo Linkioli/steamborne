@@ -150,18 +150,19 @@ border_color = Color(1, 0, 1, 1)
 [node name="TestHouse" parent="." instance=ExtResource("5_cxgx5")]
 position = Vector2(83, 294)
 
-[node name="LevelSwitchComponent" type="Area2D" parent="."]
+[node name="TestHosueEntrance" type="Area2D" parent="."]
 position = Vector2(75, 310)
 collision_layer = 4
 script = ExtResource("6_lg7rt")
 level_file_path = "res://src/world/test_house_interior.tscn"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelSwitchComponent"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestHosueEntrance"]
 shape = SubResource("RectangleShape2D_haxlw")
 
 [node name="Player" parent="." instance=ExtResource("3_dkjbb")]
 position = Vector2(128, 104)
 
 [node name="Camera" parent="." instance=ExtResource("4_7t0gg")]
+skybox_enabled = true
 
-[connection signal="level_changed" from="LevelSwitchComponent" to="." method="_on_level_switch_component_level_changed"]
+[connection signal="level_changed" from="TestHosueEntrance" to="." method="_on_level_switch_component_level_changed"]
