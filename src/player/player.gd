@@ -6,7 +6,7 @@ const KNOCKBACK_SPEED = -250
 var health = 6
 
 var direction: Vector2
-var idle_direction = Vector2.DOWN
+var idle_direction
 var knockback_vector: Vector2
 
 var is_knockback = false
@@ -20,10 +20,27 @@ signal damaged
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 
+@export_enum('up', 'down', 'left', 'right') var starting_direction = 'down' 
 
+
+# TODO: fix player starting direction
 func _ready() -> void:
 	animation_tree.active = true
 	$HurtBoxPivot/HurtBox/CollisionShape2D.disabled = true
+
+	match starting_direction:
+		'up':
+			idle_direction = Vector2.UP
+			direction = Vector2.UP
+		'down':
+			idle_direction = Vector2.DOWN
+			direction = Vector2.DOWN
+		'left':
+			idle_direction = Vector2.LEFT
+			direction = Vector2.LEFT
+		'right':
+			idle_direction = Vector2.RIGHT
+			direction = Vector2.RIGHT
 
 
 func _process(delta: float) -> void:
@@ -38,6 +55,7 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void: 
+	print(direction)
 	direction = Input.get_vector("left", "right", "up", "down")
 	if attacking:
 		direction = Vector2.ZERO
