@@ -166,3 +166,4 @@ position = Vector2(128, 104)
 skybox_enabled = true
 
 [connection signal="level_changed" from="TestHosueEntrance" to="." method="_on_level_switch_component_level_changed"]
+[connection signal="fade_transition_finished" from="Camera" to="." method="_on_camera_fade_transition_finished"]

@@ -1,5 +1,6 @@
 extends TileMap
 
+var next_level
 
 func _ready() -> void:
 	Global.player = $Player
@@ -15,4 +16,9 @@ func _ready() -> void:
 func _on_level_switch_component_level_changed(level) -> void:
 	Global.area_1_player_spawn_pos = Vector2(74, 330)
 	Global.area_1_camera_spawn_pos = Vector2 (0, 224)
-	Global.change_level(level)
+	next_level = level
+	$Camera.fade('out')
+
+
+func _on_camera_fade_transition_finished() -> void:
+	Global.change_level(next_level)

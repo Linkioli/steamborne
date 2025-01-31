@@ -10,8 +10,11 @@ var moving = false
 var x_movement_factor = 0
 var y_movement_factor = 0
 var movement = Vector2.ZERO
+var fade_alpha = 0
+var fade_mode = null
 
 signal pixel_transition_finished
+signal fade_transition_finished
 
 
 func _ready() -> void:
@@ -19,10 +22,20 @@ func _ready() -> void:
 		$Skybox.visible = true
 	else:
 		$Skybox.visible = false
+	
+	fade_alpha = 1
+	fade_mode = 'in'
 
+	$CanvasLayer/ScreenFade.color = Color(0, 0, 0, fade_alpha)
 
 func _process(delta: float) -> void:
 	global_position += movement * SPEED
+
+	$CanvasLayer/ScreenFade.color = Color(0, 0, 0, fade_alpha)
+	if fade_mode != null:
+		get_tree().paused = true
+		fade_transition()
+
 	if movement.y:
 		y_movement_factor += SPEED
 		get_tree().paused = true
@@ -40,7 +53,23 @@ func _process(delta: float) -> void:
 		x_movement_factor = 0
 		get_tree().paused = false
 
-	
+
+func fade(mode: String):
+	fade_mode = mode
+
+
+func fade_transition():
+	if fade_mode == 'in' and fade_alpha > 0:
+		fade_alpha -= 0.1
+	elif fade_mode == 'out' and fade_alpha < 1:
+		fade_alpha += 0.1
+	elif fade_mode == 'out' and fade_alpha >= 1:
+		fade_mode = null
+		fade_transition_finished.emit()
+	else:
+		fade_mode = null
+		get_tree().paused = false
+
 
 func pixel_transition():
 	get_tree().paused = true

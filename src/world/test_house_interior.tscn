@@ -33,3 +33,4 @@ position = Vector2(127, 149)
 position = Vector2(0, -1)
 
 [connection signal="level_changed" from="Exit" to="." method="_on_level_switch_component_level_changed"]
+[connection signal="fade_transition_finished" from="Camera" to="." method="_on_camera_fade_transition_finished"]
