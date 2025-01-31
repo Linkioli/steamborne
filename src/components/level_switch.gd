@@ -1,8 +1,12 @@
 extends Area2D 
 class_name LevelSwitchComponent
 
-@export var level: PackedScene
+@export var level_file_path: String 
 signal level_changed
 
+func _ready() -> void:
+	self.body_entered.connect(_on_body_entered)
+
 func _on_body_entered(body: Node2D) -> void:
-	level_changed.emit(level)
+	print('test')
+	level_changed.emit(level_file_path)
