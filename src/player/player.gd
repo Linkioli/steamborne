@@ -23,15 +23,15 @@ signal damaged
 @export_enum('up', 'down', 'left', 'right') var starting_direction = 'down' 
 
 
-# TODO: fix player starting direction
+# TODO: Fix bug where player's starting direction doesn't update due to the scene being paused from the camera's transition effect 
 func _ready() -> void:
 	animation_tree.active = true
 	$HurtBoxPivot/HurtBox/CollisionShape2D.disabled = true
 
 	match starting_direction:
 		'up':
-			idle_direction = Vector2.UP
-			direction = Vector2.UP
+			animation_tree["parameters/Idle/blend_position"] = Vector2.UP
+			$AnimationPlayer.play('idle_up')
 		'down':
 			idle_direction = Vector2.DOWN
 			direction = Vector2.DOWN
@@ -55,20 +55,9 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void: 
-	print(direction)
 	direction = Input.get_vector("left", "right", "up", "down")
 	if attacking:
 		direction = Vector2.ZERO
-
-	if direction != Vector2.ZERO:
-		if direction.y != 0 and direction.x != 0:
-			if direction.y > 0:
-				idle_direction = Vector2.DOWN
-			if direction.y < 0:
-				idle_direction = Vector2.UP
-		else:
-			idle_direction = direction
-		knockback_vector = direction	
 
 	if is_knockback:
 		knockback()
@@ -97,6 +86,16 @@ func knockback():
 
 
 func attack_manager():
+	if direction != Vector2.ZERO:
+		if direction.y != 0 and direction.x != 0:
+			if direction.y > 0:
+				idle_direction = Vector2.DOWN
+			if direction.y < 0:
+				idle_direction = Vector2.UP
+		else:
+			idle_direction = direction
+		knockback_vector = direction	
+
 	match idle_direction:
 		Vector2.DOWN:
 			$HurtBoxPivot.rotation_degrees = 0

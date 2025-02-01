@@ -29,7 +29,7 @@ position = Vector2(121, 184)
 shape = SubResource("RectangleShape2D_mi1c1")
 
 [node name="Player" parent="." instance=ExtResource("3_fryvr")]
-position = Vector2(128, 182)
+position = Vector2(128, 181)
 starting_direction = "up"
 
 [node name="Camera" parent="." instance=ExtResource("2_qmid8")]

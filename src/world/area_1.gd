@@ -7,7 +7,6 @@ func _ready() -> void:
 	Global.camera = $Camera
 
 	if Global.area_1_player_spawn_pos != null:
-		print('test')
 		$Player.position = Global.area_1_player_spawn_pos
 	if Global.area_1_camera_spawn_pos != null:
 		$Camera.position = Global.area_1_camera_spawn_pos
