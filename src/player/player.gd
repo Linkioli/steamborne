@@ -13,6 +13,7 @@ var is_knockback = false
 var immune = false
 var attacking = false
 
+
 var current_state
 enum State {IDLE, WALK, PUSH, STAB}
 
@@ -23,7 +24,6 @@ signal damaged
 @export_enum('up', 'down', 'left', 'right') var starting_direction = 'down' 
 
 
-# TODO: Fix bug where player's starting direction doesn't update due to the scene being paused from the camera's transition effect 
 func _ready() -> void:
 	animation_tree.active = true
 	$HurtBoxPivot/HurtBox/CollisionShape2D.disabled = true
@@ -31,17 +31,17 @@ func _ready() -> void:
 	match starting_direction:
 		'up':
 			animation_tree["parameters/Idle/blend_position"] = Vector2.UP
-			$AnimationPlayer.play('idle_up')
+			$Sprite2D.frame = 1
 		'down':
-			idle_direction = Vector2.DOWN
-			direction = Vector2.DOWN
+			animation_tree["parameters/Idle/blend_position"] = Vector2.DOWN
+			$Sprite2D.frame = 0
 		'left':
-			idle_direction = Vector2.LEFT
-			direction = Vector2.LEFT
+			animation_tree["parameters/Idle/blend_position"] = Vector2.LEFT
+			$Sprite2D.frame = 3
 		'right':
-			idle_direction = Vector2.RIGHT
-			direction = Vector2.RIGHT
-
+			animation_tree["parameters/Idle/blend_position"] = Vector2.RIGHT
+			$Sprite2D.frame = 2
+	
 
 func _process(delta: float) -> void:
 	update_animation_parameters()

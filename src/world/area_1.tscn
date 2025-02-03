@@ -161,6 +161,7 @@ shape = SubResource("RectangleShape2D_haxlw")
 
 [node name="Player" parent="." instance=ExtResource("3_dkjbb")]
 position = Vector2(128, 104)
+starting_direction = "down"
 
 [node name="Camera" parent="." instance=ExtResource("4_7t0gg")]
 skybox_enabled = true
